@@ -1,12 +1,10 @@
 const dynamicTranslate = require("../../../lib/dynamic-i18n");
-const axios = require("axios");
 const BaseController = require("hmpo-form-wizard").Controller;
 
 const debug = require("debug")("app:simplified:question:ctrl");
 
 const {
   API: {
-    BASE_URL,
     PATHS: { QUESTION, ANSWER },
   },
 } = require("../../../lib/config");
@@ -65,20 +63,15 @@ class QuestionController extends BaseController {
     });
   }
 
-  async saveValues(req, res, con) {
+  async saveValues(req, res, callback) {
     super.saveValues(req, res, async (err, next) => {
       if (err) {
         next(err);
       }
 
-      debug("saveValues");
-
-      debug(req.session);
-      debug(req.form.values);
-      debug(req.sessionModel.toJSON());
       try {
-        await axios.post(
-          `${BASE_URL}${ANSWER}`,
+        await req.axios.post(
+          ANSWER,
           {
             questionId: req.session.question.questionID,
             answer: req.sessionModel.get("question"),
@@ -92,33 +85,28 @@ class QuestionController extends BaseController {
 
         req.session.question = undefined;
 
-        const nextQuestion = await axios.get(`${BASE_URL}${QUESTION}`, {
+        const nextQuestion = await req.axios.get(QUESTION, {
           headers: {
             sessionId: req.session.tokenId,
           },
         });
 
-        debug(nextQuestion.data);
-        debug(nextQuestion.status);
         if (nextQuestion.data) {
           req.session.question = nextQuestion.data;
         }
       } catch (e) {
-        debug(e.message);
+        callback(e);
       }
 
-      con();
+      callback();
     });
   }
 
   next(req) {
-    debug("NEXT!");
     if (req.session.question) {
-      debug("question");
       return "question";
     }
 
-    debug("done");
     return "done";
   }
 }
