@@ -1,0 +1,166 @@
+{
+  "mappings": [
+    {
+      "scenarioName": "Questions",
+      "newScenarioState": "Started",
+      "request": {
+        "method": "GET",
+        "url": "/__reset/question-success"
+      },
+      "response": {
+        "status": 200
+      }
+    },
+    {
+      "scenarioName": "Questions",
+      "requiredScenarioState": "Started",
+      "newScenarioState": "FirstQuestion",
+      "request": {
+        "method": "GET",
+        "url": "/authorize"
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+          "sessionId": "ABADCAFE"
+        }
+      }
+    },
+    {
+      "scenarioName": "Questions",
+      "requiredScenarioState": "FirstQuestion",
+      "request": {
+        "method": "GET",
+        "url": "/question",
+        "headers": {
+          "sessionId": {
+            "equalTo": "ABADCAFE"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+          "questionID": "Q00059",
+          "text": "What are the last 4 digits from the long number across the middle of your credit card",
+          "toolTip": "The long number across the front. The long number across the middle of your card",
+          "answerFormat": {
+            "identifier": "A000008",
+            "fieldType": "R ",
+            "answerList": [
+              "2226",
+              "5790",
+              "1126",
+              "5495",
+              "NONE OF THE ABOVE / DOES NOT APPLY"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "scenarioName": "Questions",
+      "requiredScenarioState": "FirstQuestion",
+      "newScenarioState": "LastQuestion",
+      "request": {
+        "method": "POST",
+        "url": "/answer",
+        "headers": {
+          "sessionId": {
+            "equalTo": "ABADCAFE"
+          },
+          "Content-Type": {
+            "equalTo": "application/json"
+          }
+        },
+        "bodyPatterns": [
+          {
+            "equalToJson": {
+              "questionId": "Q00059",
+              "answer": "NONE OF THE ABOVE / DOES NOT APPLY"
+            },
+            "ignoreArrayOrder": true,
+            "ignoreExtraElements": true
+          }
+        ]
+      },
+      "response": {
+        "status": 200
+      }
+    },
+    {
+      "scenarioName": "Questions",
+      "requiredScenarioState": "LastQuestion",
+      "request": {
+        "method": "GET",
+        "url": "/question",
+        "headers": {
+          "sessionId": {
+            "equalTo": "ABADCAFE"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+          "questionID": "Q00039",
+          "text": "What is the balance, including interest, of your loan?",
+          "toolTip": "The approximate amount in £s on a current active personal loan. Does not include HP Loans, 2nd Mortgages or Home Credit",
+          "answerFormat": {
+            "identifier": "A000004",
+            "fieldType": "G ",
+            "answerList": [
+              "UP TO £9,250",
+              "OVER £9,250 UP TO £9,500",
+              "OVER £9,500 UP TO £9,750",
+              "OVER £9,750 UP TO £10,000",
+              "NONE OF THE ABOVE / DOES NOT APPLY"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "scenarioName": "Questions",
+      "requiredScenarioState": "LastQuestion",
+      "newScenarioState": "NoMoreQuestions",
+      "request": {
+        "method": "POST",
+        "url": "/answer",
+        "headers": {
+          "sessionId": {
+            "equalTo": "ABADCAFE"
+          }
+        },
+        "bodyPatterns": [
+          {
+            "equalToJson": {
+              "questionId": "Q00039",
+              "answer": "UP TO £9,250"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200
+      }
+    },
+    {
+      "scenarioName": "Questions",
+      "requiredScenarioState": "NoMoreQuestions",
+      "newScenarioState": "FinalQuestion",
+      "request": {
+        "method": "GET",
+        "url": "/question",
+        "headers": {
+          "sessionId": {
+            "equalTo": "ABADCAFE"
+          }
+        }
+      },
+      "response": {
+        "status": 204
+      }
+    }
+  ]
+}
