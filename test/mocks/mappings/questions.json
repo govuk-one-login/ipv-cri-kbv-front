@@ -83,17 +83,7 @@
           "Content-Type": {
             "equalTo": "application/json"
           }
-        },
-        "bodyPatterns": [
-          {
-            "equalToJson": {
-              "questionId": "Q00059",
-              "answer": "NONE OF THE ABOVE / DOES NOT APPLY"
-            },
-            "ignoreArrayOrder": true,
-            "ignoreExtraElements": true
-          }
-        ]
+        }
       },
       "response": {
         "status": 200
