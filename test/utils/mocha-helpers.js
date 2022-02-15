@@ -17,7 +17,13 @@ global.sinon = sinon;
 global.expect = expect;
 
 global.setupDefaultMocks = () => {
-  const req = reqres.req({ form: { values: {} } });
+  const req = reqres.req({
+    form: { values: {} },
+    axios: {
+      get: sinon.fake(),
+      post: sinon.fake(),
+    },
+  });
 
   req.journeyModel = new JourneyModel(null, {
     req,
