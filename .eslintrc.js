@@ -8,6 +8,7 @@ module.exports = {
   globals: {
     sinon: true,
     expect: true,
+    setupDefaultMocks: "readonly",
   },
   root: true,
   extends: ["eslint:recommended", "prettier"],

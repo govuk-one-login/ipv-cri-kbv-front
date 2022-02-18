@@ -1,0 +1,125 @@
+const dynamicTranslate = require("../../../lib/dynamic-i18n");
+const axios = require("axios");
+const BaseController = require("hmpo-form-wizard").Controller;
+
+const debug = require("debug")("app:simplified:question:ctrl");
+
+const {
+  API: {
+    BASE_URL,
+    PATHS: { QUESTION, ANSWER },
+  },
+} = require("../../../lib/config");
+
+class QuestionController extends BaseController {
+  configure(req, res, next) {
+    debug(req.session?.scenarioID);
+    debug(req.modelOptions());
+
+    // debug(this.options);
+    // debug(req.form.options);
+    // debug(req.form.options.translate);
+    // debug(req.translate);
+    debug(Object.keys(req.session));
+    debug(req.session.question);
+
+    const overrideTranslations = dynamicTranslate.buildOverrideTranslations(
+      req.session.question
+    );
+
+    req.form.options.fields.question = {
+      label:
+        overrideTranslations?.fields?.question?.legend ||
+        req.session.question.text,
+      type: "radios",
+      validate: ["required"],
+      fieldset: {
+        legend: {
+          text: `fields.questionX.legend`,
+        },
+      },
+      items: req.session.question.answerFormat.answerList.map(
+        // (answer) => `answer-${answer.replaceAll(/[^a-z0-9]*/gi, "")}`
+
+        (answer) => answer
+      ),
+    };
+
+    debug(overrideTranslations);
+
+    req.form.options.translate = dynamicTranslate.translateWrapper(
+      req.translate,
+      overrideTranslations
+    );
+
+    super.configure(req, res, next);
+  }
+  locals(req, res, callback) {
+    super.locals(req, res, (err, locals) => {
+      if (err) {
+        return callback(err, locals);
+      }
+      locals.question = req.session.question;
+
+      callback(err, locals);
+    });
+  }
+
+  async saveValues(req, res, con) {
+    super.saveValues(req, res, async (err, next) => {
+      if (err) {
+        next(err);
+      }
+
+      debug("saveValues");
+
+      debug(req.session);
+      debug(req.form.values);
+      debug(req.sessionModel.toJSON());
+      try {
+        await axios.post(
+          `${BASE_URL}${ANSWER}`,
+          {
+            questionId: req.session.question.questionID,
+            answer: req.sessionModel.get("question"),
+          },
+          {
+            headers: {
+              sessionId: req.session.tokenId,
+            },
+          }
+        );
+
+        req.session.question = undefined;
+
+        const nextQuestion = await axios.get(`${BASE_URL}${QUESTION}`, {
+          headers: {
+            sessionId: req.session.tokenId,
+          },
+        });
+
+        debug(nextQuestion.data);
+        debug(nextQuestion.status);
+        if (nextQuestion.data) {
+          req.session.question = nextQuestion.data;
+        }
+      } catch (e) {
+        debug(e.message);
+      }
+
+      con();
+    });
+  }
+
+  next(req) {
+    debug("NEXT!");
+    if (req.session.question) {
+      debug("question");
+      return "question";
+    }
+
+    debug("done");
+    return "done";
+  }
+}
+module.exports = QuestionController;

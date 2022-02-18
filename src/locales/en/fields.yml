@@ -1,0 +1,52 @@
+surname:
+  label: Surname
+  validation:
+    default: 'You need to supply your surname'
+
+givenNames:
+  label: Given names
+  validation:
+    default: 'You need to supply your given names'
+
+dateOfBirth:
+  legend: Date of birth
+  validation:
+    default: 'You need to supply your date of birth'
+    before: 'Issue date must be in the past'
+
+"date-day":
+  label: Day
+
+"date-month":
+  label: Month
+
+"date-year":
+  label: Year
+
+
+houseNameNumber:
+  label: House name or number
+streetName:
+  label: Street name
+townCity:
+  label: Town or city
+postCode:
+  label: Postcode
+
+formType:
+  legend: " "
+  items:
+    input:
+      label: User input
+    dropDown:
+      label: Choose from a list
+
+preConfiguredValues:
+  label: Choose from a list
+  items:
+    arkilAlbert:
+      label: Arkil, Albert - Not authenticated
+    duffLinda:
+      label: Duff, Linda - Continue and Investigate
+    decerqueiraKenneth:
+      label: Decerqueria, Kenneth - Authenticated level 1

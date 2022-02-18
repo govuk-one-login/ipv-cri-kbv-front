@@ -38,6 +38,8 @@ app.get("nunjucks").addGlobal("getContext", function () {
 });
 
 router.use("/oauth2", require("./app/oauth2"));
+router.use("/details", require("./app/details"));
+router.use("/kbv", require("./app/kbv"));
 
 router.use("^/$", (req, res) => {
   res.render("index");
