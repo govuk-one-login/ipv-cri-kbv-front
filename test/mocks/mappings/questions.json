@@ -1,7 +1,7 @@
 {
   "mappings": [
     {
-      "scenarioName": "Questions",
+      "scenarioName": "question-success",
       "newScenarioState": "Started",
       "request": {
         "method": "GET",
@@ -12,7 +12,7 @@
       }
     },
     {
-      "scenarioName": "Questions",
+      "scenarioName": "question-success",
       "requiredScenarioState": "Started",
       "newScenarioState": "FirstQuestion",
       "request": {
@@ -32,7 +32,7 @@
       }
     },
     {
-      "scenarioName": "Questions",
+      "scenarioName": "question-success",
       "requiredScenarioState": "FirstQuestion",
       "request": {
         "method": "GET",
@@ -67,7 +67,7 @@
       }
     },
     {
-      "scenarioName": "Questions",
+      "scenarioName": "question-success",
       "requiredScenarioState": "FirstQuestion",
       "newScenarioState": "LastQuestion",
       "request": {
@@ -90,7 +90,7 @@
       }
     },
     {
-      "scenarioName": "Questions",
+      "scenarioName": "question-success",
       "requiredScenarioState": "LastQuestion",
       "request": {
         "method": "GET",
@@ -125,7 +125,7 @@
       }
     },
     {
-      "scenarioName": "Questions",
+      "scenarioName": "question-success",
       "requiredScenarioState": "LastQuestion",
       "newScenarioState": "NoMoreQuestions",
       "request": {
@@ -153,7 +153,7 @@
       }
     },
     {
-      "scenarioName": "Questions",
+      "scenarioName": "question-success",
       "requiredScenarioState": "NoMoreQuestions",
       "newScenarioState": "FinalQuestion",
       "request": {
