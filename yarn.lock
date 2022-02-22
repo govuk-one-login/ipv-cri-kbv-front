@@ -2216,12 +2216,12 @@ hmpo-app@1.0.2:
     underscore "^1.13.1"
     uuid "^8.3.2"
 
-hmpo-components@4.6.0:
-  version "4.6.0"
-  resolved "https://registry.yarnpkg.com/hmpo-components/-/hmpo-components-4.6.0.tgz#31c5ec02d012cb86878094c29816d026c7230fee"
-  integrity sha512-sjpDaiP9Utowf1LGszWoAAXT2CWuE1KwuS8iZe9pti4jNKSqvC17meyPrvz399DdA7O6uDDj2b6I7tF5AgA7Kw==
+hmpo-components@4.6.1:
+  version "4.6.1"
+  resolved "https://registry.yarnpkg.com/hmpo-components/-/hmpo-components-4.6.1.tgz#46bdc96bbc94b7bc36220bd35bd5fa270daee711"
+  integrity sha512-vah6yJYtkiEGn6lF1t4sscu85piL6ZikgZq18s1R5amAG1I+KeoC3nEMl0ad3DqlC03+69Xo0qTlRUJCp4y+NQ==
   dependencies:
-    deep-clone-merge "^1.5.2"
+    deep-clone-merge "^1.5.3"
     moment "^2.29.1"
     underscore "^1.13.1"
 
