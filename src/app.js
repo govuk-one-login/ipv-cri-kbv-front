@@ -1,6 +1,9 @@
 require("express");
 require("express-async-errors");
 
+const setScenarioHeaders = require("./lib/scenario-headers");
+const setAxiosDefaults = require("./lib/axios");
+
 const { PORT, SESSION_SECRET } = require("./lib/config");
 const { setup } = require("hmpo-app");
 
@@ -36,6 +39,9 @@ app.get("nunjucks").addGlobal("getContext", function () {
     ctx: this.ctx.ctx,
   };
 });
+
+router.use(setScenarioHeaders);
+router.use(setAxiosDefaults);
 
 router.use("/oauth2", require("./app/oauth2"));
 router.use("/details", require("./app/details"));

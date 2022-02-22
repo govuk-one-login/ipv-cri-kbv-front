@@ -1,0 +1,57 @@
+{
+  "mappings": [
+    {
+      "scenarioName": "question-error",
+      "newScenarioState": "Started",
+      "request": {
+        "method": "GET",
+        "url": "/__reset/question-error"
+      },
+      "response": {
+        "status": 200
+      }
+    },
+    {
+      "scenarioName": "question-error",
+      "requiredScenarioState": "Started",
+      "newScenarioState": "FirstQuestion",
+      "request": {
+        "method": "GET",
+        "url": "/authorize",
+        "headers": {
+          "x-scenario-id": {
+            "equalTo": "question-error"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+          "sessionId": "ABADCAFE"
+        }
+      }
+    },
+    {
+      "scenarioName": "question-error",
+      "requiredScenarioState": "FirstQuestion",
+      "request": {
+        "method": "GET",
+        "url": "/question",
+        "headers": {
+          "sessionId": {
+            "equalTo": "ABADCAFE"
+          },
+          "x-scenario-id": {
+            "equalTo": "question-error"
+          }
+        }
+      },
+      "response": {
+        "status": 500,
+        "jsonBody": {
+          "error": "Server error"
+        }
+      }
+    }
+  ]
+}

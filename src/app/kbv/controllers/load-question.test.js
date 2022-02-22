@@ -1,32 +1,14 @@
 const BaseController = require("hmpo-form-wizard").Controller;
-
-const proxquire = require("proxyquire");
+const LoadQuestionController = require("./load-question");
 
 describe("Load Question controller", () => {
-  let LoadQuestionController;
   let loadQuestionController;
 
   let req;
   let res;
   let next;
 
-  let axiosStub;
-
   beforeEach(() => {
-    axiosStub = {
-      get: sinon.stub(),
-    };
-
-    LoadQuestionController = proxquire("./load-question", {
-      axios: axiosStub,
-      "../../../lib/config": {
-        API: {
-          BASE_URL: "http://example.com",
-          PATHS: { QUESTION: "/q" },
-        },
-      },
-    });
-
     const setup = setupDefaultMocks();
     req = setup.req;
     res = setup.res;
@@ -52,7 +34,6 @@ describe("Load Question controller", () => {
     });
 
     it("should call super.saveValues first with callback", () => {
-      // const question = new QuestionController({ route: "/test" });
       loadQuestionController.saveValues(req, res, next);
 
       expect(prototypeSpy).to.have.been.calledBefore(next);
@@ -61,11 +42,11 @@ describe("Load Question controller", () => {
     it("should get next question", async () => {
       await loadQuestionController.saveValues(req, res, next);
 
-      expect(axiosStub.get).to.have.been.calledOnce;
+      expect(req.axios.get).to.have.been.calledOnce;
     });
 
     it("should set question", async () => {
-      axiosStub.get.returns({
+      req.axios.get = sinon.fake.returns({
         data: { questionId: 1 },
       });
 
@@ -80,7 +61,7 @@ describe("Load Question controller", () => {
       let error;
       beforeEach("should call next with error", async () => {
         error = new Error("Random error");
-        axiosStub.get = sinon.fake.rejects(error);
+        req.axios.get = sinon.fake.rejects(error);
 
         await loadQuestionController.saveValues(req, res, next);
       });
