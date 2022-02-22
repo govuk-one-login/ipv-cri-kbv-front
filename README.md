@@ -39,6 +39,29 @@ A browser extension, such as [Mod Header](https://modheader.com/), can be used t
 In order to support consistent use of headers for API requests, [middleware](./src/lib/axios) is applied to add an instance of
 [axios](https://axios-http.com/) on each request onto `req.axios`. This is then reused in any code that uses the API.
 
+# Browser tests
+
+Browser based tests can be run against the mock server, and should be able to be run against an instance of the API.
+
+These tests are written using [Cucumber](https://cucumber.io/docs/installation/javascript/) as the test runner and [Playwright](https://playwright.dev/) as the automation tool. They also follow the [Page Object Model](https://playwright.dev/docs/test-pom) for separation of concerns.
+
+They can be run by using:
+
+`yarn run test:browser`
+
+## Using mocked scenario data
+
+Any cucumber feature or scenario with a tag prefixed with `@mock-api:`
+
+e.g.
+```
+  @mock-api:question-error
+  Scenario: API error
+...
+```
+
+This scenario will be configured to send a `scenario-id` header of `question-error` on every web browser request.
+
 ### Code Owners
 
 This repo has a `CODEOWNERS` file in the root and is configured to require PRs to reviewed by Code Owners.
