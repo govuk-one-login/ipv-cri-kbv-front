@@ -33,7 +33,7 @@ module.exports = {
 
         console.log(apiResponse);
 
-        req.session.tokenId = apiResponse?.data?.sessionId;
+        req.session.tokenId = apiResponse?.data["session-id"];
       }
     } catch (error) {
       next(error);
