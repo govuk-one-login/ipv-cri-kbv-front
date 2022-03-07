@@ -712,7 +712,7 @@ binary-extensions@^2.0.0:
   resolved "https://registry.yarnpkg.com/binary-extensions/-/binary-extensions-2.2.0.tgz#75f502eeaf9ffde42fc98829645be4ea76bd9e2d"
   integrity sha512-jDctJ/IVQbZoJykoeHbhXpOlNBqGNcwXJKJog42E5HDPUwQTSdjCHdihjj0DlnheQ7blbT6dHOafNAiS8ooQKA==
 
-body-parser@1.19.2, body-parser@^1.19.0:
+body-parser@1.19.2, body-parser@^1.19.0, body-parser@^1.19.2:
   version "1.19.2"
   resolved "https://registry.yarnpkg.com/body-parser/-/body-parser-1.19.2.tgz#4714ccd9c157d44797b8b5607d72c0b89952f26e"
   integrity sha512-SAAwOxgoCKMGs9uUAUFHygfLAyaniaoun6I8mFY9pRAJL9+Kec34aU+oIjDhTycub1jozEfEwx1W1IuOYxVSFw==
@@ -1287,10 +1287,10 @@ decompress-response@^6.0.0:
   dependencies:
     mimic-response "^3.1.0"
 
-deep-clone-merge@^1.5.2, deep-clone-merge@^1.5.3:
-  version "1.5.3"
-  resolved "https://registry.yarnpkg.com/deep-clone-merge/-/deep-clone-merge-1.5.3.tgz#20bd56815546c451c05745d5c177b8a4b4b751b2"
-  integrity sha512-EC1JkJkChD+K038oGnV2E/aNcYw9OcNA1lQtZXPO3vzcXpik/FfDX/pP/mnBgDXX72bVsjhqI0wLXBSvDGENzg==
+deep-clone-merge@^1.5.2, deep-clone-merge@^1.5.3, deep-clone-merge@^1.5.4:
+  version "1.5.4"
+  resolved "https://registry.yarnpkg.com/deep-clone-merge/-/deep-clone-merge-1.5.4.tgz#d2ecb85bc1bf8bb9313dd118c6674f690ae94677"
+  integrity sha512-Gb/b8aAFUeX/ZkQwfpYlzVXaUOnHj0jPmh8uwF0eBGhAuFMZA1IxeuSzLGG4B1lzrp0SZsd3UhL6zvhDY7l6ZQ==
 
 deep-eql@^3.0.1:
   version "3.0.1"
@@ -2204,19 +2204,19 @@ hmpo-config@2.2.0:
     js-yaml "^4.1.0"
     json5 "^2.2.0"
 
-hmpo-form-wizard@12.0.1:
-  version "12.0.1"
-  resolved "https://registry.yarnpkg.com/hmpo-form-wizard/-/hmpo-form-wizard-12.0.1.tgz#a601b8ae0d61cb665fe4a0656ecdc4ea9d7357c3"
-  integrity sha512-Aw2EoUJH/vBFs8C1YoKeHg+CNqwmvmgEBZ0TihRhzlaEk3MJhkDlvn6/fp/TJA6MLL54uCq0tCSO+COhA2wKfQ==
+hmpo-form-wizard@12.0.2:
+  version "12.0.2"
+  resolved "https://registry.yarnpkg.com/hmpo-form-wizard/-/hmpo-form-wizard-12.0.2.tgz#755d498c2a582ff36223e79724776810fe57f6e9"
+  integrity sha512-Qh1lAAEfXj9KhglM+KrGvHZ4BU05BjEDRZXhbmLbA7JTfpRCZQ8lBpaVZfj/fVjeFrvhND7EntJX7iz0bemitQ==
   dependencies:
-    body-parser "^1.19.0"
+    body-parser "^1.19.2"
     csrf "^3.1.0"
     debug "^4.3.3"
-    deep-clone-merge "^1.5.3"
-    hmpo-model "^4.0.2"
+    deep-clone-merge "^1.5.4"
+    hmpo-model "^4.0.4"
     json5 "^2.2.0"
     moment "^2.29.1"
-    underscore "^1.13.1"
+    underscore "^1.13.2"
 
 hmpo-i18n@5.0.1:
   version "5.0.1"
@@ -2246,10 +2246,10 @@ hmpo-logger@4.1.4:
     underscore "^1.13.1"
     winston "^2.4.5"
 
-hmpo-model@^4.0.2:
-  version "4.0.2"
-  resolved "https://registry.yarnpkg.com/hmpo-model/-/hmpo-model-4.0.2.tgz#98f33691f7c06c9fff4ad96ea549d6d377f12b5e"
-  integrity sha512-atckh8oO3piR0w7l+sNdwJ+nbe411/T7fdKNMwMWWmqnNFtOei874Z86ZCNUCBmgxmRDQZDw6E77Mgp2V6PH6Q==
+hmpo-model@^4.0.4:
+  version "4.0.4"
+  resolved "https://registry.yarnpkg.com/hmpo-model/-/hmpo-model-4.0.4.tgz#7cafd372d8097581a6870ac8365a0c6320975ad9"
+  integrity sha512-k9IkWmZJA11ZDi334ab0gspJhLvk+WBGUjaa7V0/PZDHAmZ4//RFLA5yJTq+q1jAcD+dYRTETcVEdm+doeU1iQ==
   dependencies:
     debug "^4.3.3"
     got "^11.8.3"
@@ -4668,12 +4668,7 @@ underscore@1.12.x:
   resolved "https://registry.yarnpkg.com/underscore/-/underscore-1.12.1.tgz#7bb8cc9b3d397e201cf8553336d262544ead829e"
   integrity sha512-hEQt0+ZLDVUMhebKxL4x1BTtDY7bavVofhZ9KZ4aI26X9SRaE+Y3m83XUL1UP2jn8ynjndwCCpEHdUG+9pP1Tw==
 
-underscore@^1.13.1:
-  version "1.13.1"
-  resolved "https://registry.yarnpkg.com/underscore/-/underscore-1.13.1.tgz#0c1c6bd2df54b6b69f2314066d65b6cde6fcf9d1"
-  integrity sha512-hzSoAVtJF+3ZtiFX0VgfFPHEDRm7Y/QPjGyNo4TVdnDTdft3tr8hEkD25a1jC+TjTuE7tkHGKkhwCgs9dgBB2g==
-
-underscore@^1.13.2:
+underscore@^1.13.1, underscore@^1.13.2:
   version "1.13.2"
   resolved "https://registry.yarnpkg.com/underscore/-/underscore-1.13.2.tgz#276cea1e8b9722a8dbed0100a407dda572125881"
   integrity sha512-ekY1NhRzq0B08g4bGuX4wd2jZx5GnKz6mKSqFL4nqBlfyMGiG10gDFhDTMEfYmDL6Jy0FUIZp7wiRB+0BP7J2g==
