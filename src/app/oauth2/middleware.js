@@ -1,6 +1,6 @@
 const {
   API: {
-    PATHS: { AUTHORIZE },
+    PATHS: { AUTHORIZE, AUTHORIZATION_CODE },
   },
 } = require("../../lib/config");
 
@@ -25,10 +25,14 @@ module.exports = {
         scope: "openid",
       };
 
-      const apiResponse = await req.axios.get(AUTHORIZE, {
+      const apiResponse = await req.axios.get(AUTHORIZATION_CODE, {
         params: oauthParams,
+        headers: {
+          sessionId: req.session.tokenId,
+        },
       });
 
+      console.log(apiResponse);
       const code = apiResponse?.data?.code?.value;
 
       if (!code) {
