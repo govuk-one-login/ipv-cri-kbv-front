@@ -10,9 +10,9 @@ module.exports = {
       fields: {
         question: {
           content: `${question.text} #question`,
-          legend: `${question.text} #legend`,
+          legend: `${question.questionID} - ${question.text} #legend`,
           label: `${question.text} #label`,
-          hint: `${question.toolTip} #hint`,
+          hint: `${question.tooltip} #hint`,
           validation: {
             default: "You need to answer the question",
           },
