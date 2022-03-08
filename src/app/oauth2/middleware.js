@@ -53,4 +53,8 @@ module.exports = {
 
     res.redirect(redirectURL);
   },
+
+  redirectToKBV: async (req, res) => {
+    res.redirect(KBV);
+  },
 };
