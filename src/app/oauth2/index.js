@@ -4,6 +4,8 @@ const router = express.Router();
 
 const {
   addAuthParamsToSession,
+  addJWTToRequest,
+  transposeJWT,
   initSessionWithJWT,
   redirectToCallback,
   redirectToKBV,
@@ -13,6 +15,8 @@ const {
 router.get(
   "/authorize",
   addAuthParamsToSession,
+  addJWTToRequest,
+  transposeJWT,
   initSessionWithJWT,
   redirectToKBV
 );

@@ -1,3 +1,6 @@
+const debug = require("debug")("app:oauth:middleware");
+const jwt = require("jsonwebtoken");
+
 const {
   API: {
     PATHS: { AUTHORIZE, AUTHORIZATION_CODE },
@@ -21,21 +24,90 @@ module.exports = {
     next();
   },
 
+  addJWTToRequest: (req, res, next) => {
+    req.jwt = req.query?.request;
+    next();
+  },
+
+  transposeJWT: async (req, res, next) => {
+    debug(req.jwt);
+    const decodedJWT = jwt.decode(req.query?.request, "ssh", {
+      algorithms: ["none"],
+    });
+
+    debug(JSON.stringify(decodedJWT, null, 2));
+
+    // New JWT format
+    if (decodedJWT.claims.vc_http_api.UKAddresses) {
+      debug("transposing");
+      const transposedJWT = {
+        sub: decodedJWT.sub,
+        iss: decodedJWT.iss,
+        iat: decodedJWT.iat,
+        claim: {
+          vc_http_api: {
+            addresses: [
+              {
+                houseNumber:
+                  decodedJWT.claims.vc_http_api.UKAddresses[0].street1,
+                street: decodedJWT.claims.vc_http_api.UKAddresses[0].street2,
+                postcode: decodedJWT.claims.vc_http_api.UKAddresses[0].postCode,
+                addressType: decodedJWT.claims.vc_http_api.UKAddresses[0]
+                  .currentAddress
+                  ? "CURRENT"
+                  : "PREVIOUS",
+                townCity: decodedJWT.claims.vc_http_api.UKAddresses[0].townCity,
+              },
+            ],
+            firstName: decodedJWT.claims.vc_http_api.names[0].firstName,
+            surname: decodedJWT.claims.vc_http_api.names[0].surname,
+            ipv_session_id: "C0DE",
+            title: ".",
+            dateOfBirth: decodedJWT.claims.vc_http_api.datesOfBirth[0],
+          },
+        },
+      };
+
+      req.jwt = jwt.sign(transposedJWT, "sssh", {});
+
+      debug(req.jwt);
+    }
+
+    next();
+  },
+
   initSessionWithJWT: async (req, res, next) => {
-    const requestJWT = req.query?.request;
+    debug("initSessionWithJWT");
+    const requestJWT = req.jwt;
     const headers = { client_id: req.query?.client_id };
 
     try {
       if (requestJWT) {
-        const apiResponse = await req.axios.post(AUTHORIZE, requestJWT, {
+        debug({
+          params: {
+            request: requestJWT,
+          },
           headers: headers,
         });
+        const apiResponse = await req.axios.post(
+          AUTHORIZE,
+          {},
+          {
+            params: {
+              request: requestJWT,
+            },
+            headers: headers,
+          }
+        );
 
-        console.log(apiResponse);
+        debug("----------");
+
+        debug(apiResponse);
 
         req.session.tokenId = apiResponse?.data["session-id"];
       }
     } catch (error) {
+      console.log(error);
       next(error);
     }
     next();
