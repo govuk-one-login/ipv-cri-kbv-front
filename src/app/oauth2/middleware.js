@@ -2,6 +2,9 @@ const {
   API: {
     PATHS: { AUTHORIZE, AUTHORIZATION_CODE },
   },
+  APP: {
+    PATHS: { KBV },
+  },
 } = require("../../lib/config");
 
 module.exports = {
