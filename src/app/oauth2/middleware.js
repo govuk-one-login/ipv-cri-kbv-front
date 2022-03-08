@@ -18,6 +18,26 @@ module.exports = {
     next();
   },
 
+  initSessionWithJWT: async (req, res, next) => {
+    const requestJWT = req.query?.request;
+    const headers = { client_id: req.query?.client_id };
+
+    try {
+      if (requestJWT) {
+        const apiResponse = await req.axios.post(AUTHORIZE, requestJWT, {
+          headers: headers,
+        });
+
+        console.log(apiResponse);
+
+        req.session.tokenId = apiResponse?.data?.sessionId;
+      }
+    } catch (error) {
+      next(error);
+    }
+    next();
+  },
+
   retrieveAuthorizationCode: async (req, res, next) => {
     try {
       const oauthParams = {
