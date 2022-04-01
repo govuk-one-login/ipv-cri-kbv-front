@@ -16,8 +16,6 @@ services:
       CORE_STUB_KEYSTORE_PASSWORD: "puppet"
       CORE_STUB_KEYSTORE_FILE: "/app/config/keystore.jks"
 
-    env_file:
-      - "./.env"
     volumes:
       - "./di-ipv-config.yaml:/app/config/cris-kbv.yaml"
       - "${CONFIG_DIRECTORY}/keystore.jks:/app/config/keystore.jks"

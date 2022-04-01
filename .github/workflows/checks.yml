@@ -65,6 +65,8 @@ jobs:
         run: docker-compose up -d
       - name: Run browser tests
         working-directory: ./test/browser
+        env:
+          CONFIG_DIRECTORY: config
         run: npm run test:browser:ci
       - name: Docker Compose Down
         working-directory: ./test/browser
