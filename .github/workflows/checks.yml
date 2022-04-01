@@ -61,9 +61,12 @@ jobs:
 #      - name: Pull core-stub
 #        run: docker pull aws_account_id.dkr.ecr.us-west-2.amazonaws.com/core-stub:latest
       - name: Docker Compose Up
+        working-directory: ./test/browser
         run: docker-compose up -d
       - name: Run browser tests
+        working-directory: ./test/browser
         run: npm run test:browser:ci
       - name: Docker Compose Down
+        working-directory: ./test/browser
         if: always()
         run: docker-compose down
