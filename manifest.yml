@@ -1,6 +1,6 @@
 ---
 applications:
-  - name: ((environment))-di-ipv-cri-address-front
+  - name: ((environment))-di-ipv-cri-kbv-front
     services:
       - session-cache
     memory: 128M
