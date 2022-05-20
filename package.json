@@ -4,8 +4,8 @@
   "description": "User interface for the Knowledge Based Verification (KBV) part of the Identity Proofing and Verification (IPV) system within the GDS digital identity platform, GOV.UK Sign In.",
   "main": "src/server.js",
   "engines": {
-    "node": "16.13.1",
-    "yarn": "1.22.17"
+    "node": "16.14.2",
+    "yarn": "1.22.18"
   },
   "scripts": {
     "start": "node src/app.js",
