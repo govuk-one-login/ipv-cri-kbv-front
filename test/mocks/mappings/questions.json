@@ -16,7 +16,7 @@
       "requiredScenarioState": "Started",
       "newScenarioState": "FirstQuestion",
       "request": {
-        "method": "GET",
+        "method": "POST",
         "url": "/authorize",
         "headers": {
           "x-scenario-id": {
@@ -27,7 +27,7 @@
       "response": {
         "status": 200,
         "jsonBody": {
-          "sessionId": "ABADCAFE"
+          "session_id": "ABADCAFE"
         }
       }
     },
