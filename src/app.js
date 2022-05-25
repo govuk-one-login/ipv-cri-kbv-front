@@ -1,10 +1,15 @@
 require("express");
 require("express-async-errors");
 
-const setScenarioHeaders = require("./lib/scenario-headers");
-const setAxiosDefaults = require("./lib/axios");
+const commonExpress = require("di-ipv-cri-common-express");
 
-const { PORT, SESSION_SECRET } = require("./lib/config");
+const setScenarioHeaders = commonExpress.lib.scenarioHeaders;
+const setAxiosDefaults = commonExpress.lib.axios;
+
+const { setAPIConfig, setOAuthPaths } = require("./lib/settings");
+
+const { API, APP, PORT, REDIS, SESSION_SECRET } = require("./lib/config");
+
 const { setup } = require("hmpo-app");
 
 const loggerConfig = {
@@ -13,7 +18,7 @@ const loggerConfig = {
   app: false,
 };
 
-const redisConfig = require("./lib/redis")();
+const redisConfig = commonExpress.lib.redis(REDIS);
 
 const sessionConfig = {
   cookieName: "service_session",
@@ -40,10 +45,19 @@ app.get("nunjucks").addGlobal("getContext", function () {
   };
 });
 
+setAPIConfig({
+  app,
+  baseUrl: API.BASE_URL,
+  authorizePath: API.PATHS.AUTHORIZE,
+});
+
+setOAuthPaths({ app, entryPointPath: APP.PATHS.KBV });
+
 router.use(setScenarioHeaders);
 router.use(setAxiosDefaults);
 
-router.use("/oauth2", require("./app/oauth2"));
+router.use("/oauth2", commonExpress.routes.oauth2);
+
 router.use("/details", require("./app/details"));
 router.use("/kbv", require("./app/kbv"));
 

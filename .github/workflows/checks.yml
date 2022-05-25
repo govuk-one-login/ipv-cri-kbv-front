@@ -14,7 +14,8 @@ jobs:
   run-tests:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v3
       - name: Use Node.js 16.x
         uses: actions/setup-node@v2
         with:
@@ -26,8 +27,8 @@ jobs:
         run: yarn lint
       - name: Run test and write coverage
         run: yarn test:coverage
-      - name: Run browser tests
-        run: npm run test:browser:ci
+#      - name: Run browser tests
+#        run: npm run test:browser:ci
       - name: Run sonarcloud scan
         if: ${{ github.actor != 'dependabot[bot]' }}
         uses: sonarsource/sonarcloud-github-action@master

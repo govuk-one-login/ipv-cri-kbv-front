@@ -16,7 +16,7 @@
       "requiredScenarioState": "Started",
       "newScenarioState": "FirstQuestion",
       "request": {
-        "method": "GET",
+        "method": "POST",
         "url": "/authorize",
         "headers": {
           "x-scenario-id": {
