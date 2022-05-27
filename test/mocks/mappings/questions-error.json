@@ -27,7 +27,7 @@
       "response": {
         "status": 200,
         "jsonBody": {
-          "sessionId": "ABADCAFE"
+          "session_id": "ABADCAFE"
         }
       }
     },
@@ -38,7 +38,7 @@
         "method": "GET",
         "url": "/question",
         "headers": {
-          "sessionId": {
+          "session_id": {
             "equalTo": "ABADCAFE"
           },
           "x-scenario-id": {

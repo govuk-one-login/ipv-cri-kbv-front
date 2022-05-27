@@ -12,7 +12,7 @@ class DoneController extends BaseController {
       try {
         const apiResponse = await req.axios.get(AUTHORIZE);
 
-        req.session.tokenId = apiResponse?.data?.sessionId;
+        req.session.tokenId = apiResponse?.data?.session_id;
       } catch (e) {
         return next(e);
       }

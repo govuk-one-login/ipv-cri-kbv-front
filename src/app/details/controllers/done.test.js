@@ -57,7 +57,7 @@ describe("Done controller", () => {
     });
 
     it("should call session endpoint", () => {});
-    it("should add sessionId to session");
+    it("should add session_id to session");
     it("should use callback");
     context("on session error", () => {});
   });
