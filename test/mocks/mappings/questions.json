@@ -38,7 +38,7 @@
         "method": "GET",
         "url": "/question",
         "headers": {
-          "sessionId": {
+          "session_id": {
             "equalTo": "ABADCAFE"
           },
           "x-scenario-id": {
@@ -74,7 +74,7 @@
         "method": "POST",
         "url": "/answer",
         "headers": {
-          "sessionId": {
+          "session_id": {
             "equalTo": "ABADCAFE"
           },
           "x-scenario-id": {
@@ -96,7 +96,7 @@
         "method": "GET",
         "url": "/question",
         "headers": {
-          "sessionId": {
+          "session_id": {
             "equalTo": "ABADCAFE"
           },
           "x-scenario-id": {
@@ -132,7 +132,7 @@
         "method": "POST",
         "url": "/answer",
         "headers": {
-          "sessionId": {
+          "session_id": {
             "equalTo": "ABADCAFE"
           },
           "x-scenario-id": {
@@ -160,7 +160,7 @@
         "method": "GET",
         "url": "/question",
         "headers": {
-          "sessionId": {
+          "session_id": {
             "equalTo": "ABADCAFE"
           },
           "x-scenario-id": {
