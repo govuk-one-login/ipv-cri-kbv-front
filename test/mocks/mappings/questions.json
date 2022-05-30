@@ -138,15 +138,7 @@
           "x-scenario-id": {
             "equalTo": "question-success"
           }
-        },
-        "bodyPatterns": [
-          {
-            "equalToJson": {
-              "questionId": "Q00039",
-              "answer": "UP TO £9,250"
-            }
-          }
-        ]
+        }
       },
       "response": {
         "status": 200
