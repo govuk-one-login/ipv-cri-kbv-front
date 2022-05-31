@@ -21,6 +21,7 @@ module.exports = {
   },
   "/done": {
     controller: done,
-    skip: false,
+    skip: true,
+    next: "/oauth2/callback",
   },
 };

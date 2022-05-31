@@ -17,7 +17,7 @@
       "newScenarioState": "FirstQuestion",
       "request": {
         "method": "POST",
-        "url": "/authorize",
+        "url": "/session",
         "headers": {
           "x-scenario-id": {
             "equalTo": "question-success"
@@ -27,7 +27,9 @@
       "response": {
         "status": 200,
         "jsonBody": {
-          "session_id": "ABADCAFE"
+          "session_id": "ABADCAFE",
+          "state": "sT@t3",
+          "redirect_uri": "http://example.net/return"
         }
       }
     },
@@ -138,15 +140,7 @@
           "x-scenario-id": {
             "equalTo": "question-success"
           }
-        },
-        "bodyPatterns": [
-          {
-            "equalToJson": {
-              "questionId": "Q00039",
-              "answer": "UP TO £9,250"
-            }
-          }
-        ]
+        }
       },
       "response": {
         "status": 200
@@ -155,7 +149,7 @@
     {
       "scenarioName": "question-success",
       "requiredScenarioState": "NoMoreQuestions",
-      "newScenarioState": "FinalQuestion",
+      "newScenarioState": "AuthCode",
       "request": {
         "method": "GET",
         "url": "/question",
@@ -170,6 +164,25 @@
       },
       "response": {
         "status": 204
+      }
+    },
+    {
+      "scenarioName": "question-success",
+      "requiredScenarioState": "AuthCode",
+      "request": {
+        "method": "GET",
+        "urlPath": "/authorization-code",
+        "headers": {
+          "x-scenario-id": {
+            "equalTo": "question-success"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+          "authorization_code": "FACEFEED"
+        }
       }
     }
   ]

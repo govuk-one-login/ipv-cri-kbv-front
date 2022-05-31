@@ -7,6 +7,7 @@ module.exports = {
       AUTHORIZE: "/session",
       QUESTION: "/question",
       ANSWER: "/answer",
+      AUTHORIZATION_CODE: "/authorization-code",
     },
   },
   APP: {
