@@ -20,4 +20,4 @@ Feature: Happy path
       Given they have started the KBV journey
       And they should see the first question
       When they have answered all the questions successfully
-      Then they should see the done page
+      Then they should be redirected

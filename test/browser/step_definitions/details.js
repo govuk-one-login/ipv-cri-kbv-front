@@ -1,18 +1,23 @@
 const { Given, When, Then } = require("@cucumber/cucumber");
 
-const { DetailsPage } = require("../pages");
+const { RelyingPartyPage } = require("../pages");
+const { expect } = require("chai");
 
-Given(/^^([A-Za-z ])+is using the system$/, async function (name) {
+Given(/^([A-Za-z ])+is using the system$/, async function (name) {
   this.user = this.allUsers[name];
+  const rpPage = new RelyingPartyPage(this.page);
+
+  await rpPage.goto();
 });
 
 Given(
   "they have provided their details",
   { timeout: 10 * 1000 },
-  async function () {
-    const detailsPage = new DetailsPage(this.page);
-
-    await detailsPage.goto();
-    await detailsPage.fillOutDetails();
-  }
+  async function () {}
 );
+
+Then("they should be redirected", async function () {
+  const rpPage = new RelyingPartyPage(this.page);
+
+  expect(await rpPage.isRedirectPage()).to.be.true;
+});
