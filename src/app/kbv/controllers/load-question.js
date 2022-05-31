@@ -12,7 +12,7 @@ class LoadQuestionController extends BaseController {
       try {
         const apiResponse = await req.axios.get(`${QUESTION}`, {
           headers: {
-            session_Id: req.session.tokenId,
+            session_id: req.session.tokenId,
           },
         });
 
