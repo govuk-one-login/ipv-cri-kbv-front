@@ -78,7 +78,7 @@ class QuestionController extends BaseController {
           },
           {
             headers: {
-              session_id: req.session.tokenId,
+              "session-id": req.session.tokenId,
             },
           }
         );
@@ -87,7 +87,7 @@ class QuestionController extends BaseController {
 
         const nextQuestion = await req.axios.get(QUESTION, {
           headers: {
-            session_id: req.session.tokenId,
+            "session-id": req.session.tokenId,
           },
         });
 

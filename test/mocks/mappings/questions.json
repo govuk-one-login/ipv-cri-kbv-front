@@ -40,7 +40,7 @@
         "method": "GET",
         "url": "/question",
         "headers": {
-          "session_id": {
+          "session-id": {
             "equalTo": "ABADCAFE"
           },
           "x-scenario-id": {
@@ -76,7 +76,7 @@
         "method": "POST",
         "url": "/answer",
         "headers": {
-          "session_id": {
+          "session-id": {
             "equalTo": "ABADCAFE"
           },
           "x-scenario-id": {
@@ -98,7 +98,7 @@
         "method": "GET",
         "url": "/question",
         "headers": {
-          "session_id": {
+          "session-id": {
             "equalTo": "ABADCAFE"
           },
           "x-scenario-id": {
@@ -134,7 +134,7 @@
         "method": "POST",
         "url": "/answer",
         "headers": {
-          "session_id": {
+          "session-id": {
             "equalTo": "ABADCAFE"
           },
           "x-scenario-id": {
@@ -154,7 +154,7 @@
         "method": "GET",
         "url": "/question",
         "headers": {
-          "session_id": {
+          "session-id": {
             "equalTo": "ABADCAFE"
           },
           "x-scenario-id": {
@@ -173,6 +173,9 @@
         "method": "GET",
         "urlPath": "/authorization-code",
         "headers": {
+          "session_id": {
+            "equalTo": "ABADCAFE"
+          },
           "x-scenario-id": {
             "equalTo": "question-success"
           }

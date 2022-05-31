@@ -9,7 +9,9 @@ const {
 class DoneController extends BaseController {
   async saveValues(req, res, callback) {
     const authCode = await req.axios.get(AUTHORIZATION_CODE, {
-      session_id: req.session.tokenId,
+      headers: {
+        session_id: req.session.tokenId,
+      },
     });
 
     req.session.authParams.authorization_code =
