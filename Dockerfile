@@ -2,9 +2,9 @@ FROM node:16.14.2-alpine3.15@sha256:38bc06c682ae1f89f4c06a5f40f7a07ae438ca437a2a
 
 WORKDIR /app
 
-COPY /src ./src
 COPY .yarn ./.yarn
 COPY package.json yarn.lock .yarnrc.yml ./
+COPY /src ./src
 
 RUN yarn install
 RUN yarn build
@@ -24,9 +24,9 @@ WORKDIR /app
 # Copy in compile assets and deps from build container
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/dist ./dist
-COPY --from=builder /app/src ./src
 COPY --from=builder /app/package.json ./
 COPY --from=builder /app/yarn.lock ./
+COPY --from=builder /app/src ./src
 
 
 ENV PORT 8080
