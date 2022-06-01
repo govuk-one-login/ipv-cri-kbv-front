@@ -2,7 +2,7 @@ FROM node:16.14.2-alpine3.15@sha256:38bc06c682ae1f89f4c06a5f40f7a07ae438ca437a2a
 
 WORKDIR /app
 
-RUN [ "yarn", "set", "version", "1.22.17" ]
+RUN [ "yarn", "set", "version", "1.22.18" ]
 
 COPY .yarn ./.yarn
 COPY /src ./src
@@ -20,7 +20,7 @@ FROM node:16.14.2-alpine3.15@sha256:38bc06c682ae1f89f4c06a5f40f7a07ae438ca437a2a
 
 RUN ["apk", "--no-cache", "upgrade"]
 RUN ["apk", "add", "--no-cache", "tini"]
-RUN [ "yarn", "set", "version", "1.22.17" ]
+RUN [ "yarn", "set", "version", "1.22.18" ]
 
 WORKDIR /app
 
