@@ -198,11 +198,11 @@ Resources:
         - Key: Name
           Value: !Sub "${AWS::StackName}-ECSCluster"
         - Key: Product
-          Value: GOV.UK sign in
+          Value: "GOV.UK sign in"
         - Key: System
-          Value: KBV CRI
+          Value: "KBV CRI"
         - Key: Environment
-          Value: ${Environment}
+          Value: !Sub "${Environment}"
 
   KBVFrontEcsService:
     Type: 'AWS::ECS::Service'
@@ -237,11 +237,11 @@ Resources:
         - Key: Name
           Value: !Sub "${AWS::StackName}-ECS"
         - Key: Product
-          Value: GOV.UK sign in
+          Value: "GOV.UK sign in"
         - Key: System
-          Value: KBV CRI
+          Value: "KBV CRI"
         - Key: Environment
-          Value: ${Environment}
+          Value: !Sub "${Environment}"
     DependsOn:
       - LoadBalancerListener
 
@@ -287,11 +287,11 @@ Resources:
         - Key: Name
           Value: !Sub "${AWS::StackName}-TaskDefinition"
         - Key: Product
-          Value: GOV.UK sign in
+          Value: "GOV.UK sign in"
         - Key: System
-          Value: KBV CRI
+          Value: "KBV CRI"
         - Key: Environment
-          Value: ${Environment}
+          Value: !Sub "${Environment}"
 
   ECSTaskExecutionRole:
     Type: 'AWS::IAM::Role'
@@ -353,7 +353,9 @@ Resources:
       Properties:
         ApiId: !Ref ApiGwHttpEndpoint
         IntegrationType: HTTP_PROXY
-        ConnectionId: dy3f8m
+        ConnectionId:
+          Fn::ImportValue:
+            !Sub "${VpcStackName}-VpcLinkId"
         ConnectionType: VPC_LINK
         IntegrationMethod: ANY
         IntegrationUri: !Ref LoadBalancerListener
