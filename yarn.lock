@@ -1353,9 +1353,9 @@ destroy@~1.0.4:
   resolved "https://registry.yarnpkg.com/destroy/-/destroy-1.0.4.tgz#978857442c44749e4206613e37946205826abd80"
   integrity sha1-l4hXRCxEdJ5CBmE+N5RiBYJqvYA=
 
-di-ipv-cri-common-express@alphagov/di-ipv-cri-common-express.git#v0.0.5:
-  version "0.0.5"
-  resolved "https://codeload.github.com/alphagov/di-ipv-cri-common-express/tar.gz/ed438d1a0dd24e91d38a5180f5f01acd0af8ac36"
+di-ipv-cri-common-express@alphagov/di-ipv-cri-common-express.git#v0.0.6:
+  version "0.0.6"
+  resolved "https://codeload.github.com/alphagov/di-ipv-cri-common-express/tar.gz/f83e4a8202d55a52bc85e866be2f1ef8c84f515a"
 
 diff@5.0.0, diff@^5.0.0:
   version "5.0.0"
