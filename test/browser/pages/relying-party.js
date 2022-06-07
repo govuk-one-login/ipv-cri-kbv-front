@@ -14,6 +14,12 @@ module.exports = class PlaywrightDevPage {
   }
 
   async isRedirectPage() {
-    return await this.page.url().startsWith("http://example.net");
+    const url = this.page.url();
+
+    const isCorrectPage =
+      url.startsWith("http://example.net") &&
+      url.endsWith("client_id=standalone&state=sT%40t3&code=FACEFEED");
+
+    return isCorrectPage;
   }
 };

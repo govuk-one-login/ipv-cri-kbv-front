@@ -1,4 +1,3 @@
-const done = require("./controllers/done");
 const question = require("./controllers/question");
 const loadQuestion = require("./controllers/load-question");
 
@@ -20,8 +19,8 @@ module.exports = {
     next: question.prototype.next,
   },
   "/done": {
-    controller: done,
     skip: true,
+    noPost: true,
     next: "/oauth2/callback",
   },
 };
