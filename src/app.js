@@ -48,7 +48,7 @@ app.get("nunjucks").addGlobal("getContext", function () {
 setAPIConfig({
   app,
   baseUrl: API.BASE_URL,
-  authorizePath: API.PATHS.AUTHORIZE,
+  sessionPath: API.PATHS.SESSION,
 });
 
 setOAuthPaths({ app, entryPointPath: APP.PATHS.KBV });
