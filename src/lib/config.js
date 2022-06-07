@@ -4,7 +4,7 @@ module.exports = {
   API: {
     BASE_URL: process.env.API_BASE_URL || "http://localhost:5007",
     PATHS: {
-      AUTHORIZE: "/session",
+      SESSION: "/session",
       QUESTION: "/question",
       ANSWER: "/answer",
       AUTHORIZATION_CODE: "/authorization-code",

@@ -19,13 +19,10 @@ describe("settings", () => {
       );
     });
 
-    it("should set 'API.PATHS.AUTHORIZE", () => {
-      setAPIConfig({ app, authorizePath: "/api/auth" });
+    it("should set 'API.PATHS.SESSION", () => {
+      setAPIConfig({ app, sessionPath: "/api/auth" });
 
-      expect(app.set).to.have.been.calledWith(
-        "API.PATHS.AUTHORIZE",
-        "/api/auth"
-      );
+      expect(app.set).to.have.been.calledWith("API.PATHS.SESSION", "/api/auth");
     });
   });
 
