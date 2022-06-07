@@ -47,7 +47,8 @@ jobs:
         run: |
           cd ${GITHUB_WORKSPACE}/deploy || exit 1
           sam build
-          zip template.zip .aws-sam/build/template.yaml
+          mv .aws-sam/build/template.yaml cf-template.yaml
+          zip template.zip cf-template.yaml
 
       - name: Upload CloudFormation artifacts to S3
         env:
