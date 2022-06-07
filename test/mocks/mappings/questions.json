@@ -173,7 +173,7 @@
         "method": "GET",
         "urlPath": "/authorization",
         "headers": {
-          "session_id": {
+          "session-id": {
             "equalTo": "ABADCAFE"
           },
           "x-scenario-id": {
