@@ -3,15 +3,15 @@ AWSTemplateFormatVersion: "2010-09-09"
 Transform:
   - AWS::Serverless-2016-10-31
 Description: >-
-  This creates the necessary components to deploy Address CRI Frontend onto ECS
+  This creates the necessary components to deploy KBV CRI Frontend onto ECS
   Fargate within an existing VPC and private subnets (imported parameters).
-  Address Front can be invoked via the public API Gateway on the url in the
-  AddressFrontUrl output.
+  KBV Front can be invoked via the public API Gateway on the url in the
+  KBVFrontUrl output.
 
   The ingress route in summary is: API Gateway -> VPC link -> Private ALB ->
-  Address Front ECS Service
+  KBV Front ECS Service
 
-  Address Front egress to Address API's API Gateway is via a NAT Gateway which
+  KBV Front egress to KBV API's API Gateway is via a NAT Gateway which
   should have a route in the provided private subnets' route table.
 
 Parameters:
@@ -53,7 +53,7 @@ Resources:
     Type: 'AWS::EC2::SecurityGroup'
     Properties:
       GroupDescription: >-
-        Address Front LoadBalancer Security Group
+        KBV Front LoadBalancer Security Group
       SecurityGroupIngress:
         - CidrIp: 0.0.0.0/0
           Description: Allow from anyone on port 80
@@ -70,8 +70,8 @@ Resources:
       GroupId: !GetAtt LoadBalancerSG.GroupId
       IpProtocol: tcp
       Description: >-
-        Egress between the Address Front load balancer and
-        the Address Front ECS security group
+        Egress between the KBV Front load balancer and
+        the KBV Front ECS security group
       DestinationSecurityGroupId: !GetAtt ECSSecurityGroup.GroupId
       FromPort: 8080
       ToPort: 8080
@@ -80,7 +80,7 @@ Resources:
     Type: 'AWS::EC2::SecurityGroup'
     Properties:
       GroupDescription: >-
-        Address Front ECS Security Group permitting outbound
+        KBV Front ECS Security Group permitting outbound
         to anywhere.
       SecurityGroupEgress:
         - CidrIp: 0.0.0.0/0
@@ -95,7 +95,7 @@ Resources:
     Properties:
       IpProtocol: tcp
       Description: >-
-        Address Front ECS permits inbound from the Address Front
+        KBV Front ECS permits inbound from the KBV Front
         load balancer.
       FromPort: 8080
       ToPort: 8080
@@ -106,7 +106,7 @@ Resources:
     Condition: IsNotDevelopment
     Type: AWS::S3::Bucket
     Properties:
-      BucketName: !Sub address-cri-front-${Environment}-access-logs
+      BucketName: !Sub KBV-cri-front-${Environment}-access-logs
       VersioningConfiguration:
         Status: "Enabled"
       PublicAccessBlockConfiguration:
@@ -119,7 +119,7 @@ Resources:
           - ServerSideEncryptionByDefault:
               SSEAlgorithm: AES256
 
-  AddressFrontAccessLogsBucketPolicy:
+  KBVFrontAccessLogsBucketPolicy:
     Condition: IsNotDevelopment
     Type: AWS::S3::BucketPolicy
     Properties:
@@ -135,7 +135,7 @@ Resources:
             Action:
               - s3:PutObject
             Resource:
-              - !Sub arn:aws:s3:::${AccessLogsBucket}/address-front-${Environment}/AWSLogs/${AWS::AccountId}/*
+              - !Sub arn:aws:s3:::${AccessLogsBucket}/KBV-front-${Environment}/AWSLogs/${AWS::AccountId}/*
 
   # Private Application Load Balancer
   LoadBalancer:
@@ -157,7 +157,7 @@ Resources:
           - Key: access_logs.s3.bucket
             Value: !Ref AccessLogsBucket
           - Key: access_logs.s3.prefix
-            Value: !Sub address-front-${Environment}
+            Value: !Sub KBV-front-${Environment}
         - !Ref AWS::NoValue
 
   LoadBalancerListenerTargetGroupECS:
@@ -188,7 +188,7 @@ Resources:
       Protocol: HTTP
 
   # ECS cluster, service and task definition
-  AddressFrontEcsCluster:
+  KBVFrontEcsCluster:
     Type: 'AWS::ECS::Cluster'
     Properties:
       ClusterSettings:
@@ -200,14 +200,14 @@ Resources:
         - Key: Product
           Value: GOV.UK sign in
         - Key: System
-          Value: Address CRI
+          Value: KBV CRI
         - Key: Environment
           Value: ${Environment}
 
-  AddressFrontEcsService:
+  KBVFrontEcsService:
     Type: 'AWS::ECS::Service'
     Properties:
-      Cluster: !Ref AddressFrontEcsCluster
+      Cluster: !Ref KBVFrontEcsCluster
       DeploymentConfiguration:
         MaximumPercent: 200
         MinimumHealthyPercent: 50
@@ -239,7 +239,7 @@ Resources:
         - Key: Product
           Value: GOV.UK sign in
         - Key: System
-          Value: Address CRI
+          Value: KBV CRI
         - Key: Environment
           Value: ${Environment}
     DependsOn:
@@ -248,7 +248,7 @@ Resources:
   ECSAccessLogsGroup:
     Type: AWS::Logs::LogGroup
     Properties:
-      LogGroupName: !Sub /aws/ecs/${AWS::StackName}-AddressFront-ECS
+      LogGroupName: !Sub /aws/ecs/${AWS::StackName}-KBVFront-ECS
       RetentionInDays: 14
 
   ECSServiceTaskDefinition:
@@ -263,7 +263,7 @@ Resources:
               Value: !Sub
                   - "https://${APIGatewayId}.execute-api.eu-west-2.amazonaws.com/${Environment}"
                   - APIGatewayId:
-                      Fn::ImportValue: address-cri-api-AddressApiGatewayId
+                      Fn::ImportValue: KBV-cri-api-KBVApiGatewayId
                     Environment: !Ref Environment
             - Name: EXTERNAL_WEBSITE_HOST
               Value: !GetAtt ApiGwHttpEndpoint.ApiEndpoint
@@ -275,7 +275,7 @@ Resources:
             Options:
               awslogs-group : !Ref ECSAccessLogsGroup
               awslogs-region : !Sub ${AWS::Region}
-              awslogs-stream-prefix : !Sub address-front-${Environment}
+              awslogs-stream-prefix : !Sub KBV-front-${Environment}
       Cpu: '256'
       ExecutionRoleArn: !GetAtt ECSTaskExecutionRole.Arn
       Memory: '512'
@@ -289,7 +289,7 @@ Resources:
         - Key: Product
           Value: GOV.UK sign in
         - Key: System
-          Value: Address CRI
+          Value: KBV CRI
         - Key: Environment
           Value: ${Environment}
 
@@ -304,7 +304,7 @@ Resources:
               Service: ecs-tasks.amazonaws.com
         Version: 2012-10-17
       Policies:
-        - PolicyName: PullAddressFrontImage
+        - PolicyName: PullKBVFrontImage
           PolicyDocument:
             Version: "2012-10-17"
             Statement:
@@ -345,7 +345,7 @@ Resources:
   ApiGwHttpEndpoint:
       Type: 'AWS::ApiGatewayV2::Api'
       Properties:
-          Name: !Sub address-front-${Environment}
+          Name: !Sub KBV-front-${Environment}
           ProtocolType: HTTP
 
   ApiGwHttpEndpointIntegration:
@@ -393,15 +393,15 @@ Resources:
   APIGWAccessLogsGroup:
     Type: AWS::Logs::LogGroup
     Properties:
-      LogGroupName: !Sub /aws/apigateway/${AWS::StackName}-AddressFront-API-GW-AccessLogs
+      LogGroupName: !Sub /aws/apigateway/${AWS::StackName}-KBVFront-API-GW-AccessLogs
 
 Outputs:
-  AddressFrontUrl:
+  KBVFrontUrl:
     Description: >-
-      The API Gateway URL which Address Front can be invoked on.
+      The API Gateway URL which KBV Front can be invoked on.
     Value: !GetAtt  ApiGwHttpEndpoint.ApiEndpoint
-  AddressFrontGatewayId:
-    Description: Address Front API Gateway ID
+  KBVFrontGatewayId:
+    Description: KBV Front API Gateway ID
     Export:
-      Name: !Sub "${AWS::StackName}-AddressFrontGatewayId"
+      Name: !Sub "${AWS::StackName}-KBVFrontGatewayId"
     Value: !Ref ApiGwHttpEndpoint
