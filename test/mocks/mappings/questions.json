@@ -170,7 +170,7 @@
       "scenarioName": "question-success",
       "requiredScenarioState": "AuthCode",
       "request": {
-        "method": "POST",
+        "method": "GET",
         "urlPath": "/authorization",
         "headers": {
           "session_id": {
@@ -184,7 +184,7 @@
       "response": {
         "status": 200,
         "jsonBody": {
-          "authorization_code": "FACEFEED"
+          "authorizationCode": "FACEFEED"
         }
       }
     }
