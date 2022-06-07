@@ -1,4 +1,5 @@
 module.exports = {
+  CheckPage: require("./check"),
   DetailsPage: require("./details.js"),
   DonePage: require("./done.js"),
   QuestionPage: require("./question.js"),
