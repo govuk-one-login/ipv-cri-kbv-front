@@ -184,7 +184,9 @@
       "response": {
         "status": 200,
         "jsonBody": {
-          "authorizationCode": "FACEFEED"
+          "authorizationCode": {
+            "value": "FACEFEED"
+          }
         }
       }
     }
