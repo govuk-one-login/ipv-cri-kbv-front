@@ -41,7 +41,7 @@ jobs:
           DEV_ECR_REPOSITORY: ${{ secrets.DEV_ECR_REPOSITORY }}
         run: |
           cd ${GITHUB_WORKSPACE}/deploy || exit 1
-          sed -i "s|CONTAINER-IMAGE-PLACEHOLDER|$DEV_ECR_REGISTRY/$DEV_ECR_REPOSITORY:$GITHUB_SHA|" cf-template.yaml
+          sed -i "s|CONTAINER-IMAGE-PLACEHOLDER|$DEV_ECR_REGISTRY/$DEV_ECR_REPOSITORY:$GITHUB_SHA|" template.yaml
 
       - name: Create template.yaml and sha zip file
         run: |
