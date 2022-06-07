@@ -2,7 +2,7 @@ name: Docker build, ECR push, template copy to S3
 on:
   push:
     branches:
-      - main
+      - KBV-459-CFN-Template-For-Fargate
 
 jobs:
   dockerBuildAndPush:
@@ -41,11 +41,13 @@ jobs:
           ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY }}
         run: |
           cd ${GITHUB_WORKSPACE}/deploy || exit 1
-          sed -i "s|CONTAINER-IMAGE-PLACEHOLDER|$ECR_REGISTRY/$ECR_REPOSITORY:$GITHUB_SHA|" cf-template.yaml
+          sed -i "s|CONTAINER-IMAGE-PLACEHOLDER|$ECR_REGISTRY/$ECR_REPOSITORY:$GITHUB_SHA|" template.yaml
 
-      - name: Create template.yaml and sha zip file and upload to artifacts S3
+      - name: Create cf-template.yaml and zip
         run: |
           cd ${GITHUB_WORKSPACE}/deploy || exit 1
+          sam build
+          mv .aws-sam/build/template.yaml cf-template.yaml
           zip template.zip cf-template.yaml
 
       - name: Upload CloudFormation artifacts to S3

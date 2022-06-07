@@ -43,7 +43,7 @@ jobs:
           cd ${GITHUB_WORKSPACE}/deploy || exit 1
           sed -i "s|CONTAINER-IMAGE-PLACEHOLDER|$DEV_ECR_REGISTRY/$DEV_ECR_REPOSITORY:$GITHUB_SHA|" template.yaml
 
-      - name: Create template.yaml and sha zip file
+      - name: Create cf-template.yaml and zip
         run: |
           cd ${GITHUB_WORKSPACE}/deploy || exit 1
           sam build
