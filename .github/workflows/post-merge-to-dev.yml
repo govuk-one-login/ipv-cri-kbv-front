@@ -43,10 +43,11 @@ jobs:
           cd ${GITHUB_WORKSPACE}/deploy || exit 1
           sed -i "s|CONTAINER-IMAGE-PLACEHOLDER|$DEV_ECR_REGISTRY/$DEV_ECR_REPOSITORY:$GITHUB_SHA|" cf-template.yaml
 
-      - name: Create template.yaml and sha zip file and upload to artifacts S3
+      - name: Create template.yaml and sha zip file
         run: |
           cd ${GITHUB_WORKSPACE}/deploy || exit 1
-          zip template.zip cf-template.yaml
+          sam build
+          zip template.zip .aws-sam/build/template.yaml
 
       - name: Upload CloudFormation artifacts to S3
         env:
