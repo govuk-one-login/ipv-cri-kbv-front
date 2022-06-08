@@ -59,7 +59,6 @@ router.use(setAxiosDefaults);
 
 router.use("/oauth2", commonExpress.routes.oauth2);
 
-router.use("/details", require("./app/details"));
 router.use("/kbv", require("./app/kbv"));
 
 router.use("^/$", (req, res) => {
