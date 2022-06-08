@@ -19,12 +19,21 @@ describe("settings", () => {
       );
     });
 
-    it("should set 'API.PATHS.AUTHORIZE", () => {
-      setAPIConfig({ app, authorizePath: "/api/auth" });
+    it("should set 'API.PATHS.SESSION", () => {
+      setAPIConfig({ app, sessionPath: "/api/session" });
 
       expect(app.set).to.have.been.calledWith(
-        "API.PATHS.AUTHORIZE",
-        "/api/auth"
+        "API.PATHS.SESSION",
+        "/api/session"
+      );
+    });
+
+    it("should set 'API.PATHS.SESSION", () => {
+      setAPIConfig({ app, authorizationPath: "/api/authorization" });
+
+      expect(app.set).to.have.been.calledWith(
+        "API.PATHS.AUTHORIZATION",
+        "/api/authorization"
       );
     });
   });

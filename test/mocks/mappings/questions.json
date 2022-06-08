@@ -171,9 +171,9 @@
       "requiredScenarioState": "AuthCode",
       "request": {
         "method": "GET",
-        "urlPath": "/authorization-code",
+        "urlPath": "/authorization",
         "headers": {
-          "session_id": {
+          "session-id": {
             "equalTo": "ABADCAFE"
           },
           "x-scenario-id": {
@@ -184,7 +184,9 @@
       "response": {
         "status": 200,
         "jsonBody": {
-          "authorization_code": "FACEFEED"
+          "authorizationCode": {
+            "value": "FACEFEED"
+          }
         }
       }
     }
