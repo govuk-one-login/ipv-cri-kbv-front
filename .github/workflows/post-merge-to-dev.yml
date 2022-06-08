@@ -43,6 +43,9 @@ jobs:
           cd ${GITHUB_WORKSPACE}/deploy || exit 1
           sed -i "s|CONTAINER-IMAGE-PLACEHOLDER|$DEV_ECR_REGISTRY/$DEV_ECR_REPOSITORY:$GITHUB_SHA|" template.yaml
 
+      - name: SAM Validate
+        run: sam validate --region ${{ env.AWS_REGION }} -t deploy/template.yaml
+
       - name: Create cf-template.yaml and zip
         run: |
           cd ${GITHUB_WORKSPACE}/deploy || exit 1
