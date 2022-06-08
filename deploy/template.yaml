@@ -157,7 +157,7 @@ Resources:
           - Key: access_logs.s3.bucket
             Value: !Ref AccessLogsBucket
           - Key: access_logs.s3.prefix
-            Value: !Sub KBV-front-${Environment}
+            Value: !Sub kbv-front-${Environment}
         - !Ref AWS::NoValue
 
   LoadBalancerListenerTargetGroupECS:
@@ -275,7 +275,7 @@ Resources:
             Options:
               awslogs-group : !Ref ECSAccessLogsGroup
               awslogs-region : !Sub ${AWS::Region}
-              awslogs-stream-prefix : !Sub KBV-front-${Environment}
+              awslogs-stream-prefix : !Sub kbv-front-${Environment}
       Cpu: '256'
       ExecutionRoleArn: !GetAtt ECSTaskExecutionRole.Arn
       Memory: '512'
