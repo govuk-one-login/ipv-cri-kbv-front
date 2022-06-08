@@ -2,7 +2,7 @@ name: Docker build, ECR push, template copy to S3
 on:
   push:
     branches:
-      - KBV-459-CFN-Template-For-Fargate
+      - main
 
 jobs:
   dockerBuildAndPush:
@@ -42,7 +42,7 @@ jobs:
         run: |
           cd ${GITHUB_WORKSPACE}/deploy || exit 1
           sed -i "s|CONTAINER-IMAGE-PLACEHOLDER|$ECR_REGISTRY/$ECR_REPOSITORY:$GITHUB_SHA|" template.yaml
-          
+
       - name: SAM Validate
         run: sam validate --region ${{ env.AWS_REGION }} -t deploy/template.yaml
 

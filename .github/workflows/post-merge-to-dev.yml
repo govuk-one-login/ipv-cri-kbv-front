@@ -2,7 +2,7 @@ name: Development Docker build, ECR push, template copy to S3
 on:
   push:
     branches:
-      - KBV-459-CFN-Template-For-Fargate
+      - main
 
 jobs:
   dockerBuildAndPush:
