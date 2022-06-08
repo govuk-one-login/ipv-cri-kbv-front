@@ -2,9 +2,23 @@ const { Given, When, Then } = require("@cucumber/cucumber");
 
 const { expect } = require("chai");
 
-const { QuestionPage, DonePage } = require("../pages");
+const { CheckPage, QuestionPage, DonePage } = require("../pages");
 
 When(/^they (?:have )?start(?:ed)? the KBV journey$/, async function () {});
+
+Given(/they (?:can )?see? the check page$/, async function () {
+  const checkPage = new CheckPage(this.page);
+
+  expect(checkPage.isCurrentPage()).to.be.true;
+});
+
+Given(/^they (?:have )?continue(?:d)? to questions$/, async function () {
+  const checkPage = new CheckPage(this.page);
+
+  expect(checkPage.isCurrentPage()).to.be.true;
+
+  await checkPage.continue();
+});
 
 Then("they should see the first question", async function () {
   const questionPage = new QuestionPage(this.page);
