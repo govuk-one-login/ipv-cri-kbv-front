@@ -157,7 +157,7 @@ Resources:
           - Key: access_logs.s3.bucket
             Value: !Ref AccessLogsBucket
           - Key: access_logs.s3.prefix
-            Value: !Sub KBV-front-${Environment}
+            Value: !Sub kbv-front-${Environment}
         - !Ref AWS::NoValue
 
   LoadBalancerListenerTargetGroupECS:
