@@ -7,7 +7,7 @@ module.exports = {
     reset: true,
     entryPoint: true,
     skip: true,
-    next: "check",
+    next: "load-question",
   },
   "/check": {
     next: "load-question",

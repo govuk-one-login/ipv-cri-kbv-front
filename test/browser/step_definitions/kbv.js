@@ -13,11 +13,11 @@ Given(/they (?:can )?see? the check page$/, async function () {
 });
 
 Given(/^they (?:have )?continue(?:d)? to questions$/, async function () {
-  const checkPage = new CheckPage(this.page);
-
-  expect(checkPage.isCurrentPage()).to.be.true;
-
-  await checkPage.continue();
+  // const checkPage = new CheckPage(this.page);
+  //
+  // expect(checkPage.isCurrentPage()).to.be.true;
+  //
+  // await checkPage.continue();
 });
 
 Then("they should see the first question", async function () {

@@ -9,7 +9,7 @@ Feature: Happy path
 
   Scenario: Display check page and first question
     Given they have started the KBV journey
-    And they can see the check page
+#    And they can see the check page
     When they continue to questions
     Then they should see the first question
 
