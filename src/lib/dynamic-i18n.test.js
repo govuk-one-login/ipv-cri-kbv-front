@@ -19,7 +19,7 @@ describe("dynamic-i18n", () => {
         },
       } = dynamicTranslate.buildOverrideTranslations(question);
 
-      expect(content).to.equal(`${question.text} #question`);
+      expect(content).to.equal(`${question.text}`);
     });
 
     it("should use question.text for legend", () => {
@@ -29,7 +29,7 @@ describe("dynamic-i18n", () => {
         },
       } = dynamicTranslate.buildOverrideTranslations(question);
 
-      expect(legend).to.equal(`${question.text} #legend`);
+      expect(legend).to.equal(`${question.text}`);
     });
 
     it("should use question.text for label", () => {
@@ -39,7 +39,7 @@ describe("dynamic-i18n", () => {
         },
       } = dynamicTranslate.buildOverrideTranslations(question);
 
-      expect(label).to.equal(`${question.text} #label`);
+      expect(label).to.equal(`${question.text}`);
     });
     it("should use question.toolTip for hint", () => {
       const {
@@ -48,7 +48,7 @@ describe("dynamic-i18n", () => {
         },
       } = dynamicTranslate.buildOverrideTranslations(question);
 
-      expect(hint).to.equal(`${question.toolTip} #hint`);
+      expect(hint).to.equal(`${question.toolTip}`);
     });
     it("should use i18n for default validation error", () => {
       const {
@@ -77,8 +77,8 @@ describe("dynamic-i18n", () => {
         expect(items.DEF.value).to.equal("DEF");
       });
       it("should use capitalised answer for label", () => {
-        expect(items.ABC.label).to.equal("Abc #answer");
-        expect(items.DEF.label).to.equal("Def #answer");
+        expect(items.ABC.label).to.equal("Abc");
+        expect(items.DEF.label).to.equal("Def");
       });
     });
 
