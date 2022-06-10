@@ -21,11 +21,11 @@ class QuestionController extends BaseController {
     debug(Object.keys(req.session));
     debug(req.session.question);
 
-    const overrideTranslations = dynamicTranslate.buildFallbackTranslations(
+    const overrideTranslations = dynamicTranslate.buildOverrideTranslations(
       req.session.question
     );
 
-    req.form.options.fields[req.session.question.questionID] = {
+    req.form.options.fields.question = {
       label:
         overrideTranslations?.fields?.question?.legend ||
         req.session.question.text,

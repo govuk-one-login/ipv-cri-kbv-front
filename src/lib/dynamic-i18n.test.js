@@ -1,6 +1,6 @@
 const dynamicTranslate = require("./dynamic-i18n");
 
-describe.skip("dynamic-i18n", () => {
+describe("dynamic-i18n", () => {
   describe("#buildOverrideTranslations", () => {
     let question;
     beforeEach(() => {
