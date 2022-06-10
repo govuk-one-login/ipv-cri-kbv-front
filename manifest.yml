@@ -8,3 +8,4 @@ applications:
     command: yarn start
     env:
       API_BASE_URL: ((api-gateway-url))
+      DEBUG: "hmpo*"
