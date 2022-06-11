@@ -95,7 +95,7 @@ class QuestionController extends BaseController {
           req.session.question = nextQuestion.data;
         }
       } catch (e) {
-        callback(e);
+        return callback(e);
       }
 
       callback();

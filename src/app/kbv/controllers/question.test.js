@@ -83,24 +83,110 @@ describe("Question controller", () => {
     beforeEach(() => {
       prototypeSpy = sinon.stub(BaseController.prototype, "saveValues");
       BaseController.prototype.saveValues.callThrough();
+
+      req.session.question = { questionID: "Q1" };
+      req.session.tokenId = "abcdef";
+      req.sessionModel.set("question", "A1");
     });
 
     afterEach(() => {
       prototypeSpy.restore();
     });
 
-    it("should call super.saveValues first with callback", () => {
-      // const question = new QuestionController({ route: "/test" });
-      questionController.saveValues(req, res, next);
+    it("should call super.saveValues first with callback", async () => {
+      await questionController.saveValues(req, res, next);
 
       expect(prototypeSpy).to.have.been.calledBefore(next);
     });
-    it("should post to answer");
-    it("should get next question");
-    it("should use callback");
-    context("on post answer error", () => {});
-    context("on get question error", () => {});
-    context("on get question complete", () => {});
+
+    it("should call next with error when super.saveValues has an error", async () => {
+      const error = new Error("Random error");
+      BaseController.prototype.saveValues.callsArgWith(2, error, next);
+
+      await questionController.saveValues(req, res, next);
+
+      expect(next).to.have.been.calledWith(error);
+    });
+
+    it("should post to answer", async () => {
+      await questionController.saveValues(req, res, next);
+
+      expect(req.axios.post).to.have.been.calledWith(
+        "/answer",
+        { questionId: "Q1", answer: "A1" },
+        { headers: { "session-id": "abcdef" } }
+      );
+    });
+
+    it("should get next question", async () => {
+      req.axios.post = sinon.fake.returns({});
+      req.axios.get = sinon.fake.returns({
+        data: { questionId: 1 },
+      });
+
+      await questionController.saveValues(req, res, next);
+
+      expect(req.axios.post).to.have.been.called;
+      expect(req.axios.post).to.have.been.called;
+
+      expect(req.axios.get).to.have.been.called;
+      expect(req.axios.get).to.have.been.calledWith("/question", {
+        headers: { "session-id": "abcdef" },
+      });
+    });
+
+    context("on post answer error", () => {
+      let error;
+
+      beforeEach(async () => {
+        error = new Error("Random error");
+        req.axios.post = sinon.fake.rejects(error);
+
+        await questionController.saveValues(req, res, next);
+      });
+
+      it("should call callback with error", () => {
+        expect(next).to.have.been.calledWith(error);
+      });
+      it("should call callback once", () => {
+        expect(next).to.have.been.calledOnce;
+      });
+    });
+
+    context("on get question error", () => {
+      let error;
+
+      beforeEach(async () => {
+        error = new Error("Random error");
+
+        req.axios.post = sinon.fake.returns(200);
+        req.axios.get = sinon.fake.rejects(error);
+
+        await questionController.saveValues(req, res, next);
+      });
+
+      it("should call callback with error", () => {
+        expect(next).to.have.been.calledWith(error);
+      });
+      it("should call callback once", () => {
+        expect(next).to.have.been.calledOnce;
+      });
+    });
+    context("on get question complete", () => {
+      beforeEach(async () => {
+        req.axios.post = sinon.fake.resolves(200);
+        req.axios.get = sinon.fake.resolves({ data: {} });
+
+        await questionController.saveValues(req, res, next);
+      });
+
+      it("should call callback", () => {
+        expect(next).to.have.been.calledWith();
+      });
+      it("should call callback once", () => {
+        expect(next).to.have.been.calledOnce;
+      });
+    });
   });
 
   describe("#next", () => {
