@@ -22,7 +22,16 @@
           "x-scenario-id": {
             "equalTo": "question-success"
           }
-        }
+        },
+        "bodyPatterns": [
+          {
+            "equalToJson": {
+              "request": "${json-unit.any-string}",
+              "client_id": "${json-unit.any-string}"
+            },
+            "ignoreArrayOrder": true
+          }
+        ]
       },
       "response": {
         "status": 200,
@@ -85,7 +94,16 @@
           "Content-Type": {
             "equalTo": "application/json"
           }
-        }
+        },
+        "bodyPatterns": [
+          {
+            "equalToJson": {
+              "questionId": "Q00059",
+              "answer": "${json-unit.any-string}"
+            },
+            "ignoreArrayOrder": true
+          }
+        ]
       },
       "response": {
         "status": 200
@@ -140,7 +158,16 @@
           "x-scenario-id": {
             "equalTo": "question-success"
           }
-        }
+        },
+        "bodyPatterns": [
+          {
+            "equalToJson": {
+              "questionId": "Q00039",
+              "answer": "${json-unit.any-string}"
+            },
+            "ignoreArrayOrder": true
+          }
+        ]
       },
       "response": {
         "status": 200
