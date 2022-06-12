@@ -1,8 +1,9 @@
+const proxyquire = require("proxyquire").noCallThru();
 const BaseController = require("hmpo-form-wizard").Controller;
 const QuestionController = require("./question");
 
 describe("Question controller", () => {
-  const questionController = new QuestionController({ route: "/test" });
+  let questionController;
 
   let req;
   let res;
@@ -13,6 +14,8 @@ describe("Question controller", () => {
     req = setup.req;
     res = setup.res;
     next = setup.next;
+
+    questionController = new QuestionController({ route: "/test" });
   });
 
   it("should be an instance of BaseController", () => {
@@ -20,10 +23,70 @@ describe("Question controller", () => {
   });
 
   describe("#configure", () => {
-    it("should build override translations");
-    it("should add question as req.form.options");
-    it("should add override translate as req.form.options");
-    it("should call super.configure");
+    let buildOverrideTranslationsStub;
+    let translateWrapperStub;
+    let ProxiedQuestionController;
+    let prototypeSpy;
+
+    beforeEach(() => {
+      buildOverrideTranslationsStub = sinon.fake();
+      translateWrapperStub = sinon.fake();
+
+      req.form.options = {
+        fields: {},
+      };
+
+      req.session.question = {
+        questionID: "Q1",
+        legend: "l",
+        text: "t",
+        t: "t",
+        answerFormat: {
+          identifier: "A9",
+          fieldType: "G",
+          answerList: ["V1", "V2", "V3"],
+        },
+      };
+
+      prototypeSpy = sinon.stub(BaseController.prototype, "configure");
+      BaseController.prototype.configure.callThrough();
+
+      ProxiedQuestionController = proxyquire("./question", {
+        "../../../lib/dynamic-i18n": {
+          buildOverrideTranslations: buildOverrideTranslationsStub,
+          translateWrapper: translateWrapperStub,
+        },
+      });
+
+      questionController = new ProxiedQuestionController({ route: "/test" });
+
+      questionController.configure(req, res, next);
+    });
+
+    afterEach(() => {
+      prototypeSpy.restore();
+    });
+
+    it("should build override translations", () => {
+      expect(buildOverrideTranslationsStub).to.have.been.called;
+    });
+    it("should add question as req.form.options", () => {
+      expect(req.form.options.fields.question).to.deep.equal({
+        label: "t",
+        type: "radios",
+        validate: ["required"],
+        fieldset: {
+          legend: {
+            text: `fields.questionX.legend`,
+          },
+        },
+        items: ["V1", "V2", "V3"],
+      });
+    });
+
+    it("should call super.configure", () => {
+      expect(prototypeSpy).to.have.been.calledWith(req, res, next);
+    });
   });
 
   describe("#locals", () => {
