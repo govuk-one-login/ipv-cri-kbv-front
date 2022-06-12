@@ -9,13 +9,13 @@ const {
 
 class QuestionController extends BaseController {
   configure(req, res, next) {
-    const overrideTranslations = dynamicTranslate.buildOverrideTranslations(
+    const fallbackTranslations = dynamicTranslate.buildFallbackTranslations(
       req.session.question
     );
 
-    req.form.options.fields.question = {
+    req.form.options.fields[req.session.question.questionID] = {
       label:
-        overrideTranslations?.fields?.question?.legend ||
+        fallbackTranslations?.fields?.question?.legend ||
         req.session.question.text,
       type: "radios",
       validate: ["required"],
@@ -31,7 +31,7 @@ class QuestionController extends BaseController {
 
     req.form.options.translate = dynamicTranslate.translateWrapper(
       req.translate,
-      overrideTranslations
+      fallbackTranslations
     );
 
     super.configure(req, res, next);
@@ -58,7 +58,7 @@ class QuestionController extends BaseController {
           ANSWER,
           {
             questionId: req.session.question.questionID,
-            answer: req.sessionModel.get("question"),
+            answer: req.sessionModel.get(req.session.question.questionID),
           },
           {
             headers: {
