@@ -1,8 +1,6 @@
 const dynamicTranslate = require("../../../lib/dynamic-i18n");
 const BaseController = require("hmpo-form-wizard").Controller;
 
-const debug = require("debug")("app:simplified:question:ctrl");
-
 const {
   API: {
     PATHS: { QUESTION, ANSWER },
@@ -11,16 +9,6 @@ const {
 
 class QuestionController extends BaseController {
   configure(req, res, next) {
-    debug(req.session?.scenarioID);
-    debug(req.modelOptions());
-
-    // debug(this.options);
-    // debug(req.form.options);
-    // debug(req.form.options.translate);
-    // debug(req.translate);
-    debug(Object.keys(req.session));
-    debug(req.session.question);
-
     const overrideTranslations = dynamicTranslate.buildOverrideTranslations(
       req.session.question
     );
@@ -37,13 +25,9 @@ class QuestionController extends BaseController {
         },
       },
       items: req.session.question.answerFormat.answerList.map(
-        // (answer) => `answer-${answer.replaceAll(/[^a-z0-9]*/gi, "")}`
-
         (answer) => answer
       ),
     };
-
-    debug(overrideTranslations);
 
     req.form.options.translate = dynamicTranslate.translateWrapper(
       req.translate,
