@@ -60,17 +60,17 @@
       "response": {
         "status": 200,
         "jsonBody": {
-          "questionID": "Q00059",
-          "text": "What are the last 4 digits from the long number across the middle of your credit card",
-          "toolTip": "The long number across the front. The long number across the middle of your card",
+          "questionID": "Q00051",
+          "text": "In which month and year did you open one of your current accounts",
+          "toolTip": "",
           "answerFormat": {
-            "identifier": "A000008",
+            "identifier": "A00051",
             "fieldType": "R ",
             "answerList": [
-              "2226",
-              "5790",
-              "1126",
-              "5495",
+              "01 / 2022",
+              "05 / 1999",
+              "12 / 2020",
+              "07 / 2012",
               "NONE OF THE ABOVE / DOES NOT APPLY"
             ]
           }
@@ -98,7 +98,7 @@
         "bodyPatterns": [
           {
             "equalToJson": {
-              "questionId": "Q00059",
+              "questionId": "Q00051",
               "answer": "${json-unit.any-string}"
             },
             "ignoreArrayOrder": true
