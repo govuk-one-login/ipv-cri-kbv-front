@@ -23,13 +23,13 @@ describe("Question controller", () => {
   });
 
   describe("#configure", () => {
-    let buildOverrideTranslationsStub;
+    let buildFallbackTranslationsStub;
     let translateWrapperStub;
     let ProxiedQuestionController;
     let prototypeSpy;
 
     beforeEach(() => {
-      buildOverrideTranslationsStub = sinon.fake();
+      buildFallbackTranslationsStub = sinon.fake();
       translateWrapperStub = sinon.fake();
 
       req.form.options = {
@@ -53,7 +53,7 @@ describe("Question controller", () => {
 
       ProxiedQuestionController = proxyquire("./question", {
         "../../../lib/dynamic-i18n": {
-          buildOverrideTranslations: buildOverrideTranslationsStub,
+          buildFallbackTranslations: buildFallbackTranslationsStub,
           translateWrapper: translateWrapperStub,
         },
       });
@@ -67,11 +67,11 @@ describe("Question controller", () => {
       prototypeSpy.restore();
     });
 
-    it("should build override translations", () => {
-      expect(buildOverrideTranslationsStub).to.have.been.called;
+    it("should build fallback translations", () => {
+      expect(buildFallbackTranslationsStub).to.have.been.called;
     });
     it("should add question as req.form.options", () => {
-      expect(req.form.options.fields.question).to.deep.equal({
+      expect(req.form.options.fields.Q1).to.deep.equal({
         label: "t",
         type: "radios",
         validate: ["required"],
@@ -149,7 +149,7 @@ describe("Question controller", () => {
 
       req.session.question = { questionID: "Q1" };
       req.session.tokenId = "abcdef";
-      req.sessionModel.set("question", "A1");
+      req.sessionModel.set("Q1", "A1");
     });
 
     afterEach(() => {
