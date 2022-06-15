@@ -22,4 +22,18 @@ module.exports = class PlaywrightDevPage {
 
     return isCorrectPage;
   }
+
+  isRelyingPartyServer() {
+    return new URL(this.page.url()).origin === "http://example.net";
+  }
+
+  hasSuccessQueryParams() {
+    const { searchParams } = new URL(this.page.url());
+
+    return (
+      searchParams.get("client_id") === "standalone" &&
+      searchParams.get("state") === "sT@t3" &&
+      searchParams.get("code") === "FACEFEED"
+    );
+  }
 };

@@ -16,8 +16,10 @@ Given(
   async function () {}
 );
 
-Then("they should be redirected", async function () {
+Then("they should be redirected as a success", async function () {
   const rpPage = new RelyingPartyPage(this.page);
 
-  expect(await rpPage.isRedirectPage()).to.be.true;
+  expect(await rpPage.isRelyingPartyServer()).to.be.true;
+
+  expect(rpPage.hasSuccessQueryParams()).to.be.true;
 });
