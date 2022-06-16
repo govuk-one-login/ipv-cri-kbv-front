@@ -108,10 +108,10 @@
       "response": {
         "status": 500,
         "jsonBody": {
-          "redirect_uri": "http://example.org",
+          "redirect_uri": "http://example.net",
           "oauth_error": {
-            "error_description": "Invalid request JWT",
-            "error": "invalid_request_object"
+            "error_description": "gateway",
+            "error": "server_error"
           }
         }
       }

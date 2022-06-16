@@ -36,4 +36,13 @@ module.exports = class PlaywrightDevPage {
       searchParams.get("code") === "FACEFEED"
     );
   }
+
+  hasErrorQueryParams() {
+    const { searchParams } = new URL(this.page.url());
+
+    return (
+      searchParams.get("error") === "server_error" &&
+      searchParams.get("error_description") === "gateway"
+    );
+  }
 };

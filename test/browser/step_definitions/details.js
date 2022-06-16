@@ -16,10 +16,18 @@ Given(
   async function () {}
 );
 
-Then("they should be redirected as a success", async function () {
+Then("they should be redirected as a success", function () {
   const rpPage = new RelyingPartyPage(this.page);
 
-  expect(await rpPage.isRelyingPartyServer()).to.be.true;
+  expect(rpPage.isRelyingPartyServer()).to.be.true;
 
   expect(rpPage.hasSuccessQueryParams()).to.be.true;
+});
+
+Then("they should be redirected as an error", function () {
+  const rpPage = new RelyingPartyPage(this.page);
+
+  expect(rpPage.isRelyingPartyServer()).to.be.true;
+
+  expect(rpPage.hasErrorQueryParams()).to.be.true;
 });
