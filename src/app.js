@@ -16,6 +16,7 @@ const loggerConfig = {
   console: true,
   consoleJSON: true,
   app: false,
+  logs: { consoleJSON: true },
 };
 
 const redisConfig = commonExpress.lib.redis(REDIS);
@@ -62,5 +63,6 @@ router.use("/oauth2", commonExpress.routes.oauth2);
 router.use("/kbv", require("./app/kbv"));
 
 router.use("^/$", (req, res) => {
+  req.app.log("Hello");
   res.render("index");
 });
