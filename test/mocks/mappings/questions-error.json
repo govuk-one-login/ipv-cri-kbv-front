@@ -17,7 +17,7 @@
       "newScenarioState": "FirstQuestion",
       "request": {
         "method": "POST",
-        "url": "/authorize",
+        "url": "/session",
         "headers": {
           "x-scenario-id": {
             "equalTo": "question-error"
