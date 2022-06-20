@@ -1,4 +1,5 @@
 module.exports = {
+  AbandonPage: require("./abandon"),
   CheckPage: require("./check"),
   DetailsPage: require("./details.js"),
   DonePage: require("./done.js"),
