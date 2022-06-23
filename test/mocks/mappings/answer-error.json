@@ -1,0 +1,120 @@
+{
+  "mappings": [
+    {
+      "scenarioName": "answer-error",
+      "newScenarioState": "Started",
+      "request": {
+        "method": "GET",
+        "url": "/__reset/answer-error"
+      },
+      "response": {
+        "status": 200
+      }
+    },
+    {
+      "scenarioName": "answer-error",
+      "requiredScenarioState": "Started",
+      "newScenarioState": "FirstQuestion",
+      "request": {
+        "method": "POST",
+        "url": "/session",
+        "headers": {
+          "x-scenario-id": {
+            "equalTo": "answer-error"
+          }
+        },
+        "bodyPatterns": [
+          {
+            "equalToJson": {
+              "request": "${json-unit.any-string}",
+              "client_id": "${json-unit.any-string}"
+            },
+            "ignoreArrayOrder": true
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+          "session_id": "ABADCAFE",
+          "state": "sT@t3",
+          "redirect_uri": "http://example.net/return"
+        }
+      }
+    },
+    {
+      "scenarioName": "answer-error",
+      "requiredScenarioState": "FirstQuestion",
+      "request": {
+        "method": "GET",
+        "url": "/question",
+        "headers": {
+          "session-id": {
+            "equalTo": "ABADCAFE"
+          },
+          "x-scenario-id": {
+            "equalTo": "answer-error"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+          "questionID": "Q00051",
+          "text": "In which month and year did you open one of your current accounts",
+          "toolTip": "",
+          "answerFormat": {
+            "identifier": "A00051",
+            "fieldType": "R ",
+            "answerList": [
+              "01 / 2022",
+              "05 / 1999",
+              "12 / 2020",
+              "07 / 2012",
+              "NONE OF THE ABOVE / DOES NOT APPLY"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "scenarioName": "answer-error",
+      "requiredScenarioState": "FirstQuestion",
+      "newScenarioState": "LastQuestion",
+      "request": {
+        "method": "POST",
+        "url": "/answer",
+        "headers": {
+          "session-id": {
+            "equalTo": "ABADCAFE"
+          },
+          "x-scenario-id": {
+            "equalTo": "answer-error"
+          },
+          "Content-Type": {
+            "equalTo": "application/json"
+          }
+        },
+        "bodyPatterns": [
+          {
+            "equalToJson": {
+              "questionId": "Q00051",
+              "answer": "${json-unit.any-string}"
+            },
+            "ignoreArrayOrder": true
+          }
+        ]
+      },
+      "response": {
+        "status": 500,
+        "jsonBody": {
+          "redirect_uri": "http://example.net",
+          "oauth_error": {
+            "error_description": "gateway",
+            "error": "server_error"
+          }
+        }
+      }
+    }
+  ]
+}

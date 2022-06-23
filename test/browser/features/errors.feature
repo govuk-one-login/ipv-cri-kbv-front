@@ -7,7 +7,16 @@ Feature: Error handling
     Given Error Ethem is using the system
     And they have provided their details
 
-  @mock-api:question-error
-  Scenario: API error
+  @mock-api:session-error
+  Scenario: Session error
     Given they have started the KBV journey
-    Then they should see an error page
+    And there is an immediate error
+    Then they should see the unrecoverable error page
+
+  @mock-api:answer-error @wip
+  Scenario: Error on answering first question
+    Given they have started the KBV journey
+    And they have continued to questions
+    And they should see the first question
+    When they answer the first question
+    Then they should be redirected as an error
