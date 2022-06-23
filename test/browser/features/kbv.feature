@@ -28,4 +28,4 @@ Feature: Happy path
       And they have continued to questions
       And they should see the first question
       When they have answered all the questions successfully
-      Then they should be redirected
+      Then they should be redirected as a success
