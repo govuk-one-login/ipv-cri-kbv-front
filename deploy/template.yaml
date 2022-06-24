@@ -103,21 +103,6 @@ Resources:
       GroupId: !GetAtt ECSSecurityGroup.GroupId
       SourceSecurityGroupId: !GetAtt LoadBalancerSG.GroupId
 
-  RedisSG:
-    Type: 'AWS::EC2::SecurityGroup'
-    Properties:
-      GroupDescription: >-
-        KBV Front Redis Security Group
-      SecurityGroupIngress:
-        - Description: Allow inbound on port 6379
-          SourceSecurityGroupId: !GetAtt ECSSecurityGroup.GroupId
-          FromPort: 6379
-          IpProtocol: tcp
-          ToPort: 6379
-      VpcId:
-        Fn::ImportValue:
-          !Sub "${VpcStackName}-VpcId"
-
   AccessLogsBucket:
     Condition: IsNotDevelopment
     Type: AWS::S3::Bucket
@@ -203,10 +188,14 @@ Resources:
       Port: 80
       Protocol: HTTP
 
-  SubnetGroup:
+  #
+  #  ElastiCache (for session caching)
+  #
+
+  ElastiCacheSubnetGroup:
     Type: AWS::ElastiCache::SubnetGroup
     Properties:
-      Description: SubnetGroup for redis cluster
+      Description: SubnetGroup for ElastiCache
       SubnetIds:
         - Fn::ImportValue:
             !Sub "${VpcStackName}-PrivateSubnetIdA"
@@ -222,26 +211,62 @@ Resources:
         - Key: Environment
           Value: !Sub "${Environment}"
 
-  RedisCache:
-    Type: AWS::ElastiCache::CacheCluster
+  ElastiCacheParameterGroup:
+    Type: AWS::ElastiCache::ParameterGroup
     Properties:
-      AutoMinorVersionUpgrade: true
-      CacheNodeType: cache.t2.micro
-      CacheSubnetGroupName: !Ref SubnetGroup
-      Engine: redis
-      EngineVersion: 3.2.10
-      NumCacheNodes: 1
+      CacheParameterGroupFamily: redis3.2
+      Properties:
+        cluster-enabled: "yes"
+      Description: Cache parameter group
       Tags:
         - Key: Name
-          Value: !Sub "${AWS::StackName}-RedisCluster"
+          Value: !Sub "${AWS::StackName}-CacheParameterGroup"
         - Key: Product
           Value: "GOV.UK sign in"
         - Key: System
           Value: "KBV CRI"
         - Key: Environment
           Value: !Sub "${Environment}"
-      VpcSecurityGroupIds:
-        - !Ref RedisSG
+
+  ElastiCacheSecurityGroup:
+    Type: 'AWS::EC2::SecurityGroup'
+    Properties:
+      GroupDescription: >-
+        KBV Front Redis Security Group
+      SecurityGroupIngress:
+        - Description: Allow inbound on port 6379
+          SourceSecurityGroupId: !GetAtt ECSSecurityGroup.GroupId
+          FromPort: 6379
+          IpProtocol: tcp
+          ToPort: 6379
+      VpcId:
+        Fn::ImportValue:
+          !Sub "${VpcStackName}-VpcId"
+
+  ElastiCacheReplicationGroup:
+    Type: AWS::ElastiCache::ReplicationGroup
+    Properties:
+      AutomaticFailoverEnabled: true
+      CacheNodeType: cache.t2.micro
+      CacheSubnetGroupName: !Ref ElastiCacheSubnetGroup
+      CacheParameterGroupName: !Ref ElastiCacheParameterGroup
+      Engine: redis
+      EngineVersion: 3.2.10
+      MultiAZEnabled: true
+      NumNodeGroups: 1
+      ReplicasPerNodeGroup: 1
+      ReplicationGroupDescription: Replication group for Elastiache
+      SecurityGroupIds:
+        - !Ref ElastiCacheSecurityGroup
+      Tags:
+        - Key: Name
+          Value: !Sub "${AWS::StackName}-ElastiCacheReplicationGroup"
+        - Key: Product
+          Value: "GOV.UK sign in"
+        - Key: System
+          Value: "KBV CRI"
+        - Key: Environment
+          Value: !Sub "${Environment}"
 
   # ECS cluster, service and task definition
   KBVFrontEcsCluster:
@@ -324,7 +349,7 @@ Resources:
             - Name: EXTERNAL_WEBSITE_HOST
               Value: !GetAtt ApiGwHttpEndpoint.ApiEndpoint
             - Name: REDIS_SESSION_URL
-              Value: !GetAtt RedisCache.RedisEndpoint.Address
+              Value: !GetAtt ElastiCacheReplicationGroup.ConfigurationEndPoint.Address
           PortMappings:
             - ContainerPort: 8080
               Protocol: tcp
@@ -455,7 +480,7 @@ Resources:
     Properties:
       LogGroupName: !Sub /aws/apigateway/${AWS::StackName}-KBVFront-API-GW-AccessLogs
 
-# Autoscaling
+# ECS Autoscaling
 # The number of pods will increase when the configured CPU utilization is breached for more than 3 minutes.
 # Scaling down will occur after 15 minutes of 90% utilization of the configured CPU utilization.
 
