@@ -68,7 +68,7 @@ setOAuthPaths({ app, entryPointPath: APP.PATHS.KBV });
 setGTM({
   app,
   id: APP.ANALYTICS.ID,
-  analyticsCookieDomain: APP.ANALYTICS.COOKIE_DOMAIN,
+  analyticsCookieDomain: APP.ANALYTICS.DOMAIN,
 });
 
 router.use(getGTM);
