@@ -15,6 +15,10 @@ module.exports = {
     PATHS: {
       KBV: "/kbv",
     },
+    ANALYTICS: {
+      ID: process.env.ANALYTICS_ID,
+      COOKIE_DOMAIN: process.env.ANALYTICS_COOKIE_DOMAIN || "localhost",
+    },
   },
   PORT: process.env.PORT || 5020,
   SESSION_SECRET: process.env.SESSION_SECRET,
