@@ -83,8 +83,4 @@ router.use("/oauth2", commonExpress.routes.oauth2);
 
 router.use("/kbv", require("./app/kbv"));
 
-router.use("^/$", (req, res) => {
-  res.render("index");
-});
-
 router.use(commonExpress.lib.errorHandling.redirectAsErrorToCallback);
