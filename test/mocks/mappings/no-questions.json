@@ -1,0 +1,90 @@
+{
+  "mappings": [
+    {
+      "scenarioName": "no-questions",
+      "newScenarioState": "Started",
+      "request": {
+        "method": "GET",
+        "url": "/__reset/no-questions"
+      },
+      "response": {
+        "status": 200
+      }
+    },
+    {
+      "scenarioName": "no-questions",
+      "requiredScenarioState": "Started",
+      "newScenarioState": "FirstQuestion",
+      "request": {
+        "method": "POST",
+        "url": "/session",
+        "headers": {
+          "x-scenario-id": {
+            "equalTo": "no-questions"
+          }
+        },
+        "bodyPatterns": [
+          {
+            "equalToJson": {
+              "request": "${json-unit.any-string}",
+              "client_id": "${json-unit.any-string}"
+            },
+            "ignoreArrayOrder": true
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+          "session_id": "ABADCAFE",
+          "state": "sT@t3",
+          "redirect_uri": "http://example.net/return"
+        }
+      }
+    },
+    {
+      "scenarioName": "no-questions",
+      "requiredScenarioState": "FirstQuestion",
+      "newScenarioState": "AuthCode",
+      "request": {
+        "method": "GET",
+        "url": "/question",
+        "headers": {
+          "session-id": {
+            "equalTo": "ABADCAFE"
+          },
+          "x-scenario-id": {
+            "equalTo": "no-questions"
+          }
+        }
+      },
+      "response": {
+        "status": 204
+      }
+    },
+    {
+      "scenarioName": "no-questions",
+      "requiredScenarioState": "AuthCode",
+      "request": {
+        "method": "GET",
+        "urlPath": "/authorization",
+        "headers": {
+          "session-id": {
+            "equalTo": "ABADCAFE"
+          },
+          "x-scenario-id": {
+            "equalTo": "no-questions"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+          "authorizationCode": {
+            "value": "FACEFEED"
+          }
+        }
+      }
+    }
+  ]
+}

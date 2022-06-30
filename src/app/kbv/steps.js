@@ -15,7 +15,7 @@ module.exports = {
   "/load-question": {
     controller: loadQuestion,
     skip: true,
-    next: "question",
+    next: loadQuestion.prototype.next,
   },
   "/question": {
     controller: question,

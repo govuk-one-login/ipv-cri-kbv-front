@@ -24,5 +24,13 @@ class LoadQuestionController extends BaseController {
       next();
     });
   }
+
+  next(req) {
+    if (req.session.question) {
+      return "question";
+    }
+
+    return "done";
+  }
 }
 module.exports = LoadQuestionController;
