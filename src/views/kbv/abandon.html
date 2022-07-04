@@ -1,0 +1,8 @@
+{% extends "form-template.njk" %}
+{% set hmpoPageKey = "abandonCheck" %}
+
+{% block mainContent %}
+  {{ super() }}
+
+  {{ hmpoHtml(translate("pages.abandonCheck.contact")) }}
+{% endblock %}

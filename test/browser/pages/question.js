@@ -50,4 +50,8 @@ module.exports = class PlaywrightDevPage {
       .first()
       .check();
   }
+
+  async abandon() {
+    await this.page.click('[data-id="abandon"]');
+  }
 };

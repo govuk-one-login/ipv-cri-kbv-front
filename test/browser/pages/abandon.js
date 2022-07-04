@@ -44,9 +44,16 @@ module.exports = class PlaywrightDevPage {
       .check();
   }
 
-  async answerIncorrectly(value) {
+  async answerContinue() {
     await this.page
-      .locator(`input[type="radio"]:not([value="${value}"])`)
+      .locator(`input[type="radio"][value="continue"]`)
+      .first()
+      .check();
+  }
+
+  async answerAbandon() {
+    await this.page
+      .locator(`input[type="radio"][value="stop"]`)
       .first()
       .check();
   }
