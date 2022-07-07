@@ -16,3 +16,12 @@ check:
 error:
   unrecoverable:
     title: Sorry, there is a problem with the service
+
+simplifiedQuestion:
+  abandon: "<a href='/kbv/abandon' class='govuk-link' data-id='abandon'>I cannot answer this question</a>"
+
+abandonCheck:
+  title: You must answer all security questions to prove your identity
+  content:
+    - You cannot skip any questions.
+  contact: "<p><a href='https://signin.account.gov.uk/contact-us?supportType=PUBLIC' class='govuk-link' rel='noreferrer noopener' target='_blank'>Contact the GOV.UK account team (opens in a new tab)</a></p>"

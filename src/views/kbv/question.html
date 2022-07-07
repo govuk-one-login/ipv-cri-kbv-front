@@ -5,3 +5,10 @@
 {% block submitButton %}
   {{ hmpoSubmit(ctx, {id: "continue", text: translate("buttons.next")}) }}
 {% endblock %}
+
+{% block mainContent %}
+  {{ super() }}
+
+  {{ hmpoHtml(translate("pages.simplifiedQuestion.abandon")) }}
+
+{% endblock %}

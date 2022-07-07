@@ -1,0 +1,134 @@
+{
+  "mappings": [
+    {
+      "scenarioName": "question-abandon",
+      "newScenarioState": "Started",
+      "request": {
+        "method": "GET",
+        "url": "/__reset/question-abandon"
+      },
+      "response": {
+        "status": 200
+      }
+    },
+    {
+      "scenarioName": "question-abandon",
+      "requiredScenarioState": "Started",
+      "newScenarioState": "FirstQuestion",
+      "request": {
+        "method": "POST",
+        "url": "/session",
+        "headers": {
+          "x-scenario-id": {
+            "equalTo": "question-abandon"
+          }
+        },
+        "bodyPatterns": [
+          {
+            "equalToJson": {
+              "request": "${json-unit.any-string}",
+              "client_id": "${json-unit.any-string}"
+            },
+            "ignoreArrayOrder": true
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+          "session_id": "ABADCAFE",
+          "state": "sT@t3",
+          "redirect_uri": "http://example.net/return"
+        }
+      }
+    },
+    {
+      "scenarioName": "question-abandon",
+      "requiredScenarioState": "FirstQuestion",
+      "request": {
+        "method": "GET",
+        "url": "/question",
+        "headers": {
+          "session-id": {
+            "equalTo": "ABADCAFE"
+          },
+          "x-scenario-id": {
+            "equalTo": "question-abandon"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+          "questionID": "Q00051",
+          "text": "In which month and year did you open one of your current accounts",
+          "toolTip": "",
+          "answerFormat": {
+            "identifier": "A00051",
+            "fieldType": "R ",
+            "answerList": [
+              "01 / 2022",
+              "05 / 1999",
+              "12 / 2020",
+              "07 / 2012",
+              "NONE OF THE ABOVE / DOES NOT APPLY"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "scenarioName": "question-abandon",
+      "requiredScenarioState": "FirstQuestion",
+      "newScenarioState": "LastQuestion",
+      "request": {
+        "method": "POST",
+        "url": "/abandon",
+        "headers": {
+          "session-id": {
+            "equalTo": "ABADCAFE"
+          },
+          "x-scenario-id": {
+            "equalTo": "question-abandon"
+          },
+          "Content-Type": {
+            "equalTo": "application/json"
+          }
+        },
+        "bodyPatterns": [
+          {
+            "equalToJson": {},
+            "ignoreArrayOrder": true
+          }
+        ]
+      },
+      "response": {
+        "status": 200
+      }
+    },
+    {
+      "scenarioName": "question-abandon",
+      "requiredScenarioState": "AuthCode",
+      "request": {
+        "method": "GET",
+        "urlPath": "/authorization",
+        "headers": {
+          "session-id": {
+            "equalTo": "ABADCAFE"
+          },
+          "x-scenario-id": {
+            "equalTo": "question-abandon"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+          "authorizationCode": {
+            "value": "FACEFEED"
+          }
+        }
+      }
+    }
+  ]
+}

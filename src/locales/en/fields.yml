@@ -51,6 +51,18 @@ preConfiguredValues:
     decerqueiraKenneth:
       label: Decerqueria, Kenneth - Authenticated level 1
 
+abandonRadio:
+  label: What would you like to do?
+  validation:
+    required: You must choose an option to continue
+  items:
+    continue:
+      label: Continue answering the questions
+      value: continue
+    stop:
+      label: Stop answering the questions and prove your identity another way
+      value: stop
+
 Q00015:
   legend: How much do you have left to pay on your mortgage?
   hint: This includes any interest. You can usually find this amount on your most recent mortgage statement or by checking your online account.

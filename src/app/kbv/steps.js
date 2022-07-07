@@ -1,5 +1,6 @@
 const question = require("./controllers/question");
 const loadQuestion = require("./controllers/load-question");
+const abandon = require("./controllers/abandon");
 
 module.exports = {
   "/": {
@@ -20,6 +21,19 @@ module.exports = {
   "/question": {
     controller: question,
     next: question.prototype.next,
+  },
+  "/abandon": {
+    prereqs: ["/kbv/load-question"],
+    controller: abandon,
+    fields: ["abandonRadio"],
+    next: [
+      {
+        field: "abandonRadio",
+        value: "continue",
+        next: "question",
+      },
+      "/oauth2/callback",
+    ],
   },
   "/done": {
     skip: true,

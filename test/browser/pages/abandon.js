@@ -4,7 +4,7 @@ module.exports = class PlaywrightDevPage {
    */
   constructor(page) {
     this.page = page;
-    this.url = "http://localhost:5020/kbv/question";
+    this.url = "http://localhost:5020/kbv/abandon";
     this.questionTitle = page.locator(".govuk-fieldset__heading");
     this.answerRadios = page.locator('input[name="question"]');
   }
@@ -30,7 +30,7 @@ module.exports = class PlaywrightDevPage {
   }
 
   async submit() {
-    await this.page.click("#continue");
+    await this.page.click("button");
   }
 
   async answer() {
@@ -44,14 +44,17 @@ module.exports = class PlaywrightDevPage {
       .check();
   }
 
-  async answerIncorrectly(value) {
+  async answerContinue() {
     await this.page
-      .locator(`input[type="radio"]:not([value="${value}"])`)
+      .locator(`input[type="radio"][value="continue"]`)
       .first()
       .check();
   }
 
-  async abandon() {
-    await this.page.click('[data-id="abandon"]');
+  async answerAbandon() {
+    await this.page
+      .locator(`input[type="radio"][value="stop"]`)
+      .first()
+      .check();
   }
 };
