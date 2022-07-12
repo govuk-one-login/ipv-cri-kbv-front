@@ -22,6 +22,7 @@ const {
   PORT,
   SESSION_SECRET,
   SESSION_TABLE_NAME,
+  SESSION_TTL,
 } = require("./lib/config");
 
 const { setup } = require("hmpo-app");
@@ -45,6 +46,7 @@ const dynamoDBSessionStore = new DynamoDBStore({
 const sessionConfig = {
   cookieName: "service_session",
   secret: SESSION_SECRET,
+  cookieOptions: { maxAge: SESSION_TTL },
   ...(SESSION_TABLE_NAME && { sessionStore: dynamoDBSessionStore }),
 };
 
