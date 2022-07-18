@@ -2352,10 +2352,10 @@ hmpo-config@2.2.1:
     js-yaml "^4.1.0"
     json5 "^2.2.1"
 
-hmpo-form-wizard@12.0.4:
-  version "12.0.4"
-  resolved "https://registry.yarnpkg.com/hmpo-form-wizard/-/hmpo-form-wizard-12.0.4.tgz#4e387d62fbdd79e9dd112cecc18bf5d2ca2fe8c2"
-  integrity sha512-9Mhrn5sSEVneStUVTindeADKtb3EdWaoYNqDoaeK0vwTg7dcVxMx2xmpcnTmGTUxNUNFOFIQWprZF4zAgO0V6g==
+hmpo-form-wizard@12.0.5:
+  version "12.0.5"
+  resolved "https://registry.yarnpkg.com/hmpo-form-wizard/-/hmpo-form-wizard-12.0.5.tgz#b59fc7e33e66f8e03a53fde326fc4d707ce077e7"
+  integrity sha512-YTkZJWQzjl2JDlWxWP7fCjczD5TEA9I7JS6TTfF9ZPGa+Nf8yAH5q9DFEQ/ye9kK8kGtZOazJ0C7pDkYTQzIaw==
   dependencies:
     body-parser "^1.20.0"
     csrf "^3.1.0"
@@ -4810,10 +4810,10 @@ typedarray-to-buffer@^3.1.5:
   dependencies:
     is-typedarray "^1.0.0"
 
-uglify-js@3.16.1:
-  version "3.16.1"
-  resolved "https://registry.yarnpkg.com/uglify-js/-/uglify-js-3.16.1.tgz#0e7ec928b3d0b1e1d952bce634c384fd56377317"
-  integrity sha512-X5BGTIDH8U6IQ1TIRP62YC36k+ULAa1d59BxlWvPUJ1NkW5L3FwcGfEzuVvGmhJFBu0YJ5Ge25tmRISqCmLiRQ==
+uglify-js@3.16.2:
+  version "3.16.2"
+  resolved "https://registry.yarnpkg.com/uglify-js/-/uglify-js-3.16.2.tgz#0481e1dbeed343ad1c2ddf3c6d42e89b7a6d4def"
+  integrity sha512-AaQNokTNgExWrkEYA24BTNMSjyqEXPSfhqoS0AxmHkCJ4U+Dyy5AvbGV/sqxuxficEfGGoX3zWw9R7QpLFfEsg==
 
 uid-safe@2.1.5, uid-safe@~2.1.5:
   version "2.1.5"
