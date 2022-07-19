@@ -557,6 +557,9 @@ Resources:
         SSEType: KMS
 
 Outputs:
+  StackName:
+    Description: "CloudFormation stack name"
+    Value: !Sub "${AWS::StackName}"
   KBVFrontUrl:
     Description: >-
       The API Gateway URL which KBV Front can be invoked on.
