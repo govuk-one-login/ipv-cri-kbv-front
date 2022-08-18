@@ -1234,10 +1234,10 @@ configstore@^5.0.1:
     write-file-atomic "^3.0.0"
     xdg-basedir "^4.0.0"
 
-connect-dynamodb@^2.0.4:
-  version "2.0.4"
-  resolved "https://registry.yarnpkg.com/connect-dynamodb/-/connect-dynamodb-2.0.4.tgz#6329465ccda14088db244474114733b0b808671a"
-  integrity sha512-PhZUcwLmle6htaz6oq7AZDLD2y0CeI7dmf11DSLdVhdhVWWWFGE8BoqNJ/eDNbd/5349cq9iBxDqx9W/kpMXGw==
+connect-dynamodb@^2.0.5:
+  version "2.0.5"
+  resolved "https://registry.yarnpkg.com/connect-dynamodb/-/connect-dynamodb-2.0.5.tgz#1dd986b24fef6ff030a7b500a5068d00207091a7"
+  integrity sha512-bGWx3mrc5VAVns74Zi6UBRsMn8rgiSbhncP/7wcHMlHRGCuXvqh8bc40fmWXEw4sEtXtU1wlhraV1EssIPevcA==
   dependencies:
     connect "*"
   optionalDependencies:
