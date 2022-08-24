@@ -1,6 +1,6 @@
-const proxyquire = require("proxyquire").noCallThru();
 const BaseController = require("hmpo-form-wizard").Controller;
 const QuestionController = require("./question");
+const dynamicI18n = require("../../../lib/dynamic-i18n");
 
 describe("Question controller", () => {
   let questionController;
@@ -23,15 +23,10 @@ describe("Question controller", () => {
   });
 
   describe("#configure", () => {
-    let buildFallbackTranslationsStub;
-    let translateWrapperStub;
-    let ProxiedQuestionController;
     let prototypeSpy;
+    let buildFallbackTranslationsSpy;
 
     beforeEach(() => {
-      buildFallbackTranslationsStub = sinon.fake();
-      translateWrapperStub = sinon.fake();
-
       req.form.options = {
         fields: {},
       };
@@ -51,25 +46,25 @@ describe("Question controller", () => {
       prototypeSpy = sinon.stub(BaseController.prototype, "configure");
       BaseController.prototype.configure.callThrough();
 
-      ProxiedQuestionController = proxyquire("./question", {
-        "../../../lib/dynamic-i18n": {
-          buildFallbackTranslations: buildFallbackTranslationsStub,
-          translateWrapper: translateWrapperStub,
-        },
-      });
+      buildFallbackTranslationsSpy = sinon.stub(
+        dynamicI18n,
+        "buildFallbackTranslations"
+      );
 
-      questionController = new ProxiedQuestionController({ route: "/test" });
+      questionController = new QuestionController({ route: "/test" });
 
       questionController.configure(req, res, next);
     });
 
     afterEach(() => {
       prototypeSpy.restore();
+      buildFallbackTranslationsSpy.restore();
     });
 
     it("should build fallback translations", () => {
-      expect(buildFallbackTranslationsStub).to.have.been.called;
+      expect(buildFallbackTranslationsSpy).to.have.been.called;
     });
+
     it("should add question as req.form.options", () => {
       expect(req.form.options.fields.Q1).to.deep.equal({
         label: "t",
