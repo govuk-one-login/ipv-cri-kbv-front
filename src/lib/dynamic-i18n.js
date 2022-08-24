@@ -41,7 +41,11 @@ const dynamicKeyTranslation = function ({
   });
 };
 
-const translateWrapper = function (originalTranslate, fallbackTranslation) {
+const translateWrapper = function (
+  originalTranslate,
+  dynamicTranslate,
+  fallbackTranslation
+) {
   debug(fallbackTranslation);
   return function (key, options) {
     debug(key);
@@ -51,7 +55,7 @@ const translateWrapper = function (originalTranslate, fallbackTranslation) {
       return originalTranslate(key, options);
     }
 
-    return dynamicKeyTranslation({
+    return dynamicTranslate({
       key,
       options,
       translate: originalTranslate,

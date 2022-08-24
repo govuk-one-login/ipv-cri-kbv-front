@@ -31,6 +31,7 @@ class QuestionController extends BaseController {
 
     req.form.options.translate = dynamicTranslate.translateWrapper(
       req.translate,
+      dynamicTranslate.dynamicKeyTranslation,
       fallbackTranslations
     );
 
