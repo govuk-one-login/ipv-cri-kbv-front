@@ -19,7 +19,7 @@ describe("question", () => {
         fields: {
           Q1: { legend },
         },
-      } = dynamicQuestion.buildFallbackTranslations(question);
+      } = dynamicQuestion.questionToTranslations(question);
 
       expect(legend).to.equal(`${question.text}`);
     });
@@ -29,7 +29,7 @@ describe("question", () => {
         fields: {
           Q1: { label },
         },
-      } = dynamicQuestion.buildFallbackTranslations(question);
+      } = dynamicQuestion.questionToTranslations(question);
 
       expect(label).to.equal(`${question.text}`);
     });
@@ -38,7 +38,7 @@ describe("question", () => {
         fields: {
           Q1: { hint },
         },
-      } = dynamicQuestion.buildFallbackTranslations(question);
+      } = dynamicQuestion.questionToTranslations(question);
 
       expect(hint).to.equal(`${question.toolTip}`);
     });
@@ -49,7 +49,7 @@ describe("question", () => {
             validation: { default: defaultValidation },
           },
         },
-      } = dynamicQuestion.buildFallbackTranslations(question);
+      } = dynamicQuestion.questionToTranslations(question);
 
       expect(defaultValidation).to.equal("You need to answer the question");
     });
@@ -58,7 +58,7 @@ describe("question", () => {
       let items;
 
       beforeEach(() => {
-        const fields = dynamicQuestion.buildFallbackTranslations(question);
+        const fields = dynamicQuestion.questionToTranslations(question);
         items = fields?.fields?.Q1?.items;
       });
       it("should contain all answers", () => {

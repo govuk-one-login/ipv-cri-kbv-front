@@ -10,7 +10,7 @@ const {
 
 class QuestionController extends BaseController {
   configure(req, res, next) {
-    const fallbackTranslations = dynamicQuestion.buildFallbackTranslations(
+    const fallbackTranslations = dynamicQuestion.questionToTranslations(
       req.session.question
     );
 

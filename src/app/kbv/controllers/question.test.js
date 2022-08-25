@@ -24,7 +24,7 @@ describe("Question controller", () => {
 
   describe("#configure", () => {
     let prototypeSpy;
-    let buildFallbackTranslationsSpy;
+    let questionToTranslationsSpy;
 
     beforeEach(() => {
       req.form.options = {
@@ -46,9 +46,9 @@ describe("Question controller", () => {
       prototypeSpy = sinon.stub(BaseController.prototype, "configure");
       BaseController.prototype.configure.callThrough();
 
-      buildFallbackTranslationsSpy = sinon.stub(
+      questionToTranslationsSpy = sinon.stub(
         dynamicQuestion,
-        "buildFallbackTranslations"
+        "questionToTranslations"
       );
 
       questionController = new QuestionController({ route: "/test" });
@@ -58,11 +58,11 @@ describe("Question controller", () => {
 
     afterEach(() => {
       prototypeSpy.restore();
-      buildFallbackTranslationsSpy.restore();
+      questionToTranslationsSpy.restore();
     });
 
     it("should build fallback translations", () => {
-      expect(buildFallbackTranslationsSpy).to.have.been.called;
+      expect(questionToTranslationsSpy).to.have.been.called;
     });
 
     it("should add question as req.form.options", () => {

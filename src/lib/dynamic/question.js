@@ -1,6 +1,6 @@
 const _ = require("lodash");
 module.exports = {
-  buildFallbackTranslations: function (question) {
+  questionToTranslations: function (question) {
     return {
       fields: {
         [question.questionID]: {
