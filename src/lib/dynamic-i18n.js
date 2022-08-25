@@ -1,20 +1,11 @@
 const _ = require("lodash");
-
 const debug = require("debug")("app:lib:dynamic-i18n");
+
+const dynamicKeys = require("./dynamic/keys");
 
 function arrayify(value) {
   return [].concat(value || []);
 }
-
-const singleKeyNotDynamic = function (key) {
-  return typeof key === "string" && !key.startsWith("fields.Q");
-};
-
-const multipleKeysNotDynamic = function (key) {
-  return (
-    Array.isArray(key) && !key.some((entry) => entry.startsWith("fields.Q"))
-  );
-};
 
 const getFallbackTranslationFromFields = function (key, fields) {
   const keys = arrayify(key);
@@ -51,7 +42,10 @@ const translateWrapper = function (
     debug(key);
     debug(options);
 
-    if (singleKeyNotDynamic(key) || multipleKeysNotDynamic(key)) {
+    if (
+      dynamicKeys.singleKeyNotDynamic(key) ||
+      dynamicKeys.multipleKeysNotDynamic(key)
+    ) {
       return originalTranslate(key, options);
     }
 
@@ -67,7 +61,5 @@ const translateWrapper = function (
 module.exports = {
   dynamicKeyTranslation,
   getFallbackTranslationFromFields,
-  multipleKeysNotDynamic,
-  singleKeyNotDynamic,
   translateWrapper,
 };
