@@ -22,4 +22,17 @@ module.exports = {
       },
     };
   },
+  questionToFieldsConfig: function (question, fallbackTranslations) {
+    return {
+      label: fallbackTranslations?.fields?.question?.legend || question.text,
+      type: "radios",
+      validate: ["required"],
+      fieldset: {
+        legend: {
+          text: `fields.questionX.legend`,
+        },
+      },
+      items: question.answerFormat.answerList.map((answer) => answer),
+    };
+  },
 };

@@ -14,21 +14,11 @@ class QuestionController extends BaseController {
       req.session.question
     );
 
-    req.form.options.fields[req.session.question.questionID] = {
-      label:
-        fallbackTranslations?.fields?.question?.legend ||
-        req.session.question.text,
-      type: "radios",
-      validate: ["required"],
-      fieldset: {
-        legend: {
-          text: `fields.questionX.legend`,
-        },
-      },
-      items: req.session.question.answerFormat.answerList.map(
-        (answer) => answer
-      ),
-    };
+    req.form.options.fields[req.session.question.questionID] =
+      dynamicQuestion.questionToFieldsConfig(
+        req.session.question,
+        fallbackTranslations
+      );
 
     req.form.options.translate = dynamicTranslate.translateWrapper(
       req.translate,
