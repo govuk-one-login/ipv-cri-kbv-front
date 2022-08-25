@@ -67,14 +67,8 @@ describe("Question controller", () => {
 
     it("should add question as req.form.options", () => {
       expect(req.form.options.fields.Q1).to.deep.equal({
-        label: "t",
         type: "radios",
         validate: ["required"],
-        fieldset: {
-          legend: {
-            text: `fields.questionX.legend`,
-          },
-        },
         items: ["V1", "V2", "V3"],
       });
     });

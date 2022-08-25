@@ -84,41 +84,8 @@ describe("question", () => {
       const config = dynamicQuestion.questionToFieldsConfig(question);
 
       expect(config).to.deep.equal({
-        label: "text",
         type: "radios",
         validate: ["required"],
-        fieldset: {
-          legend: {
-            text: `fields.questionX.legend`,
-          },
-        },
-        items: ["ABC", "DEF"],
-      });
-    });
-
-    it("should return config based on questions and translations", () => {
-      let translations = {
-        fields: {
-          question: {
-            legend: "legend property",
-          },
-        },
-      };
-
-      const config = dynamicQuestion.questionToFieldsConfig(
-        question,
-        translations
-      );
-
-      expect(config).to.deep.equal({
-        label: "legend property",
-        type: "radios",
-        validate: ["required"],
-        fieldset: {
-          legend: {
-            text: `fields.questionX.legend`,
-          },
-        },
         items: ["ABC", "DEF"],
       });
     });
