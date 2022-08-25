@@ -1,19 +1,19 @@
 const dynamicQuestion = require("./question");
 
 describe("question", () => {
-  describe("#buildFallbackTranslations", () => {
-    let question;
-    beforeEach(() => {
-      question = {
-        questionID: "Q1",
-        text: "text",
-        toolTip: "tooltip",
-        answerFormat: {
-          answerList: ["ABC", "DEF"],
-        },
-      };
-    });
+  let question;
+  beforeEach(() => {
+    question = {
+      questionID: "Q1",
+      text: "text",
+      toolTip: "tooltip",
+      answerFormat: {
+        answerList: ["ABC", "DEF"],
+      },
+    };
+  });
 
+  describe("#buildFallbackTranslations", () => {
     it("should use question.text for legend", () => {
       const {
         fields: {
@@ -76,6 +76,51 @@ describe("question", () => {
 
     describe("with missing question data", () => {
       it("should do something");
+    });
+  });
+
+  describe("#questionsToFieldsConfig", () => {
+    it("should return config based on questions", () => {
+      const config = dynamicQuestion.questionToFieldsConfig(question);
+
+      expect(config).to.deep.equal({
+        label: "text",
+        type: "radios",
+        validate: ["required"],
+        fieldset: {
+          legend: {
+            text: `fields.questionX.legend`,
+          },
+        },
+        items: ["ABC", "DEF"],
+      });
+    });
+
+    it("should return config based on questions and translations", () => {
+      let translations = {
+        fields: {
+          question: {
+            legend: "legend property",
+          },
+        },
+      };
+
+      const config = dynamicQuestion.questionToFieldsConfig(
+        question,
+        translations
+      );
+
+      expect(config).to.deep.equal({
+        label: "legend property",
+        type: "radios",
+        validate: ["required"],
+        fieldset: {
+          legend: {
+            text: `fields.questionX.legend`,
+          },
+        },
+        items: ["ABC", "DEF"],
+      });
     });
   });
 });
