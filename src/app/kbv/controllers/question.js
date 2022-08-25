@@ -1,3 +1,4 @@
+const dynamicQuestion = require("../../../lib/dynamic/question");
 const dynamicTranslate = require("../../../lib/dynamic-i18n");
 const BaseController = require("hmpo-form-wizard").Controller;
 
@@ -9,7 +10,7 @@ const {
 
 class QuestionController extends BaseController {
   configure(req, res, next) {
-    const fallbackTranslations = dynamicTranslate.buildFallbackTranslations(
+    const fallbackTranslations = dynamicQuestion.buildFallbackTranslations(
       req.session.question
     );
 
@@ -37,6 +38,7 @@ class QuestionController extends BaseController {
 
     super.configure(req, res, next);
   }
+
   locals(req, res, callback) {
     super.locals(req, res, (err, locals) => {
       if (err) {

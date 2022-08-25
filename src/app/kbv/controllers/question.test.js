@@ -1,6 +1,6 @@
 const BaseController = require("hmpo-form-wizard").Controller;
 const QuestionController = require("./question");
-const dynamicI18n = require("../../../lib/dynamic-i18n");
+const dynamicQuestion = require("../../../lib/dynamic/question");
 
 describe("Question controller", () => {
   let questionController;
@@ -47,7 +47,7 @@ describe("Question controller", () => {
       BaseController.prototype.configure.callThrough();
 
       buildFallbackTranslationsSpy = sinon.stub(
-        dynamicI18n,
+        dynamicQuestion,
         "buildFallbackTranslations"
       );
 
