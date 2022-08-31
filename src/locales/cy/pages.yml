@@ -1,0 +1,24 @@
+index:
+  title: "di-ipv-cri-kbv-front"
+  content:
+    - "Sample page for credential issuer"
+check:
+  title: "Rydym angen gwirio eich manylion"
+  content:
+    - "Bydd eich manylion yn cael eu gwirio yn erbyn gwybodaeth sy'n cael ei ddal gan gwmni arall."
+    - "Bydd hyn yn ein helpu i'ch amddiffyn rhag dwyn hunaniaeth ar-lein."
+  details:
+    title: "Gyda phwy rydym yn gwirio'ch manylion"
+    content:
+      - "<p>Byddwn yn gwirio'ch manylion gyda <a href='https://www.experian.co.uk/' class='govuk-link' rel='noreferrer noopener' target='_blank'>Experian (agor mewn tab newydd)</a>. Mae hyn oherwydd bod gan gwmnïau fel Experian fynediad at wybodaeth am ryngweithiadau rydych wedi'u cael yn y gorffennol gyda sefydliadau eraill.</p>"
+      - "<p><a href='https://signin.account.gov.uk/privacy-notice' class='govuk-link' rel='noreferrer noopener' target='_blank'>Darllennwch ein hysbysiad preifatrwydd (agor mewn tab newydd)</a> os hoffech wybod mwy am sut bydd eich manylion yn cael eu defnyddio i brofi pwy ydych chi.</p>"
+error:
+  unrecoverable:
+    title: "Mae'n ddrwg gennym, mae problem"
+simplifiedQuestion:
+  abandon: "<a href='/kbv/abandon' class='govuk-link' data-id='abandon'>Ni allaf ateb y cwestiwn hwn</a>"
+abandonCheck:
+  title: "Rhaid i chi ateb pob cwestiwn diogelwch i brofi pwy ydych chi"
+  content:
+    - "Ni allwch hepgor unrhyw gwestiynau."
+  contact: "<p><a href='https://signin.account.gov.uk/contact-us?supportType=PUBLIC' class='govuk-link' rel='noreferrer noopener' target='_blank'>Cysylltu â thîm cyfrif GOV.UK (agor mewn tab newydd)</a></p>"
