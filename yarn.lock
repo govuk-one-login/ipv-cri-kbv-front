@@ -3716,17 +3716,17 @@ pkg-dir@^4.1.0:
   dependencies:
     find-up "^4.0.0"
 
-playwright-core@1.23.2:
-  version "1.23.2"
-  resolved "https://registry.yarnpkg.com/playwright-core/-/playwright-core-1.23.2.tgz#ddc15b3251e42ee0eed82a96ece3f7b2641d75a4"
-  integrity sha512-UGbutIr0nBALDHWW/HcXfyK6ZdmefC99Moo4qyTr89VNIkYZuDrW8Sw554FyFUamcFSdKOgDPk6ECSkofGIZjQ==
+playwright-core@1.25.1:
+  version "1.25.1"
+  resolved "https://registry.yarnpkg.com/playwright-core/-/playwright-core-1.25.1.tgz#abe56aec8bef645fba988320d9f9328fafab0446"
+  integrity sha512-lSvPCmA2n7LawD2Hw7gSCLScZ+vYRkhU8xH0AapMyzwN+ojoDqhkH/KIEUxwNu2PjPoE/fcE0wLAksdOhJ2O5g==
 
-playwright@1.23.2:
-  version "1.23.2"
-  resolved "https://registry.yarnpkg.com/playwright/-/playwright-1.23.2.tgz#379eccbaed58ba23152d02934b4bc5104b4b7e60"
-  integrity sha512-c7nyyuDRifGBUNb+/zZh4AjyQXQISVHZY2cpHCsSIWueZNtY7q6Qfv0hJbVdtJhWSGgcix0hmES30l5jlPmy5Q==
+playwright@1.25.1:
+  version "1.25.1"
+  resolved "https://registry.yarnpkg.com/playwright/-/playwright-1.25.1.tgz#23fe129ca05568a72ee2a3842baa0a1985d1b345"
+  integrity sha512-kOlW7mllnQ70ALTwAor73q/FhdH9EEXLUqjdzqioYLcSVC4n4NBfDqeCikGuayFZrLECLkU6Hcbziy/szqTXSA==
   dependencies:
-    playwright-core "1.23.2"
+    playwright-core "1.25.1"
 
 ports@1.1.x:
   version "1.1.0"
