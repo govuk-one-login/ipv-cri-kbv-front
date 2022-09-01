@@ -250,19 +250,19 @@ Q00069:
 Q00083:
   legend: "Beth yw 2 lythyren gyntaf enw masnachu eich cwmni?"
   hint: "Meddyliwch am enw masnachu'r cwmni rydych chi yn, neu wedi bod, yn gyfarwyddwr."
-missingQuestions:
-  Q00001:
-    legend: "Pryd wnaethoch chi symud i mewn i'ch cyfeiriad cartref presennol?"
-    hint: null
-  Q00002:
-    legend: "Pryd wnaethoch chi symud i mewn i'ch cyfeiriad cartref presennol?"
-    hint: null
-  Q00008:
-    legend: "Pa gyfenw ydych chi wedi cael eich adnabod ganddo o'r blaen?"
-    hint: null
-  Q00045:
-    legend: "Pryd cafodd y person wnaethoch chi gymryd benthyciad allan gyda eu geni?"
-    hint: null
-  Q00054:
-    legend: "Beth yw'r 5 rhif olaf o'ch rhif cyfrif cyfredol?"
-    hint: "Gallwch ddod o hyd i'r rhif yma ar eich datganiad banc. Gallai hefyd ymddangos ar eich cerdyn banc neu yn eich ap bancio."
+# missingQuestions:
+  # Q00001:
+  #   legend: "Pryd wnaethoch chi symud i mewn i'ch cyfeiriad cartref presennol?"
+  #   hint: null
+  # Q00002:
+  #   legend: "Pryd wnaethoch chi symud i mewn i'ch cyfeiriad cartref presennol?"
+  #   hint: null
+  # Q00008:
+  #   legend: "Pa gyfenw ydych chi wedi cael eich adnabod ganddo o'r blaen?"
+  #   hint: null
+  # Q00045:
+  #   legend: "Pryd cafodd y person wnaethoch chi gymryd benthyciad allan gyda eu geni?"
+  #   hint: null
+  # Q00054:
+  #   legend: "Beth yw'r 5 rhif olaf o'ch rhif cyfrif cyfredol?"
+  #   hint: "Gallwch ddod o hyd i'r rhif yma ar eich datganiad banc. Gallai hefyd ymddangos ar eich cerdyn banc neu yn eich ap bancio."
