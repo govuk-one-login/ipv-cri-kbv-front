@@ -13,7 +13,7 @@ describe("question", () => {
     };
   });
 
-  describe("#buildFallbackTranslations", () => {
+  describe("#questionToTranslations", () => {
     it("should use question.text for legend", () => {
       const {
         fields: {
@@ -54,29 +54,41 @@ describe("question", () => {
       expect(defaultValidation).to.equal("You need to answer the question");
     });
 
-    describe("items", () => {
-      let items;
+    it("should contain items", () => {
+      const {
+        fields: {
+          Q1: { items },
+        },
+      } = dynamicQuestion.questionToTranslations(question);
 
-      beforeEach(() => {
-        const fields = dynamicQuestion.questionToTranslations(question);
-        items = fields?.fields?.Q1?.items;
-      });
-      it("should contain all answers", () => {
-        expect(Object.keys(items).length).to.equal(2);
-      });
-      it("should use answer for value", () => {
-        expect(items.ABC.value).to.equal("ABC");
-        expect(items.DEF.value).to.equal("DEF");
-      });
-      it("should use capitalised answer for label", () => {
-        expect(items.ABC.label).to.equal("Abc");
-        expect(items.DEF.label).to.equal("Def");
-      });
+      expect(items).to.have.all.keys("ABC", "DEF");
+    });
+  });
+
+  describe("#answerListToTranslatedItems", () => {
+    let items;
+
+    beforeEach(() => {
+      items = dynamicQuestion.answerListToTranslatedItems(
+        question.answerFormat.answerList
+      );
     });
 
-    describe("with missing question data", () => {
-      it("should do something");
+    it("should contain all answers", () => {
+      expect(Object.keys(items).length).to.equal(2);
     });
+    it("should use answer for value", () => {
+      expect(items.ABC.value).to.equal("ABC");
+      expect(items.DEF.value).to.equal("DEF");
+    });
+    it("should use capitalised answer for label", () => {
+      expect(items.ABC.label).to.equal("Abc");
+      expect(items.DEF.label).to.equal("Def");
+    });
+  });
+
+  describe("with missing question data", () => {
+    it("should do something");
   });
 
   describe("#questionsToFieldsConfig", () => {
@@ -88,6 +100,16 @@ describe("question", () => {
         validate: ["required"],
         items: ["ABC", "DEF"],
       });
+    });
+  });
+
+  describe("#answerListToFieldItems", () => {
+    it("should return config based on answerList", () => {
+      const config = dynamicQuestion.answerListToFieldItems(
+        question.answerFormat.answerList
+      );
+
+      expect(config).to.deep.equal(["ABC", "DEF"]);
     });
   });
 });
