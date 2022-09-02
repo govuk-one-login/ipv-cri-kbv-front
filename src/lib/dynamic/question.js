@@ -1,9 +1,13 @@
-const _ = require("lodash");
+const capitalize = (string) => {
+  return string
+    ? string.charAt(0).toUpperCase() + string.slice(1).toLowerCase()
+    : "";
+};
 
 function answerListToTranslatedItems(answerList) {
   return answerList.reduce((acc, answer) => {
     acc[answer] = {
-      label: `${_.capitalize(answer)}`,
+      label: `${capitalize(answer)}`,
       value: answer,
     };
 
