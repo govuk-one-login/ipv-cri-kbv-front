@@ -70,6 +70,11 @@ const { app, router } = setup({
     ),
     "views",
   ],
+  translation: {
+    allowedLangs: ["en", "cy"],
+    fallbackLang: ["en"],
+    cookie: { name: "lng" },
+  },
   middlewareSetupFn: (app) => {
     app.use(setHeaders);
   },
