@@ -1,0 +1,268 @@
+surname:
+  label: "Cyfenw"
+  validation:
+    default: "Mae angen i chi ddarparu eich cyfenw"
+givenNames:
+  label: "Enwau a roddwyd"
+  validation:
+    default: "Mae angen i chi ddarparu eich enwau a roddwyd"
+dateOfBirth:
+  legend: "Dyddiad geni"
+  validation:
+    default: "Mae angen i chi ddarparu eich dyddiad geni"
+    before: "Mae'n rhaid i ddyddiad cyhoeddi fod yn y gorffennol"
+date-day:
+  label: "Diwrnod"
+date-month:
+  label: "Mis"
+date-year:
+  label: "Blwyddyn"
+houseNameNumber:
+  label: "Enw neu rif tŷ"
+streetName:
+  label: "Enw stryd"
+townCity:
+  label: "Tref neu ddinas"
+postCode:
+  label: "Cod Post"
+formType:
+  legend: " "
+  items:
+    input:
+      label: "Mewnbwn defnyddiwr"
+    dropDown:
+      label: "Dewiswch o restr"
+preConfiguredValues:
+  label: "Dewiswch o restr"
+  items:
+    arkilAlbert:
+      label: "Arkil, Albert - Heb ei ddilysu"
+    duffLinda:
+      label: "Duff, Linda - Parhau ac Ymchwilio"
+    decerqueiraKenneth:
+      label: "Decerqueria, Kenneth - Dilysu lefel 1"
+abandonRadio:
+  label: "Beth hoffech chi ei wneud?"
+  validation:
+    required: "Mae'n rhaid i chi ddewis opsiwn i barhau"
+  items:
+    continue:
+      label: "Parhau i ateb y cwestiynau"
+      value: "parhau"
+    stop:
+      label: "Stopio ateb y cwestiynau a phrofi pwy ydych chi mewn ffordd arall"
+      value: "stop"
+Q00015:
+  legend: "Faint sydd gennych ar ôl i'w dalu ar eich morgais?"
+  hint: "Mae hyn yn cynnwys unrhyw log. Fel arfer gallwch ddod o hyd i'r swm hwn ar eich datganiad morgais diweddaraf neu drwy wirio'ch cyfrif ar-lein."
+Q00016:
+  legend: "Faint wnaethoch chi ei fenthyg pan gymeroch eich morgais allan yn gyntaf?"
+  hint: "Gallwch ddod o hyd i'r swm yma ar eich llythyr cynnig neu gytundeb morgais."
+Q00017:
+  legend: "Faint wnaethoch chi ei fenthyg pan gymeroch un o'ch morgeisi allan yn gyntaf?"
+  hint: "Meddyliwch am unrhyw forgeisi rydych wedi eu cymryd allan dros y 3 blynedd diwethaf. Gallwch ddod o hyd i'r swm hwn ar unrhyw un o'ch llythyrau cynnig neu gytundebau morgais."
+Q00018:
+  legend: "Faint yw eich taliad morgais misol?"
+  hint: "Meddyliwch am y swm roeddech wedi'i gytuno i dalu'n ôl bob mis. Gallwch ddod o hyd i hyn ar eich cytundeb morgais gwreiddiol neu eich datganiad morgais diweddaraf."
+Q00027:
+  legend: "Faint sydd gennych ar ôl i'w dalu ar eich morgais prynu i osod?"
+  hint: "Mae hyn yn cynnwys unrhyw log. Gallwch ddod o hyd i'r swm hwn ar eich datganiad morgais diweddaraf neu drwy wirio'ch cyfrif ar-lein."
+Q00028:
+  legend: "Faint wnaethoch chi ei fenthyg pan gymeroch chi eich morgais prynu i'w osod gyntaf?"
+  hint: "Gallwch ddod o hyd i'r swm yma ar eich llythyr cynnig neu gytundeb morgais."
+Q00029:
+  legend: "Faint wnaethoch chi ei fenthyg pan gymeroch un o'ch morgeisi a prynu i osod gyntaf?"
+  hint: "Meddyliwch am unrhyw forgeisi prynu i'w gosod rydych wedi eu cymryd allan dros y 3 blynedd diwethaf. Gallwch ddod o hyd i'r swm hwn ar unrhyw un o'ch llythyrau cynnig neu gytundebau morgais."
+Q00030:
+  legend: "Faint yw eich taliad morgais prynu i osod misol?"
+  hint: "Meddyliwch am y swm roeddech wedi'i gytuno i dalu'n ôl bob mis. Gallwch ddod o hyd i hyn ar eich cytundeb morgais gwreiddiol neu eich datganiad morgais diweddaraf."
+Q00035:
+  legend: "Pryd wnaethoch chi gymryd benthyciad allan?"
+  hint: "Meddyliwch am fenthyciad personol rydych wedi ei gymryd allan ond heb ei dalu'n ôl eto. Nid yw hyn yn cynnwys cytundebau hur bwrcas, ail forgeisi, benthyciadau credyd cartref neu fenthyciadau myfyrwyr."
+Q00036:
+  legend: "Pryd wnaethoch chi gymryd benthyciad allan?"
+  hint: "Meddyliwch am fenthyciad personol rydych wedi ei gymryd allan ond heb ei dalu'n ôl eto. Nid yw hyn yn cynnwys cytundebau hur bwrcas, ail forgeisi, benthyciadau credyd cartref neu fenthyciadau myfyrwyr."
+Q00037:
+  legend: "Pryd wnaethoch chi gymryd allan un o'ch benthyciadau?"
+  hint: "Meddyliwch am unrhyw fenthyciad personol rydych wedi ei gymryd allan ond heb ei dalu'n ôl eto. Nid yw hyn yn cynnwys cytundebau hur bwrcas, ail forgeisi, benthyciadau credyd cartref neu fenthyciadau myfyrwyr."
+Q00038:
+  legend: "Pryd wnaethoch chi gymryd allan un o'ch benthyciadau?"
+  hint: "Meddyliwch am unrhyw fenthyciad personol rydych wedi ei gymryd allan ond heb ei dalu'n ôl eto. Nid yw hyn yn cynnwys cytundebau hur bwrcas, ail forgeisi, benthyciadau credyd cartref neu fenthyciadau myfyrwyr."
+Q00039:
+  legend: "Faint o'ch benthyciad sydd gennych ar ôl i'w dalu?"
+  hint: "Meddyliwch faint o'ch benthyciad personol sydd gennych i'w dalu'n ôl, gan gynnwys unrhyw log. Nid yw hyn yn cynnwys cytundebau hur bwrcas, ail forgeisi, benthyciadau credyd cartref neu fenthyciadau myfyrwyr."
+Q00040:
+  legend: "Faint wnaethoch chi ei fenthyg pan gymeroch chi fenthyciad allan yn ddiweddar?"
+  hint: "Meddyliwch am fenthyciad personol rydych chi wedi'i gymryd allan yn y 3 blynedd diwethaf ond heb ei dalu'n ôl eto. Nid yw hyn yn cynnwys cytundebau hur bwrcas, ail forgeisi, benthyciadau credyd cartref neu fenthyciadau myfyrwyr."
+Q00041:
+  legend: "Faint wnaethoch chi ei fenthyg pan gymeroch chi un o'ch benthyciadau allan yn ddiweddar?"
+  hint: "Meddyliwch am fenthyciadau personol rydych chi wedi'u cymryd allan yn y 3 blynedd diwethaf ond heb ei dalu'n ôl eto. Nid yw hyn yn cynnwys cytundebau hur bwrcas, ail forgeisi, benthyciadau credyd cartref neu fenthyciadau myfyrwyr."
+Q00042:
+  legend: "Faint o'ch benthyciad ydych yn ei dalu'n ôl bob mis?"
+  hint: "<p>Meddyliwch am y swm rydych i fod i'w dalu'n ôl bob mis ar fenthyciad personol. Nid yw hyn yn cynnwys cytundebau hur bwrcas, ail forgeisi, benthyciadau credyd cartref neu fenthyciadau myfyrwyr.</p><p>Gallwch ddod o hyd i'r swm hwn ar eich cytundeb benthyciad.</p>"
+Q00046:
+  legend: "Gan bwy ydych chi wedi benthyg credyd cartref gan?"
+  hint: "Credyd cartref (a elwir hefyd yn 'benthyca stepen drws') yw pan fyddwch yn benthyg arian gan fenthycwyr sy'n dod i'ch tŷ."
+Q00047:
+  legend: "Pa un o'r benthycwyr hyn ydych chi wedi benthyg credyd cartref gan?"
+  hint: "Gelwir credyd cartref hefyd yn 'benthyca stepen drws'. Meddyliwch am unrhyw un o'r amseroedd wnaethoch chi fenthyg arian gan fenthycwyr a ddaeth i'ch tŷ."
+Q00050:
+  legend: "Pryd wnaethoch chi agor eich cyfrif cyfredol?"
+  hint: "Meddyliwch am eich cyfrif cyfredol yn unig. Nid yw hyn yn cynnwys unrhyw gyfrifon ar y cyd, busnes na chynilo sydd gennych."
+Q00051:
+  legend: "Pryd wnaethoch chi agor un o'ch cyfrifon cyfredol?"
+  hint: "Meddyliwch am pryd wnaethoch chi agor un o'ch cyfrifon cyfredol yn lle unrhyw gyfrifon ar y cyd, busnes na chynilo sydd gennych."
+Q00057:
+  legend: "Beth yw'r terfyn credyd ar eich cerdyn credyd?"
+  hint: "Dyma'r uchafswm y gallwch ei wario ar eich cerdyn credyd. Gallwch ddod o hyd i'ch terfyn credyd ar eich datganiad cerdyn credyd."
+Q00058:
+  legend: "Beth yw'r terfyn credyd ar un o'ch cardiau credyd?"
+  hint: "Meddyliwch am y swm mwyaf y gallwch ei wario ar unrhyw un o'ch cardiau credyd. Gallwch ddod o hyd i hwn ar eich datganiad cerdyn credyd."
+Q00060:
+  legend: "Faint oedd eich ad-daliad cerdyn credyd diweddaraf?"
+  hint: "Edrychwch ar y swm ar eich datganiad cerdyn credyd diweddaraf, hyd yn oed os ydych wedi gwneud taliad arall ers hynny. Bydd hyn fel arfer yn y crynodeb o'r cyfrif ger brig y datganiad.\""
+Q00061:
+  legend: "Faint o arian parod ydych chi wedi'i dynnu allan gyda'ch cerdyn credyd yn ddiweddar?"
+  hint: "Gallwch ddarganfod hyn drwy edrych ar gyfanswm y 'taliadau arian parod ymlaen llaw' ar eich datganiad cerdyn credyd diweddaraf."
+Q00062:
+  legend: "Sawl gwaith ydych chi wedi defnyddio eich cerdyn credyd yn ddiweddar i dynnu arian allan?"
+  hint: "Gallwch ddarganfod hyn drwy chwilio am 'taliadau arian parod ymlaen llaw' ar eich datganiad cerdyn credyd diweddaraf."
+Q00068:
+  legend: "Pryd wnaethoch chi gymryd allan eich contract ffôn symudol?"
+  hint: "Meddyliwch pryd wnaethoch chi gymryd allan eich contract ffôn personol yn lle eich ffôn gwaith, os oes gennych un."
+Q00070:
+  legend: "Pryd wnaethoch chi gymryd allan eich contract ffôn symudol neu gartref?"
+  hint: "Meddyliwch pryd wnaethoch chi gymryd allan eich contract ffôn personol yn lle eich ffôn gwaith, os oes gennych un."
+Q00075:
+  legend: "Gan pwy wnaethoch chi fenthyg eich morgais blaenorol?"
+  hint: "Meddyliwch am forgais rydych wedi ei dalu'n ôl yn ystod y 2 flynedd ddiwethaf."
+Q00076:
+  legend: "Gan pwy wnaethoch chi fenthyg eich benthyciad diwethaf?"
+  hint: "Meddyliwch am fenthyciad personol rydych wedi ei dalu'n ôl yn ystod y 2 flynedd ddiwethaf. Nid yw cytundebau hur bwrcas, ail forgeisi, benthyciadau credyd cartref a benthyciadau myfyrwyr yn cyfrif fel benthyciadau personol."
+Q00077:
+  legend: "Gan pwy wnaethoch chi wneud cais diweddar am fenthyciad?"
+  hint: "Meddyliwch am unrhyw geisiadau am fenthyciadau personol rydych wedi'u gwneud yn ystod y 6 mis diwethaf. Nid yw cytundebau hur bwrcas, ail forgeisi, benthyciadau credyd cartref a benthyciadau myfyrwyr yn cyfrif fel benthyciadau personol."
+Q00078:
+  legend: "Faint wnaethoch chi ofyn am fenthyg pan wnaethoch chi gais am fenthyciad yn ddiweddar?"
+  hint: "Meddyliwch am unrhyw geisiadau am fenthyciadau personol rydych wedi'u gwneud yn ystod y 6 mis diwethaf. Nid yw cytundebau hur bwrcas, ail forgeisi, benthyciadau credyd cartref a benthyciadau myfyrwyr yn cyfrif fel benthyciadau personol."
+Q00079:
+  legend: "Gan pwy wnaethoch chi wneud cais diweddar am forgais?"
+  hint: "Meddyliwch am unrhyw geisiadau rydych wedi eu gwneud yn ystod y 6 mis diwethaf."
+Q00080:
+  legend: "Faint wnaethoch chi ofyn am fenthyg pan wnaethoch chi gais am forgais yn ddiweddar?"
+  hint: "Meddyliwch am unrhyw geisiadau rydych wedi eu gwneud yn ystod y 6 mis diwethaf."
+Q00090:
+  legend: "Faint oedd eich bil nwy diwethaf?"
+  hint: "Edrychwch ar eich bil nwy diweddaraf neu meddyliwch am y swm rydych fel arfer yn ei dalu bob mis."
+Q00113:
+  legend: "Faint o'ch benthyciad myfyriwr wnaethoch chi dalu'n ôl fis diwethaf?"
+  hint: "Gallwch ddod o hyd i hwn ar eich slip cyflog."
+Q00003:
+  legend: "Beth oedd rhif y tŷ a 4 llythyren gyntaf enw'r stryd o'ch cyfeiriad blaenorol?"
+  hint: "Ni ddylai 4 llythyren cyntaf enw'r stryd gynnwys unrhyw rifau, gofodau na nodau arbennig."
+Q00004:
+  legend: "Beth oedd rhif tŷ a chod post o'ch cyfeiriad blaenorol?"
+  hint: null
+Q00005:
+  legend: "Beth oedd y 4 llythyren gyntaf o enw'r tŷ a'r cod post o'ch cyfeiriad blaenorol?"
+  hint: "Ni ddylai 4 llythyren cyntaf enw eich tŷ gynnwys unrhyw rifau, gofodau na nodau arbennig."
+Q00006:
+  legend: "Beth oedd 4 llythyren gyntaf enw'r tŷ a'r 4 llythyren cyntaf o enw'r stryd o'ch cyfeiriad blaenorol?"
+  hint: "Ni ddylai 4 llythyren cyntaf enw eich tŷ ac enw stryd gynnwys unrhyw rifau, gofodau na nodau arbennig."
+Q00007:
+  legend: "Am faint o amser y buoch chi'n byw yn eich cyfeiriad blaenorol?"
+  hint: null
+Q00009:
+  legend: "Pa fenthycwyr wnaethoch chi fenthyg eich morgais ganddynt?"
+  hint: null
+Q00010:
+  legend: "Pa fenthycwyr ydych chi wedi benthyg un o'ch morgeisi ganddynt?"
+  hint: "Meddyliwch am unrhyw forgeisi rydych chi wedi eu cymryd allan dros y 3 blynedd diwethaf."
+Q00011:
+  legend: "Pryd wnaethoch chi gymryd allan eich morgais?"
+  hint: null
+Q00012:
+  legend: "Pryd wnaethoch chi gymryd allan eich morgais?"
+  hint: null
+Q00013:
+  legend: "Pryd wnaethoch chi gymryd allan un o'ch morgeisi?"
+  hint: "Meddyliwch am unrhyw forgeisi rydych chi wedi eu cymryd allan dros y 3 blynedd diwethaf."
+Q00014:
+  legend: "Pryd wnaethoch chi gymryd allan un o'ch morgeisi?"
+  hint: "Meddyliwch am unrhyw forgeisi rydych chi wedi eu cymryd allan dros y 3 blynedd diwethaf."
+Q00019:
+  legend: "Beth yw'r 2 lythyren gyntaf o enw cyntaf y person arall ar eich morgais?"
+  hint: "Er enghraifft, dewiswch 'JE' os mai Jerry Davis yw enw'r person arall."
+Q00020:
+  legend: "Pryd cafodd y person arall ar eich morgais eu geni?"
+  hint: null
+Q00021:
+  legend: "Pa fenthycwyr wnaethoch chi fenthyg eich morgais prynu i osod ganddynt?"
+  hint: null
+Q00022:
+  legend: "Pa fenthycwyr wnaethoch chi fenthyg un o'ch morgeisi prynu i osod ganddynt?"
+  hint: "Meddyliwch am unrhyw forgeisi prynu i'w gosod rydych chi wedi eu cymryd allan dros y 3 blynedd diwethaf."
+Q00023:
+  legend: "Pryd wnaethoch chi gymryd allan eich morgais prynu i osod?"
+  hint: null
+Q00024:
+  legend: "Pryd wnaethoch chi gymryd allan eich morgais prynu i osod?"
+  hint: null
+Q00025:
+  legend: "Pryd wnaethoch chi gymryd allan un o'ch morgeisi prynu i osod?"
+  hint: "Meddyliwch am unrhyw forgeisi prynu i'w gosod rydych chi wedi eu cymryd allan dros y 3 blynedd diwethaf."
+Q00026:
+  legend: "Pryd wnaethoch chi gymryd allan un o'ch morgeisi prynu i osod?"
+  hint: "Meddyliwch am unrhyw forgeisi prynu i'w gosod rydych chi wedi eu cymryd allan dros y 3 blynedd diwethaf."
+Q00033:
+  legend: "Pa ddarparwr wnaethoch chi gymryd benthyciad allan gyda?"
+  hint: "Meddyliwch am fenthyciad personol rydych wedi ei gymryd allan ond heb ei dalu'n ôl eto. Nid yw hyn yn cynnwys cytundebau hur bwrcas, ail forgeisi, benthyciadau credyd cartref neu fenthyciadau myfyrwyr."
+Q00034:
+  legend: "Pa un o'r darparwyr hyn wnaethoch chi gymryd benthyciad allan gyda?"
+  hint: "Meddyliwch am unrhyw fenthyciad personol rydych wedi ei gymryd allan ond heb ei dalu'n ôl eto. Nid yw'r rhain yn cynnwys cytundebau hur bwrcas, ail forgeisi, benthyciadau credyd cartref neu fenthyciadau myfyrwyr."
+Q00043:
+  legend: "Faint o amser sydd gennych i dalu'ch benthyciad yn ôl?"
+  hint: "Gelwir hyn hefyd yn 'cyfnod benthyciad. Gallwch ddod o hyd i hwn ar eich datganiad benthyciad. Gallai hefyd ymddangos yn eich ap bancio."
+Q00044:
+  legend: "Beth yw'r 2 lythyren gyntaf o enw cyntaf y person a gymerodd fenthyciad allan gyda chi?"
+  hint: "Er enghraifft, dewiswch 'RU' os mai Ruby Evans yw enw'r person arall."
+Q00048:
+  legend: "Gyda pwy ydych chi wedi agor cyfrif cyfredol?"
+  hint: "Meddyliwch am eich cyfrif cyfredol yn lle unrhyw gyfrifon ar y cyd, busnes neu gynilo sydd gennych."
+Q00049:
+  legend: "Gyda pwy ydych chi wedi agor cyfrif cyfredol?"
+  hint: "Meddyliwch am eich cyfrif cyfredol yn lle unrhyw gyfrifon ar y cyd, busnes neu gynilo sydd gennych."
+Q00052:
+  legend: "Beth yw'r 5 rhif olaf o'ch rhif cyfrif cyfredol?"
+  hint: "Gallwch ddod o hyd i'r rhif yma ar eich datganiad banc. Gallai hefyd ymddangos ar eich cerdyn banc neu yn eich ap bancio."
+Q00055:
+  legend: "Pwy yw eich darparwr cerdyn credyd?"
+  hint: null
+Q00056:
+  legend: "Pwy yw un o'ch darparwyr cerdyn credyd?"
+  hint: "Meddyliwch am bwy gyhoeddodd unrhyw un o'r cardiau credyd sydd gennych."
+Q00067:
+  legend: "Pa rwydwaith mae gennych gontract ffôn symudol gyda?"
+  hint: "Meddyliwch am eich contract ffôn personol yn lle eich ffôn gwaith, os oes gennych un."
+Q00069:
+  legend: "Gyda pha rwydwaith mae gennych gontract ffôn?"
+  hint: "Meddyliwch am eich contractau symudol personol neu linell daear yn lle eich ffôn gwaith, os oes gennych un."
+Q00083:
+  legend: "Beth yw 2 lythyren gyntaf enw masnachu eich cwmni?"
+  hint: "Meddyliwch am enw masnachu'r cwmni rydych chi yn, neu wedi bod, yn gyfarwyddwr."
+missingQuestions:
+  Q00001:
+    legend: "Pryd wnaethoch chi symud i mewn i'ch cyfeiriad cartref presennol?"
+    hint: null
+  Q00002:
+    legend: "Pryd wnaethoch chi symud i mewn i'ch cyfeiriad cartref presennol?"
+    hint: null
+  Q00008:
+    legend: "Pa gyfenw ydych chi wedi cael eich adnabod ganddo o'r blaen?"
+    hint: null
+  Q00045:
+    legend: "Pryd cafodd y person wnaethoch chi gymryd benthyciad allan gyda eu geni?"
+    hint: null
+  Q00054:
+    legend: "Beth yw'r 5 rhif olaf o'ch rhif cyfrif cyfredol?"
+    hint: "Gallwch ddod o hyd i'r rhif yma ar eich datganiad banc. Gallai hefyd ymddangos ar eich cerdyn banc neu yn eich ap bancio."
