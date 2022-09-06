@@ -5,7 +5,7 @@ ENV PORT 5020
 WORKDIR /app
 
 COPY .yarn ./.yarn
-COPY package.json yarn.lock .yarnrc.yml ./
+COPY package.json yarn.lock ./
 RUN yarn install
 
 COPY . ./
