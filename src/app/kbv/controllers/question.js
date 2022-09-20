@@ -1,3 +1,4 @@
+const dynamicQuestion = require("../../../lib/dynamic/question");
 const dynamicTranslate = require("../../../lib/dynamic-i18n");
 const BaseController = require("hmpo-form-wizard").Controller;
 
@@ -9,33 +10,25 @@ const {
 
 class QuestionController extends BaseController {
   configure(req, res, next) {
-    const fallbackTranslations = dynamicTranslate.buildFallbackTranslations(
+    const fallbackTranslations = dynamicQuestion.questionToTranslations(
       req.session.question
     );
 
-    req.form.options.fields[req.session.question.questionID] = {
-      label:
-        fallbackTranslations?.fields?.question?.legend ||
-        req.session.question.text,
-      type: "radios",
-      validate: ["required"],
-      fieldset: {
-        legend: {
-          text: `fields.questionX.legend`,
-        },
-      },
-      items: req.session.question.answerFormat.answerList.map(
-        (answer) => answer
-      ),
-    };
+    req.form.options.fields[req.session.question.questionID] =
+      dynamicQuestion.questionToFieldsConfig(
+        req.session.question,
+        fallbackTranslations
+      );
 
     req.form.options.translate = dynamicTranslate.translateWrapper(
       req.translate,
+      dynamicTranslate.dynamicKeyTranslation,
       fallbackTranslations
     );
 
     super.configure(req, res, next);
   }
+
   locals(req, res, callback) {
     super.locals(req, res, (err, locals) => {
       if (err) {
