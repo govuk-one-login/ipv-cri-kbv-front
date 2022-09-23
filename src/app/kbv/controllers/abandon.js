@@ -28,6 +28,7 @@ class AbandonController extends BaseController {
       {
         headers: {
           "session-id": req.session.tokenId,
+          session_id: req.session.tokenId,
         },
       }
     );
