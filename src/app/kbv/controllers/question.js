@@ -1,7 +1,7 @@
 const dynamicQuestion = require("../../../lib/dynamic/question");
-const dynamicTranslate = require("../../../lib/dynamic-i18n");
 const BaseController = require("hmpo-form-wizard").Controller;
 
+const presenters = require("../../../presenters");
 const {
   API: {
     PATHS: { QUESTION, ANSWER },
@@ -20,12 +20,6 @@ class QuestionController extends BaseController {
         fallbackTranslations
       );
 
-    req.form.options.translate = dynamicTranslate.translateWrapper(
-      req.translate,
-      dynamicTranslate.dynamicKeyTranslation,
-      fallbackTranslations
-    );
-
     super.configure(req, res, next);
   }
 
@@ -34,7 +28,11 @@ class QuestionController extends BaseController {
       if (err) {
         return callback(err, locals);
       }
-      locals.question = req.session.question;
+
+      locals.question = presenters.questionToRadios(
+        req.session.question,
+        req.translate
+      );
 
       callback(err, locals);
     });
