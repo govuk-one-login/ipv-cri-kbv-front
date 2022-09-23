@@ -273,7 +273,7 @@ Resources:
               Value: !Sub
                 - "https://${APIGatewayId}.execute-api.eu-west-2.amazonaws.com/${Environment}"
                 - APIGatewayId:
-                    Fn::ImportValue: kbv-cri-api-PrivateKBVApiGatewayId
+                    Fn::ImportValue: kbv-cri-api-v1-PrivateKBVApiGatewayId
                   Environment: !Ref Environment
             - Name: EXTERNAL_WEBSITE_HOST
               Value: !GetAtt ApiGwHttpEndpoint.ApiEndpoint
