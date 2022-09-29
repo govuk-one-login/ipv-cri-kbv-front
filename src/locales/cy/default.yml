@@ -44,6 +44,10 @@ govuk:
           text: "Hysbysiad preifatrwydd"
         - href: "https://signin.account.gov.uk/contact-us"
           text: "Cefnogaeth"
+  copyright:
+    text: "© Hawlfraint y goron"
+  contentLicence:
+    html: "Mae’r holl gynnwys ar gael o dan <a class=\"govuk-footer__link\" href=\"https://www.nationalarchives.gov.uk/doc/open-government-licence-cymraeg/version/3/\" rel=\"licence\">Trwydded Llywodraeth Agored v3.0</a>, oni nodir yn wahanol"
 error:
   unrecoverable:
     title: "Mae'n ddrwg gennym, mae problem"
