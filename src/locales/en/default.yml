@@ -58,3 +58,5 @@ error:
     contactMeLink: Contact the GOV.UK account team (opens in a new tab)
     buttonText: Go to the GOV.UK homepage
     buttonLink: https://www.gov.uk/
+validation:
+  required: "You need to answer the question"

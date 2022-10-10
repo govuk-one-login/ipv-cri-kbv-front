@@ -26,9 +26,6 @@ function questionToTranslations(question) {
         legend: question.text,
         label: question.text,
         hint: question.toolTip,
-        validation: {
-          default: "You need to answer the question",
-        },
         items: answerListToTranslatedItems(question.answerFormat.answerList),
       },
     },
