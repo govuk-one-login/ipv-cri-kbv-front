@@ -60,3 +60,9 @@ error:
     buttonLink: https://www.gov.uk/
 validation:
   required: "You need to answer the question"
+answers:
+  noneOfTheAbove: "None of the above / does not apply"
+  upToMonths: "UP TO {{ months }} months"
+  overUpToMonths: "OVER {{ months_low }} months UP TO {{ months_high }} months"
+  upToAmount: "UP TO £ {{ amount }} "
+  overUpToAmount: "OVER £{{ amount_low }} UP TO £{{ amount_high }}"
