@@ -36,7 +36,16 @@ describe("Abandon controller", () => {
 
         await abandonController.saveValues(req, res, next);
         expect(next).to.have.been.calledOnce;
-        expect(req.axios.post).to.have.been.calledWith(ABANDON, {});
+        expect(req.axios.post).to.have.been.calledWithExactly(
+          ABANDON,
+          {},
+          {
+            headers: {
+              "session-id": req.session.tokenId,
+              session_id: req.session.tokenId,
+            },
+          }
+        );
       });
 
       it("should not call abandon endpoint", async () => {

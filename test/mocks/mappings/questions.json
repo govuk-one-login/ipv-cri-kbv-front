@@ -52,6 +52,9 @@
           "session-id": {
             "equalTo": "ABADCAFE"
           },
+          "session_id": {
+            "equalTo": "ABADCAFE"
+          },
           "x-scenario-id": {
             "equalTo": "question-success"
           }
@@ -88,6 +91,9 @@
           "session-id": {
             "equalTo": "ABADCAFE"
           },
+          "session_id": {
+            "equalTo": "ABADCAFE"
+          },
           "x-scenario-id": {
             "equalTo": "question-success"
           },
@@ -117,6 +123,9 @@
         "url": "/question",
         "headers": {
           "session-id": {
+            "equalTo": "ABADCAFE"
+          },
+          "session_id": {
             "equalTo": "ABADCAFE"
           },
           "x-scenario-id": {
@@ -155,6 +164,9 @@
           "session-id": {
             "equalTo": "ABADCAFE"
           },
+          "session_id": {
+            "equalTo": "ABADCAFE"
+          },
           "x-scenario-id": {
             "equalTo": "question-success"
           }
@@ -184,6 +196,9 @@
           "session-id": {
             "equalTo": "ABADCAFE"
           },
+          "session_id": {
+            "equalTo": "ABADCAFE"
+          },
           "x-scenario-id": {
             "equalTo": "question-success"
           }
@@ -201,6 +216,9 @@
         "urlPath": "/authorization",
         "headers": {
           "session-id": {
+            "equalTo": "ABADCAFE"
+          },
+          "session_id": {
             "equalTo": "ABADCAFE"
           },
           "x-scenario-id": {
