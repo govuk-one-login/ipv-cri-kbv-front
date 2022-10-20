@@ -1,6 +1,7 @@
 const BaseController = require("hmpo-form-wizard").Controller;
 const QuestionController = require("./question");
 const dynamicQuestion = require("../../../lib/dynamic/question");
+const presenters = require("../../../presenters");
 
 describe("Question controller", () => {
   let questionController;
@@ -80,14 +81,23 @@ describe("Question controller", () => {
 
   describe("#locals", () => {
     let prototypeSpy;
+    let translate;
+    let questionToRadiosSpy;
 
     beforeEach(() => {
       prototypeSpy = sinon.stub(BaseController.prototype, "locals");
       BaseController.prototype.locals.callThrough();
+
+      questionToRadiosSpy = sinon.stub(presenters, "questionToRadios");
+      questionToRadiosSpy.returns({ name: "Q1" });
+
+      translate = sinon.stub();
+      req.translate = translate;
     });
 
     afterEach(() => {
       prototypeSpy.restore();
+      questionToRadiosSpy.restore();
     });
 
     it("should call locals first with a callback", () => {
@@ -100,7 +110,7 @@ describe("Question controller", () => {
       req.session.question = "question";
       questionController.locals(req, res, next);
 
-      expect(next).to.have.been.calledWith(null, { question: "question" });
+      expect(next).to.have.been.calledWith(null, { question: { name: "Q1" } });
     });
 
     context("with error on callback", () => {

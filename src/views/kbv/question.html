@@ -1,14 +1,17 @@
 {% extends "base-form.njk" %}
+{% from "hmpo-radios/macro.njk" import hmpoRadios %}
+
 {% set hmpoPageKey = "simplifiedQuestion" %}
 {% set gtmJourney = "kbv - middle" %}
 
-{% block submitButton %}
-  {{ hmpoSubmit(ctx, {id: "continue", text: translate("buttons.next")}) }}
-{% endblock %}
-
 {% block mainContent %}
-  {{ super() }}
+
+  {% call hmpoForm(ctx) %}
+    {{ hmpoRadios(ctx, question) }}
+    {{ hmpoSubmit(ctx, {id: "continue", text: translate("buttons.next")}) }}
+  {% endcall %}
 
   {{ hmpoHtml(translate("pages.simplifiedQuestion.abandon")) }}
+
 
 {% endblock %}
