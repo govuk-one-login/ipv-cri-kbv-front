@@ -42,17 +42,6 @@ describe("question", () => {
 
       expect(hint).to.equal(`${question.toolTip}`);
     });
-    it("should use i18n for default validation error", () => {
-      const {
-        fields: {
-          Q1: {
-            validation: { default: defaultValidation },
-          },
-        },
-      } = dynamicQuestion.questionToTranslations(question);
-
-      expect(defaultValidation).to.equal("You need to answer the question");
-    });
 
     it("should contain items", () => {
       const {
