@@ -44,7 +44,7 @@ describe("question-to-radios", () => {
     });
   });
   it("should set hint", () => {
-    expect(config.hint.text).to.equal(
+    expect(config.hint.html).to.equal(
       "Think about when you opened your account"
     );
   });

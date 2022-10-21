@@ -14,7 +14,7 @@ module.exports = function (question, translate) {
       },
     },
     hint: {
-      text: questionToHint(question, translate),
+      html: questionToHint(question, translate),
     },
     items: question?.answerFormat?.answerList?.map((answer) =>
       answerToRadioItem(answer, translate)
