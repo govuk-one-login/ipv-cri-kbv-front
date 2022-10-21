@@ -63,17 +63,17 @@
       "response": {
         "status": 200,
         "jsonBody": {
-          "questionID": "Q00051",
-          "text": "In which month and year did you open one of your current accounts",
+          "questionID": "Q00042",
+          "text": "How much of your loan do you payback?",
           "toolTip": "",
           "answerFormat": {
-            "identifier": "A00051",
+            "identifier": "A00042",
             "fieldType": "R ",
             "answerList": [
-              "01 / 2022",
-              "05 / 1999",
-              "12 / 2020",
-              "07 / 2012",
+              "UP TO £9,250",
+              "OVER £9,250 UP TO £9,500",
+              "OVER £9,500 UP TO £9,750",
+              "OVER £9,750 UP TO £10,000",
               "NONE OF THE ABOVE / DOES NOT APPLY"
             ]
           }
@@ -104,7 +104,7 @@
         "bodyPatterns": [
           {
             "equalToJson": {
-              "questionId": "Q00051",
+              "questionId": "Q00042",
               "answer": "${json-unit.any-string}"
             },
             "ignoreArrayOrder": true
@@ -137,16 +137,16 @@
         "status": 200,
         "jsonBody": {
           "questionID": "Q00000",
-          "text": "WHAT IS THE BALANCE, INCLUDING INTEREST, OF YOUR LOAN?",
-          "toolTip": "THE APPROXIMATE AMOUNT IN £S ON A CURRENT ACTIVE PERSONAL LOAN. DOES NOT INCLUDE HP LOANS, 2ND MORTGAGES OR HOME CREDIT",
+          "text": "WHEN DID YOU TAKE OUT A LOAN?",
+          "toolTip": "THIS INCLUDES PERSONAL LOANS AND CREDIT CARDS",
           "answerFormat": {
             "identifier": "A000004",
             "fieldType": "G ",
             "answerList": [
-              "UP TO £9,250",
-              "OVER £9,250 UP TO £9,500",
-              "OVER £9,500 UP TO £9,750",
-              "OVER £9,750 UP TO £10,000",
+              "01 / 2022",
+              "05 / 1999",
+              "12 / 2020",
+              "07 / 2012",
               "NONE OF THE ABOVE / DOES NOT APPLY"
             ]
           }
