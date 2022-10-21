@@ -136,9 +136,9 @@
       "response": {
         "status": 200,
         "jsonBody": {
-          "questionID": "Q00039",
-          "text": "What is the balance, including interest, of your loan?",
-          "toolTip": "The approximate amount in £s on a current active personal loan. Does not include HP Loans, 2nd Mortgages or Home Credit",
+          "questionID": "Q00000",
+          "text": "WHAT IS THE BALANCE, INCLUDING INTEREST, OF YOUR LOAN?",
+          "toolTip": "THE APPROXIMATE AMOUNT IN £S ON A CURRENT ACTIVE PERSONAL LOAN. DOES NOT INCLUDE HP LOANS, 2ND MORTGAGES OR HOME CREDIT",
           "answerFormat": {
             "identifier": "A000004",
             "fieldType": "G ",
@@ -174,7 +174,7 @@
         "bodyPatterns": [
           {
             "equalToJson": {
-              "questionId": "Q00039",
+              "questionId": "Q00000",
               "answer": "${json-unit.any-string}"
             },
             "ignoreArrayOrder": true

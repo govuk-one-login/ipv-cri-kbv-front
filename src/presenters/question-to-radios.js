@@ -6,7 +6,7 @@ module.exports = function (question, translate) {
   return {
     id: question?.questionID,
     name: question?.questionID,
-    legend: questionToLegend(question, translate),
+    label: questionToLegend(question, translate),
     fieldset: {
       legend: {
         isPageHeading: true,
