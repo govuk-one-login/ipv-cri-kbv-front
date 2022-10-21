@@ -30,8 +30,8 @@ describe("question-to-radios", () => {
   it("should set radio name", () => {
     expect(config.name).to.equal("Q00051");
   });
-  it("should set radio legend", () => {
-    expect(config.legend).to.equal(
+  it("should set radio label", () => {
+    expect(config.label).to.equal(
       "In which month and year did you open one of your current accounts"
     );
   });
