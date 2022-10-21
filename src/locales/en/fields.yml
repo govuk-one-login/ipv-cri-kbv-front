@@ -52,6 +52,9 @@ preConfiguredValues:
 
 abandonRadio:
   label: What would you like to do?
+  legend: What would you like to do?
+  hint: ""
+  content: ""
   validation:
     required: You must choose an option to continue
   items:
