@@ -39,7 +39,7 @@ describe("question-to-hint", () => {
     });
   });
 
-  context("with fallback translation key behaviour", () => {
+  context("with fallback to data behaviour", () => {
     it("should fallback to using tooltip from question", () => {
       translate.returns("fields.Q00.legend");
 

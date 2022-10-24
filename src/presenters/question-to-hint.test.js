@@ -39,13 +39,24 @@ describe("question-to-hint", () => {
     });
   });
 
-  context("with fallback translation key behaviour", () => {
+  context("with fallback to data behaviour", () => {
     it("should fallback to using tooltip", () => {
       translate.returns("fields.Q00.hint");
 
       const result = presenters.questionToHint(question, translate);
 
       expect(result).to.equal("question toolTip");
+    });
+  });
+
+  context("with missing key and data behaviour", () => {
+    it("should fallback to using tooltip", () => {
+      translate.returns("fields.Q00.hint");
+      question.toolTip = "";
+
+      const result = presenters.questionToHint(question, translate);
+
+      expect(result).to.equal(" ");
     });
   });
 });

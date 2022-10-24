@@ -35,6 +35,11 @@ describe("question-to-radios", () => {
       "In which month and year did you open one of your current accounts"
     );
   });
+  it("should set legend label", () => {
+    expect(config.legend).to.equal(
+      "In which month and year did you open one of your current accounts"
+    );
+  });
   it("should set fieldset", () => {
     expect(config.fieldset).to.deep.equal({
       legend: {
