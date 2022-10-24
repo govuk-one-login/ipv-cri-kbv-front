@@ -6,3 +6,7 @@
 
   {{ hmpoHtml(translate("pages.abandonCheck.contact")) }}
 {% endblock %}
+
+{% block submitButton %}
+  {{ hmpoSubmit(ctx, {id: "continue", text: translate("buttons.next")}) }}
+{% endblock %}

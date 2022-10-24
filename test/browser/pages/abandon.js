@@ -30,7 +30,7 @@ module.exports = class PlaywrightDevPage {
   }
 
   async submit() {
-    await this.page.click("button");
+    await this.page.click("#continue");
   }
 
   async answer() {
