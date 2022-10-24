@@ -54,6 +54,10 @@ describe("question-to-radios", () => {
     );
   });
   it("should use answers for items", () => {
+    translate.returns("NONE OF THE ABOVE / DOES NOT APPLY");
+
+    config = presenters.questionToRadios(question, translate);
+
     expect(config.items).to.deep.equal([
       { id: "01 / 2022", value: "01 / 2022", text: "01 / 2022" },
       { id: "05 / 1999", value: "05 / 1999", text: "05 / 1999" },
