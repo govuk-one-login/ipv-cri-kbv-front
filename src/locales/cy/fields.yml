@@ -43,6 +43,9 @@ preConfiguredValues:
       label: "Decerqueria, Kenneth - Dilysu lefel 1"
 abandonRadio:
   label: "Beth hoffech chi ei wneud?"
+  legend: "Beth hoffech chi ei wneud?"
+  hint: ""
+  content: ""
   validation:
     required: "Mae'n rhaid i chi ddewis opsiwn i barhau"
   items:

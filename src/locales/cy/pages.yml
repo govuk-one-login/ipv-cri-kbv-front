@@ -19,6 +19,7 @@ simplifiedQuestion:
   abandon: "<a href='/kbv/abandon' class='govuk-link' data-id='abandon'>Ni allaf ateb y cwestiwn hwn</a>"
 abandonCheck:
   title: "Rhaid i chi ateb pob cwestiwn diogelwch i brofi pwy ydych chi"
+  h1: "Rhaid i chi ateb pob cwestiwn diogelwch i brofi pwy ydych chi"
   content:
     - "Ni allwch hepgor unrhyw gwestiynau."
   contact: "<p><a href='https://signin.account.gov.uk/contact-us?supportType=PUBLIC' class='govuk-link' rel='noreferrer noopener' target='_blank'>Cysylltu â thîm cyfrif GOV.UK (agor mewn tab newydd)</a></p>"
