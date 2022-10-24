@@ -1,4 +1,4 @@
-@mock-api:question-success @success
+@mock-api:question-abandon @success
 Feature: Abandon Knowledge Based Verification Joureny
 
   Abandoning the Knowledge Based Verification questions successfully
