@@ -521,6 +521,28 @@ Resources:
       ComparisonOperator: LessThanThreshold
       TreatMissingData: breaching
 
+  KBVOnlyOneTaskCountAlarm:
+    Type: AWS::CloudWatch::Alarm
+    Properties:
+      AlarmDescription: !Sub KBV ${Environment} frontend below desired ECS service tasks
+      ActionsEnabled: true
+      AlarmActions:
+        - !ImportValue core-infrastructure-AlarmTopic
+      OKActions: []
+      InsufficientDataActions: []
+      MetricName: TaskCount
+      Namespace: ECS/ContainerInsights
+      Statistic: Average
+      Dimensions:
+        - Name: ClusterName
+          Value: !Ref KBVFrontEcsCluster
+      Period: 300
+      EvaluationPeriods: 3
+      DatapointsToAlarm: 3
+      Threshold: 2
+      ComparisonOperator: LessThanThreshold
+      TreatMissingData: breaching
+
   KBV5XXOnELB:
     Type: AWS::CloudWatch::Alarm
     Properties:
