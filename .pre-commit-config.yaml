@@ -13,12 +13,12 @@ repos:
         files: \.[jt]sx?$ # *.js, *.jsx, *.ts and *.tsx
         types: [file]
         args: ["."]
-  - repo: https://github.com/pre-commit/mirrors-prettier
-    rev: "v2.7.1"
-    hooks:
-      - id: prettier
-        types_or: ["javascript", "ts", "json"]
-        args: ["src", "test"]
+  # - repo: https://github.com/pre-commit/mirrors-prettier
+  #   rev: "v2.7.1"
+  #   hooks:
+  #     - id: prettier
+  #       types_or: ["javascript", "ts", "json"]
+  #       args: ["src", "test"] ## prettier hasnt been run in this repo. Loads of changes will appear if prettier is ran
   - repo: local
     hooks:
       - id: mocha
