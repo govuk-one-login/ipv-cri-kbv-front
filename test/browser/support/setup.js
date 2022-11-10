@@ -31,7 +31,7 @@ Before(async function ({ pickle } = {}) {
 
   this.SCENARIO_ID_HEADER = header;
 
-  await axios.get(`http://localhost:8090/__reset/${header}`);
+  await axios.get(`http://localhost:9020/__reset/${header}`);
 });
 
 // Create a new test context and page per scenario
