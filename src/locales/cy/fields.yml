@@ -50,10 +50,10 @@ abandonRadio:
     required: "Mae'n rhaid i chi ddewis opsiwn i barhau"
   items:
     continue:
-      label: "Parhau i ateb y cwestiynau"
+      label: "Parhewch i ateb y cwestiynau diogelwch"
       value: "parhau"
     stop:
-      label: "Stopio ateb y cwestiynau a phrofi pwy ydych chi mewn ffordd arall"
+      label: "Stopiwch ateb y cwestiynau diogelwch a phrofi pwy ydych chi mewn ffordd arall"
       value: "stop"
 Q00015:
   legend: "Faint sydd gennych ar ôl i'w dalu ar eich morgais?"
@@ -123,7 +123,7 @@ Q00058:
   hint: "Meddyliwch am y swm mwyaf y gallwch ei wario ar unrhyw un o'ch cardiau credyd. Gallwch ddod o hyd i hwn ar eich datganiad cerdyn credyd."
 Q00060:
   legend: "Faint oedd eich ad-daliad cerdyn credyd diweddaraf?"
-  hint: "Edrychwch ar y swm ar eich datganiad cerdyn credyd diweddaraf, hyd yn oed os ydych wedi gwneud taliad arall ers hynny. Bydd hyn fel arfer yn y crynodeb o'r cyfrif ger brig y datganiad.\""
+  hint: 'Edrychwch ar y swm ar eich datganiad cerdyn credyd diweddaraf, hyd yn oed os ydych wedi gwneud taliad arall ers hynny. Bydd hyn fel arfer yn y crynodeb o''r cyfrif ger brig y datganiad."'
 Q00061:
   legend: "Faint o arian parod ydych chi wedi'i dynnu allan gyda'ch cerdyn credyd yn ddiweddar?"
   hint: "Gallwch ddarganfod hyn drwy edrych ar gyfanswm y 'taliadau arian parod ymlaen llaw' ar eich datganiad cerdyn credyd diweddaraf."
@@ -254,18 +254,18 @@ Q00083:
   legend: "Beth yw 2 lythyren gyntaf enw masnachu eich cwmni?"
   hint: "Meddyliwch am enw masnachu'r cwmni rydych chi yn, neu wedi bod, yn gyfarwyddwr."
 # missingQuestions:
-  # Q00001:
-  #   legend: "Pryd wnaethoch chi symud i mewn i'ch cyfeiriad cartref presennol?"
-  #   hint: null
-  # Q00002:
-  #   legend: "Pryd wnaethoch chi symud i mewn i'ch cyfeiriad cartref presennol?"
-  #   hint: null
-  # Q00008:
-  #   legend: "Pa gyfenw ydych chi wedi cael eich adnabod ganddo o'r blaen?"
-  #   hint: null
-  # Q00045:
-  #   legend: "Pryd cafodd y person wnaethoch chi gymryd benthyciad allan gyda eu geni?"
-  #   hint: null
-  # Q00054:
-  #   legend: "Beth yw'r 5 rhif olaf o'ch rhif cyfrif cyfredol?"
-  #   hint: "Gallwch ddod o hyd i'r rhif yma ar eich datganiad banc. Gallai hefyd ymddangos ar eich cerdyn banc neu yn eich ap bancio."
+# Q00001:
+#   legend: "Pryd wnaethoch chi symud i mewn i'ch cyfeiriad cartref presennol?"
+#   hint: null
+# Q00002:
+#   legend: "Pryd wnaethoch chi symud i mewn i'ch cyfeiriad cartref presennol?"
+#   hint: null
+# Q00008:
+#   legend: "Pa gyfenw ydych chi wedi cael eich adnabod ganddo o'r blaen?"
+#   hint: null
+# Q00045:
+#   legend: "Pryd cafodd y person wnaethoch chi gymryd benthyciad allan gyda eu geni?"
+#   hint: null
+# Q00054:
+#   legend: "Beth yw'r 5 rhif olaf o'ch rhif cyfrif cyfredol?"
+#   hint: "Gallwch ddod o hyd i'r rhif yma ar eich datganiad banc. Gallai hefyd ymddangos ar eich cerdyn banc neu yn eich ap bancio."

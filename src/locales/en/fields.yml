@@ -59,10 +59,10 @@ abandonRadio:
     required: You must choose an option to continue
   items:
     continue:
-      label: Continue answering the questions
+      label: Continue answering the security questions
       value: continue
     stop:
-      label: Stop answering the questions and prove your identity another way
+      label: Stop answering the security questions and prove your identity another way
       value: stop
 
 Q00015:
