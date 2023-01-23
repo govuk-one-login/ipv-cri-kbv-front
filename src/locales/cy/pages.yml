@@ -22,4 +22,4 @@ abandonCheck:
   h1: "Rhaid i chi ateb pob cwestiwn diogelwch i brofi pwy ydych chi"
   content:
     - "Ni allwch hepgor unrhyw gwestiynau."
-  contact: "<p><a href='https://signin.account.gov.uk/contact-us?supportType=PUBLIC' class='govuk-link' rel='noreferrer noopener' target='_blank'>Cysylltu â thîm cyfrif GOV.UK (agor mewn tab newydd)</a></p>"
+  contact: "<p><a href='https://signin.account.gov.uk/contact-us?supportType=PUBLIC' class='govuk-link' rel='noreferrer noopener' target='_blank'>Cysylltwch â’r tîm GOV.UK One Login (agor mewn tab newydd)</a></p>"
