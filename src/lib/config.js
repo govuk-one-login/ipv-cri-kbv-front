@@ -14,7 +14,7 @@ module.exports = {
   APP: {
     BASE_URL: process.env.EXTERNAL_WEBSITE_HOST || "http://localhost:5020",
     PATHS: {
-      KBV: "/kbv",
+      KBV: "/kbv/",
     },
     ANALYTICS: {
       ID: process.env.GTM_ID,
