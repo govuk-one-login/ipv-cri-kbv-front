@@ -25,4 +25,4 @@ abandonCheck:
   h1: You must answer all security questions to prove your identity
   content:
     - You cannot skip any questions.
-  contact: "<p><a href='https://signin.account.gov.uk/contact-us?supportType=PUBLIC' class='govuk-link' rel='noreferrer noopener' target='_blank'>Contact the GOV.UK account team (opens in a new tab)</a></p>"
+  contact: "<p><a href='https://signin.account.gov.uk/contact-us?supportType=PUBLIC' class='govuk-link' rel='noreferrer noopener' target='_blank'>Contact the GOV.UK One Login team (opens in a new tab)</a></p>"
