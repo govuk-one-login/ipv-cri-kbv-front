@@ -580,3 +580,9 @@ Outputs:
     Export:
       Name: !Sub "${AWS::StackName}-KBVFrontGatewayId"
     Value: !Ref ApiGwHttpEndpoint
+  KBVLoadBalancerArn:
+    Description: >-
+      The ARN of the Fargate Front End Load Balancer
+    Export:
+      Name: !Sub "${AWS::StackName}-LoadBalancer"
+    Value: !Ref LoadBalancer
