@@ -1,5 +1,5 @@
 module.exports = {
-  default: {
+ default: {
     publishQuiet: true,
     paths: ["./test/browser/features/**/**.feature"],
     require: [
@@ -11,5 +11,5 @@ module.exports = {
       "json:reports/cucumber-report.json",
       "html:reports/index.html",
     ],
-  },
+ },
 };
