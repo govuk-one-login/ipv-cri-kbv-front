@@ -256,10 +256,10 @@ Q00056:
   legend: Who is one of your credit card providers?
   hint: Think about who issued any of the credit cards you have.
 Q00067:
-  legend: Who do you have a mobile phone contract with?
+  legend: Which network do you have a mobile phone contract with?
   hint: Think about your personal phone contract instead of your work phone, if you have one.
 Q00069:
-  legend: Who do you have a phone contract with?
+  legend: Which network do you have a phone contract with?
   hint: Think about your personal mobile or landline contracts instead of your work phone, if you have one.
 Q00083:
   legend: What are the first 2 letters of the trading name of your company?
