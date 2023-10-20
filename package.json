@@ -67,7 +67,6 @@
   "dependencies": {
     "aws-sdk": "^2.1217.0",
     "axios": "0.27.2",
-    "cfenv": "1.2.4",
     "connect-dynamodb": "^2.0.4",
     "copyfiles": "2.4.1",
     "di-ipv-cri-common-express": "alphagov/di-ipv-cri-common-express.git#v0.0.36",
@@ -82,7 +81,6 @@
     "hmpo-form-wizard": "12.0.6",
     "hmpo-i18n": "5.0.2",
     "hmpo-logger": "6.1.1",
-    "jsonwebtoken": "8.5.1",
     "nunjucks": "3.2.3"
   }
 }
