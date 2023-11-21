@@ -40,7 +40,6 @@
     "url": "https://github.com/alphagov/di-ipv-cri-kbv-front/issues"
   },
   "homepage": "https://github.com/alphagov/di-ipv-cri-kbv-front#readme",
-  "packageManager": "yarn@2.4.3",
   "devDependencies": {
     "@cucumber/cucumber": "9.2.0",
     "chai": "4.3.10",
