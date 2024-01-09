@@ -41,6 +41,9 @@ Conditions:
   IsProductionOrBuild: !Or
     - !Equals [ !Ref Environment, production ]
     - !Equals [ !Ref Environment, build ]
+  IsBuildOrDev: !Or
+    - !Equals [ !Ref Environment, build ]
+    - !Equals [ !Ref Environment, dev ]
 
   UsePermissionsBoundary:
     Fn::Not:
@@ -49,6 +52,17 @@ Conditions:
           - "none"
 
 Mappings:
+  EnvironmentConfiguration:
+    dev:
+      dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables
+    build:
+      dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables
+    staging:
+      dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables
+    integration:
+      dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables
+    production:
+      dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceProductionVariables
   # see https://docs.aws.amazon.com/elasticloadbalancing/latest/application/load-balancer-access-logs.html
   ElasticLoadBalancerAccountIds:
     eu-west-2:
@@ -173,6 +187,9 @@ Resources:
       HealthCheckEnabled: TRUE
       HealthCheckProtocol: HTTP
       HealthCheckPath: /healthcheck
+      HealthCheckTimeoutSeconds: 2
+      HealthCheckIntervalSeconds: 5
+      HealthyThresholdCount: 2
       Matcher:
         HttpCode: 200
       Port: 80
@@ -183,7 +200,7 @@ Resources:
           !Sub "${VpcStackName}-VpcId"
       TargetGroupAttributes:
         - Key: deregistration_delay.timeout_seconds
-          Value: 60
+          Value: 30
 
   LoadBalancerListener:
     Type: 'AWS::ElasticLoadBalancingV2::Listener'
@@ -291,6 +308,8 @@ Resources:
               Value: !If [IsProduction, "GTM-TT5HDKV", "GTM-TK92W68"]
             - Name: ANALYTICS_DOMAIN
               Value: !If [IsProduction, "account.gov.uk", !Sub "${Environment}.account.gov.uk"]
+            - Name: LOG_LEVEL
+              Value: !If [ IsBuildOrDev, "info", "request" ]
           PortMappings:
             - ContainerPort: 8080
               Protocol: tcp
@@ -300,6 +319,22 @@ Resources:
               awslogs-group : !Ref ECSAccessLogsGroup
               awslogs-region : !Sub ${AWS::Region}
               awslogs-stream-prefix : !Sub kbv-front-${Environment}
+          Secrets:
+            - Name: DT_TENANT
+              ValueFrom: !Join
+                - ''
+                - - !FindInMap [ EnvironmentConfiguration, !Ref Environment, dynatraceSecretArn ]
+                  - ':DT_TENANT::'
+            - Name: DT_TENANTTOKEN
+              ValueFrom: !Join
+                - ''
+                - - !FindInMap [ EnvironmentConfiguration, !Ref Environment, dynatraceSecretArn ]
+                  - ':DT_TENANTTOKEN::'
+            - Name: DT_CONNECTION_POINT
+              ValueFrom: !Join
+              - ''
+              - - !FindInMap [ EnvironmentConfiguration, !Ref Environment, dynatraceSecretArn ]
+                - ':DT_CONNECTION_POINT::'
       Cpu: '512'
       ExecutionRoleArn: !GetAtt ECSTaskExecutionRole.Arn
       Memory: '1024'
@@ -346,6 +381,26 @@ Resources:
                 Resource:
                   - !GetAtt "ECSAccessLogsGroup.Arn"
                   - !Sub "${ECSAccessLogsGroup.Arn}:*"
+        - PolicyName: DynatraceGetSecrets
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: Allow
+                Action:
+                  - "secretsmanager:GetSecretValue" #pragma: allowlist secret
+                Resource:
+                  - "arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables*"
+                  - "arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceProductionVariables*"
+              - Effect: Allow
+                Action:
+                  - "secretsmanager:ListSecrets" #pragma: allowlist secret
+                Resource:
+                  - "arn:aws:secretsmanager:eu-west-2:216552277552:secret:*"
+              - Effect: Allow
+                Action:
+                  - "kms:Decrypt"
+                Resource:
+                  - "arn:aws:kms:eu-west-2:216552277552:key/*"
       PermissionsBoundary: !If
         - UsePermissionsBoundary
         - !Ref PermissionsBoundary
@@ -379,6 +434,26 @@ Resources:
                   - "dynamodb:PutItem"
                 Resource:
                   - !GetAtt KbvFrontSessionsTable.Arn
+        - PolicyName: DynatraceGetSecrets
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: Allow
+                Action:
+                  - "secretsmanager:GetSecretValue" #pragma: allowlist secret
+                Resource:
+                  - "arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables*"
+                  - "arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceProductionVariables*"
+              - Effect: Allow
+                Action:
+                  - "secretsmanager:ListSecrets" #pragma: allowlist secret
+                Resource:
+                  - "arn:aws:secretsmanager:eu-west-2:216552277552:secret:*"
+              - Effect: Allow
+                Action:
+                  - "kms:Decrypt"
+                Resource:
+                  - "arn:aws:kms:eu-west-2:216552277552:key/*"
       PermissionsBoundary: !If
         - UsePermissionsBoundary
         - !Ref PermissionsBoundary
@@ -455,7 +530,7 @@ Resources:
     Condition: IsProductionOrBuild
     Type: AWS::ApplicationAutoScaling::ScalableTarget
     Properties:
-      MaxCapacity: 4
+      MaxCapacity: 60
       MinCapacity: 2
       ResourceId: !Join
         - '/'
@@ -483,7 +558,106 @@ Resources:
       TargetTrackingScalingPolicyConfiguration:
         PredefinedMetricSpecification:
           PredefinedMetricType: ECSServiceAverageCPUUtilization
-        TargetValue: 70.0
+        TargetValue: 60.0
+        ScaleInCooldown: 420
+        ScaleOutCooldown: 60
+
+  StepScaleInPolicy:
+    Condition: IsProductionOrBuild
+    DependsOn: ECSAutoScalingTarget
+    Type: AWS::ApplicationAutoScaling::ScalingPolicy
+    Properties:
+      PolicyName: StepScalingInPolicy
+      PolicyType: StepScaling
+      ResourceId: !Join
+        - '/'
+        - - "service"
+          - !Ref KBVFrontEcsCluster
+          - !GetAtt KBVFrontEcsService.Name
+      ScalableDimension: ecs:service:DesiredCount
+      ServiceNamespace: ecs
+      StepScalingPolicyConfiguration:
+        AdjustmentType: PercentChangeInCapacity
+        Cooldown: 420
+        StepAdjustments:
+          - MetricIntervalUpperBound: -40
+            ScalingAdjustment: -50
+
+  StepScaleOutPolicy:
+    Condition: IsProductionOrBuild
+    DependsOn: ECSAutoScalingTarget
+    Type: AWS::ApplicationAutoScaling::ScalingPolicy
+    Properties:
+      PolicyName: StepScalingOutPolicy
+      PolicyType: StepScaling
+      ResourceId: !Join
+        - '/'
+        - - "service"
+          - !Ref KBVFrontEcsCluster
+          - !GetAtt KBVFrontEcsService.Name
+      ScalableDimension: ecs:service:DesiredCount
+      ServiceNamespace: ecs
+      StepScalingPolicyConfiguration:
+        AdjustmentType: PercentChangeInCapacity
+        Cooldown: 120
+        MinAdjustmentMagnitude: 5
+        StepAdjustments:
+          - MetricIntervalLowerBound: 20
+            MetricIntervalUpperBound: 30
+            ScalingAdjustment: 200
+          - MetricIntervalLowerBound: 30
+            MetricIntervalUpperBound: 35
+            ScalingAdjustment: 300
+          - MetricIntervalLowerBound: 35
+            ScalingAdjustment: 500
+
+  StepScaleOutAlarm:
+    Condition: IsProductionOrBuild
+    DependsOn: ECSAutoScalingTarget
+    Type: AWS::CloudWatch::Alarm
+    Properties:
+      ActionsEnabled: true
+      AlarmActions:
+        - !Ref StepScaleOutPolicy
+      AlarmDescription: "KBVFrontClusterOver60PercentCPU"
+      ComparisonOperator: "GreaterThanThreshold"
+      DatapointsToAlarm: "2"
+      Dimensions:
+        - Name: ClusterName
+          Value: !Ref KBVFrontEcsCluster
+        - Name: ServiceName
+          Value: !GetAtt KBVFrontEcsService.Name
+      Unit: "Percent"
+      EvaluationPeriods: "2"
+      MetricName: "CPUUtilization"
+      Namespace: "AWS/ECS"
+      Statistic: "Average"
+      Period: "60"
+      Threshold: "60"
+
+  StepScaleInAlarm:
+    Condition: IsProductionOrBuild
+    DependsOn: ECSAutoScalingTarget
+    Type: AWS::CloudWatch::Alarm
+    Properties:
+      ActionsEnabled: true
+      AlarmActions:
+        - !Ref StepScaleInPolicy
+      AlarmDescription: "AddressFrontClusterUnder60PercentCPU"
+      ComparisonOperator: "LessThanThreshold"
+      DatapointsToAlarm: "5"
+      Dimensions:
+        - Name: ClusterName
+          Value: !Ref KBVFrontEcsCluster
+        - Name: ServiceName
+          Value: !GetAtt KBVFrontEcsService.Name
+      Unit: "Percent"
+      EvaluationPeriods: "5"
+      MetricName: "CPUUtilization"
+      Namespace: "AWS/ECS"
+      Statistic: "Average"
+      Period: "60"
+      Threshold: "60"
 
   KbvFrontSessionsTable:
     Type: AWS::DynamoDB::Table

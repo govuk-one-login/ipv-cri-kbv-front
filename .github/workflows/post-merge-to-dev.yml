@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
 
 jobs:
   dockerBuildAndPush:
@@ -25,6 +26,13 @@ jobs:
       - name: Login to Amazon ECR
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
+
+      - name: Login to GDS Dev Dynatrace Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: khw46367.live.dynatrace.com
+          username: khw46367
+          password: ${{ secrets.DYNATRACE_PAAS_TOKEN }}
 
       - name: Build, tag, and push image to Amazon ECR
         env:
