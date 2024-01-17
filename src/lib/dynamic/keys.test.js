@@ -38,12 +38,10 @@ describe("keys", () => {
     context(
       "with Array keys and at least one key starts with `fields.Q`",
       () => {
-        it("should return true", () => {
-          it("should return false", () => {
-            expect(
-              keys.multipleKeysNotDynamic(["fields.idNumber", "fields.Q100"])
-            ).to.be.false;
-          });
+        it("should return false", () => {
+          expect(
+            keys.multipleKeysNotDynamic(["fields.idNumber", "fields.Q100"])
+          ).to.be.false;
         });
       }
     );
