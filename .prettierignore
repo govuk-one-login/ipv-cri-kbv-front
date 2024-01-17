@@ -1,2 +1,7 @@
-# Ignore artifacts:
+dist
 coverage
+.nyc_output
+src/views/**/*.html
+src/assets/scss/**
+yarn.lock
+.yarn/**

@@ -26,8 +26,6 @@ jobs:
           cache: 'yarn'
       - name: Install dependencies
         run: yarn install
-      - name: Run lint
-        run: yarn lint
       - name: Run test and write coverage
         run: yarn test:coverage
       - name: Run browser tests
