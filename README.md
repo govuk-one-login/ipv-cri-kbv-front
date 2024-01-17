@@ -21,9 +21,11 @@ Install `pre-commit` from [here](https://pre-commit.com/)
 Run `pre-commit install` to install pre-commit hooks locally.
 
 If you get the error:
+
 ```
 [ERROR] Cowardly refusing to install hooks with `core.hooksPath` set.
 ```
+
 Run `git config --unset-all core.hooksPath` to reset your git hook settings.
 
 ## Environment Variables
@@ -66,6 +68,7 @@ They can be run by using:
 Any cucumber feature or scenario with a tag prefixed with `@mock-api:`
 
 e.g.
+
 ```
   @mock-api:question-error
   Scenario: API error
