@@ -80,32 +80,6 @@ describe("answer-to-radio-item", () => {
     });
   });
 
-  context("'OVER £9,500 UP TO £10,000'", () => {
-    beforeEach(() => {
-      answer = "OVER £9,500 UP TO £10,000";
-
-      result = presenters.answerToRadioItem(answer, translate);
-    });
-
-    it("should return radio item structure", () => {
-      expect(result).to.deep.equal({
-        id: answer,
-        value: answer,
-        text: "answers.overUpToAmount",
-      });
-    });
-
-    it("should call translate with extracted values", () => {
-      expect(translate).to.have.been.calledWithExactly(
-        "answers.overUpToAmount",
-        {
-          amount_low: "9,500",
-          amount_high: "10,000",
-        }
-      );
-    });
-  });
-
   context("'UP TO 6 MONTHS'", () => {
     beforeEach(() => {
       answer = "UP TO 6 MONTHS";

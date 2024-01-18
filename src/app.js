@@ -13,9 +13,15 @@ const setScenarioHeaders = commonExpress.lib.scenarioHeaders;
 const setAxiosDefaults = commonExpress.lib.axios;
 
 const { setAPIConfig, setOAuthPaths } = require("./lib/settings");
-const { setGTM } = require("@govuk-one-login/di-ipv-cri-common-express/src/lib/settings");
-const { getGTM } = require("@govuk-one-login/di-ipv-cri-common-express/src/lib/locals");
-const { setI18n } = require("@govuk-one-login/di-ipv-cri-common-express/src/lib/i18next");
+const {
+  setGTM,
+} = require("@govuk-one-login/di-ipv-cri-common-express/src/lib/settings");
+const {
+  getGTM,
+} = require("@govuk-one-login/di-ipv-cri-common-express/src/lib/locals");
+const {
+  setI18n,
+} = require("@govuk-one-login/di-ipv-cri-common-express/src/lib/i18next");
 
 const {
   API,
@@ -69,7 +75,9 @@ const { app, router } = setup({
   publicDirs: ["../dist/public"],
   views: [
     path.resolve(
-      path.dirname(require.resolve("@govuk-one-login/di-ipv-cri-common-express")),
+      path.dirname(
+        require.resolve("@govuk-one-login/di-ipv-cri-common-express")
+      ),
       "components"
     ),
     "views",
@@ -85,7 +93,7 @@ const { app, router } = setup({
   dev: true,
 });
 
-app.set('view engine', 'njk')
+app.set("view engine", "njk");
 
 setI18n({
   router,

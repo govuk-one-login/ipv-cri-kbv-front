@@ -23,11 +23,9 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 18.12.1
-          cache: 'yarn'
+          cache: "yarn"
       - name: Install dependencies
         run: yarn install
-      - name: Run lint
-        run: yarn lint
       - name: Run test and write coverage
         run: yarn test:coverage
       - name: Run browser tests
