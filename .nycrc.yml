@@ -1,12 +1,10 @@
 all: true
 check-coverage: true
-include:
-  - "src/**/*.js"
+include: [src/**/*.js]
 exclude:
-  - "**/*.test.js"
-  - "src/**/fields.js"
-  - "src/**/steps.js"
-  - "**/.eslintrc.js"
+  - src/assets/**
+  - src/app/**/fields.js
+  - src/app/**/steps.js
 report-dir: reports/coverage
 statements: 60
 branches: 60
