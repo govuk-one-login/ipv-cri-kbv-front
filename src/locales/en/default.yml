@@ -44,6 +44,9 @@ govuk:
           text: Privacy notice
         - href: https://home.account.gov.uk/contact-gov-uk-one-login
           text: Support (opens in new tab)
+          attributes:
+            rel: "noreferrer noopener"
+            target: "_blank"
   copyright:
     text: "© Crown copyright"
   contentLicence:
