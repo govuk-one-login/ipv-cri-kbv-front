@@ -1,6 +1,7 @@
 {% extends "base-form.njk" %}
 {% from "govuk/components/details/macro.njk" import govukDetails %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "components/onPageLoad/macro.njk" import ga4OnPageLoad %}
 {% set hmpoPageKey = "check" %}
 {% set gtmJourney = "kbv - start" %}
 
@@ -22,3 +23,14 @@ html: hmpoHtml(translate("pages.check.details.content"))
 {% endcall %}
 
 {% endblock %}
+
+{{ ga4OnPageLoad({
+  nonce: scriptNonce,
+  statusCode: '200',
+  englishPageTitle: 'pages.check.title' | translate,
+  taxonomyLevel1: 'web cri',
+  taxonomyLevel2: 'kbv',
+  contentId: '',
+  loggedInStatus: true,
+  dynamic: false
+}) }}
