@@ -1,0 +1,2038 @@
+[
+  {
+    "description": "  Abandoning the Knowledge Based Verification questions successfully",
+    "elements": [
+      {
+        "description": "",
+        "id": "abandon-knowledge-based-verification-joureny;display-abandon-page",
+        "keyword": "Scenario",
+        "line": 13,
+        "name": "Display abandon page",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 8968374
+            }
+          },
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 714706332
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 7,
+            "name": "Authenticatable Anita is using the system",
+            "match": {
+              "location": "test/browser/step_definitions/details.js:6"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 841925292
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 8,
+            "name": "they have provided their details",
+            "match": {
+              "location": "test/browser/step_definitions/details.js:13"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 356250
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 9,
+            "name": "they have started the KBV journey",
+            "match": {
+              "location": "test/browser/step_definitions/kbv.js:7"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 182624
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 10,
+            "name": "they have continued to questions",
+            "match": {
+              "location": "test/browser/step_definitions/kbv.js:15"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 110499
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 11,
+            "name": "they should see the first question",
+            "match": {
+              "location": "test/browser/step_definitions/kbv.js:23"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 30920375
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 14,
+            "name": "they abandon their journey",
+            "match": {
+              "location": "test/browser/step_definitions/abandon.js:7"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 531522875
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 15,
+            "name": "they should see the abandon page",
+            "match": {
+              "location": "test/browser/step_definitions/abandon.js:19"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 508041
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 54205292
+            }
+          }
+        ],
+        "tags": [
+          {
+            "name": "@mock-api:question-abandon",
+            "line": 1
+          },
+          {
+            "name": "@success",
+            "line": 1
+          }
+        ],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "abandon-knowledge-based-verification-joureny;validation-on-abandon-page",
+        "keyword": "Scenario",
+        "line": 17,
+        "name": "Validation on abandon page",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 7278624
+            }
+          },
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 173616874
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 7,
+            "name": "Authenticatable Anita is using the system",
+            "match": {
+              "location": "test/browser/step_definitions/details.js:6"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 771803374
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 8,
+            "name": "they have provided their details",
+            "match": {
+              "location": "test/browser/step_definitions/details.js:13"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 197042
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 9,
+            "name": "they have started the KBV journey",
+            "match": {
+              "location": "test/browser/step_definitions/kbv.js:7"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 39832
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 10,
+            "name": "they have continued to questions",
+            "match": {
+              "location": "test/browser/step_definitions/kbv.js:15"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 26667
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 11,
+            "name": "they should see the first question",
+            "match": {
+              "location": "test/browser/step_definitions/kbv.js:23"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 14913957
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 18,
+            "name": "they abandon their journey",
+            "match": {
+              "location": "test/browser/step_definitions/abandon.js:7"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 519333250
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 19,
+            "name": "they do not answer the abandon question",
+            "match": {
+              "location": "test/browser/step_definitions/abandon.js:13"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 542520166
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 20,
+            "name": "they should see abandon validation messages",
+            "match": {
+              "location": "test/browser/step_definitions/abandon.js:24"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 19387916
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 23280249
+            }
+          }
+        ],
+        "tags": [
+          {
+            "name": "@mock-api:question-abandon",
+            "line": 1
+          },
+          {
+            "name": "@success",
+            "line": 1
+          }
+        ],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "abandon-knowledge-based-verification-joureny;return-to-questions",
+        "keyword": "Scenario",
+        "line": 22,
+        "name": "Return to Questions",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 4371915
+            }
+          },
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 182266917
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 7,
+            "name": "Authenticatable Anita is using the system",
+            "match": {
+              "location": "test/browser/step_definitions/details.js:6"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 782139667
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 8,
+            "name": "they have provided their details",
+            "match": {
+              "location": "test/browser/step_definitions/details.js:13"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 75374
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 9,
+            "name": "they have started the KBV journey",
+            "match": {
+              "location": "test/browser/step_definitions/kbv.js:7"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 21208
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 10,
+            "name": "they have continued to questions",
+            "match": {
+              "location": "test/browser/step_definitions/kbv.js:15"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 22834
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 11,
+            "name": "they should see the first question",
+            "match": {
+              "location": "test/browser/step_definitions/kbv.js:23"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 11651999
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 23,
+            "name": "they abandon their journey",
+            "match": {
+              "location": "test/browser/step_definitions/abandon.js:7"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 519680875
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 24,
+            "name": "they choose to continue answering questions",
+            "match": {
+              "location": "test/browser/step_definitions/abandon.js:30"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1057564958
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 25,
+            "name": "they should see the question page",
+            "match": {
+              "location": "test/browser/step_definitions/abandon.js:36"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 246250
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 23663708
+            }
+          }
+        ],
+        "tags": [
+          {
+            "name": "@mock-api:question-abandon",
+            "line": 1
+          },
+          {
+            "name": "@success",
+            "line": 1
+          }
+        ],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "abandon-knowledge-based-verification-joureny;stop-answering-questions",
+        "keyword": "Scenario",
+        "line": 27,
+        "name": "Stop answering questions",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 4173832
+            }
+          },
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 181359292
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 7,
+            "name": "Authenticatable Anita is using the system",
+            "match": {
+              "location": "test/browser/step_definitions/details.js:6"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 770347083
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 8,
+            "name": "they have provided their details",
+            "match": {
+              "location": "test/browser/step_definitions/details.js:13"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 247250
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 9,
+            "name": "they have started the KBV journey",
+            "match": {
+              "location": "test/browser/step_definitions/kbv.js:7"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 101624
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 10,
+            "name": "they have continued to questions",
+            "match": {
+              "location": "test/browser/step_definitions/kbv.js:15"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 43624
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 11,
+            "name": "they should see the first question",
+            "match": {
+              "location": "test/browser/step_definitions/kbv.js:23"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 24176624
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 28,
+            "name": "they abandon their journey",
+            "match": {
+              "location": "test/browser/step_definitions/abandon.js:7"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 533321875
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 29,
+            "name": "they choose to stop answering questions",
+            "match": {
+              "location": "test/browser/step_definitions/abandon.js:41"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1046200958
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 30,
+            "name": "they should be redirected",
+            "match": {
+              "location": "test/browser/step_definitions/abandon.js:47"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 171832
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 17144959
+            }
+          }
+        ],
+        "tags": [
+          {
+            "name": "@mock-api:question-abandon",
+            "line": 1
+          },
+          {
+            "name": "@success",
+            "line": 1
+          }
+        ],
+        "type": "scenario"
+      }
+    ],
+    "id": "abandon-knowledge-based-verification-joureny",
+    "line": 2,
+    "keyword": "Feature",
+    "name": "Abandon Knowledge Based Verification Joureny",
+    "tags": [
+      {
+        "name": "@mock-api:question-abandon",
+        "line": 1
+      },
+      {
+        "name": "@success",
+        "line": 1
+      }
+    ],
+    "uri": "test/browser/features/abandon.feature"
+  },
+  {
+    "description": "  API Errors in middle of journey",
+    "elements": [
+      {
+        "description": "",
+        "id": "error-handling;session-error",
+        "keyword": "Scenario",
+        "line": 11,
+        "name": "Session error",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 2924166
+            }
+          },
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 169507416
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 7,
+            "name": "Error Ethem is using the system",
+            "match": {
+              "location": "test/browser/step_definitions/details.js:6"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 609353459
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 8,
+            "name": "they have provided their details",
+            "match": {
+              "location": "test/browser/step_definitions/details.js:13"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 91457
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 12,
+            "name": "they have started the KBV journey",
+            "match": {
+              "location": "test/browser/step_definitions/kbv.js:7"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 31915
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 13,
+            "name": "there is an immediate error",
+            "match": {
+              "location": "test/browser/step_definitions/errors.js:7"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 68708
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 14,
+            "name": "they should see the unrecoverable error page",
+            "match": {
+              "location": "test/browser/step_definitions/errors.js:9"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 17978166
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 12081459
+            }
+          }
+        ],
+        "tags": [
+          {
+            "name": "@mock-errors",
+            "line": 1
+          },
+          {
+            "name": "@mock-api:session-error",
+            "line": 10
+          }
+        ],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "error-handling;error-on-answering-first-question",
+        "keyword": "Scenario",
+        "line": 17,
+        "name": "Error on answering first question",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 3375500
+            }
+          },
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 173357375
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 7,
+            "name": "Error Ethem is using the system",
+            "match": {
+              "location": "test/browser/step_definitions/details.js:6"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 758752041
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 8,
+            "name": "they have provided their details",
+            "match": {
+              "location": "test/browser/step_definitions/details.js:13"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 292457
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 18,
+            "name": "they have started the KBV journey",
+            "match": {
+              "location": "test/browser/step_definitions/kbv.js:7"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 104625
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 19,
+            "name": "they have continued to questions",
+            "match": {
+              "location": "test/browser/step_definitions/kbv.js:15"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 79458
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 20,
+            "name": "they should see the first question",
+            "match": {
+              "location": "test/browser/step_definitions/kbv.js:23"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 24885416
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 21,
+            "name": "they answer the first question",
+            "match": {
+              "location": "test/browser/step_definitions/kbv.js:32"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1054582541
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 22,
+            "name": "they should be redirected as an error",
+            "match": {
+              "location": "test/browser/step_definitions/details.js:27"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 868625
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 18541500
+            }
+          }
+        ],
+        "tags": [
+          {
+            "name": "@mock-errors",
+            "line": 1
+          },
+          {
+            "name": "@mock-api:answer-error",
+            "line": 16
+          },
+          {
+            "name": "@wip",
+            "line": 16
+          }
+        ],
+        "type": "scenario"
+      }
+    ],
+    "id": "error-handling",
+    "line": 2,
+    "keyword": "Feature",
+    "name": "Error handling",
+    "tags": [
+      {
+        "name": "@mock-errors",
+        "line": 1
+      }
+    ],
+    "uri": "test/browser/features/errors.feature"
+  },
+  {
+    "description": "  Viewing the Knowledge Based Verification questions successfully",
+    "elements": [
+      {
+        "description": "",
+        "id": "happy-path;display-check-page-and-first-question",
+        "keyword": "Scenario",
+        "line": 10,
+        "name": "Display check page and first question",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 4824791
+            }
+          },
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 182195792
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 7,
+            "name": "Authenticatable Anita is using the system",
+            "match": {
+              "location": "test/browser/step_definitions/details.js:6"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 733975167
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 8,
+            "name": "they have provided their details",
+            "match": {
+              "location": "test/browser/step_definitions/details.js:13"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 95708
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 11,
+            "name": "they have started the KBV journey",
+            "match": {
+              "location": "test/browser/step_definitions/kbv.js:7"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 39124
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 13,
+            "name": "they continue to questions",
+            "match": {
+              "location": "test/browser/step_definitions/kbv.js:15"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 31625
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 14,
+            "name": "they should see the first question",
+            "match": {
+              "location": "test/browser/step_definitions/kbv.js:23"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 15414250
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 9941667
+            }
+          }
+        ],
+        "tags": [
+          {
+            "name": "@mock-api:question-success",
+            "line": 1
+          },
+          {
+            "name": "@success",
+            "line": 1
+          }
+        ],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "happy-path;display-and-answer-first-question",
+        "keyword": "Scenario",
+        "line": 17,
+        "name": "Display and answer first question",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 2399624
+            }
+          },
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 185816791
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 7,
+            "name": "Authenticatable Anita is using the system",
+            "match": {
+              "location": "test/browser/step_definitions/details.js:6"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 754169250
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 8,
+            "name": "they have provided their details",
+            "match": {
+              "location": "test/browser/step_definitions/details.js:13"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 274124
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 18,
+            "name": "they have started the KBV journey",
+            "match": {
+              "location": "test/browser/step_definitions/kbv.js:7"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 106665
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 19,
+            "name": "they have continued to questions",
+            "match": {
+              "location": "test/browser/step_definitions/kbv.js:15"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 52957
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 20,
+            "name": "they should see the first question",
+            "match": {
+              "location": "test/browser/step_definitions/kbv.js:23"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 23522292
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 21,
+            "name": "they answer the first question",
+            "match": {
+              "location": "test/browser/step_definitions/kbv.js:32"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1046320458
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 22,
+            "name": "they should see the second question",
+            "match": {
+              "location": "test/browser/step_definitions/kbv.js:53"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 292540
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 23,
+            "name": "the second question should be different to the first",
+            "match": {
+              "location": "test/browser/step_definitions/kbv.js:58"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 12487458
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 15504917
+            }
+          }
+        ],
+        "tags": [
+          {
+            "name": "@mock-api:question-success",
+            "line": 1
+          },
+          {
+            "name": "@success",
+            "line": 1
+          },
+          {
+            "name": "@passthrough",
+            "line": 16
+          }
+        ],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "happy-path;display-and-answer-multiple-questions",
+        "keyword": "Scenario",
+        "line": 26,
+        "name": "Display and answer multiple questions",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 3170499
+            }
+          },
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 193137749
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 7,
+            "name": "Authenticatable Anita is using the system",
+            "match": {
+              "location": "test/browser/step_definitions/details.js:6"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 767898249
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 8,
+            "name": "they have provided their details",
+            "match": {
+              "location": "test/browser/step_definitions/details.js:13"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 284999
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 27,
+            "name": "they have started the KBV journey",
+            "match": {
+              "location": "test/browser/step_definitions/kbv.js:7"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 93999
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 28,
+            "name": "they have continued to questions",
+            "match": {
+              "location": "test/browser/step_definitions/kbv.js:15"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 72665
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 29,
+            "name": "they should see the first question",
+            "match": {
+              "location": "test/browser/step_definitions/kbv.js:23"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 22354874
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 30,
+            "name": "they have answered all the questions successfully",
+            "match": {
+              "location": "test/browser/step_definitions/kbv.js:85"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 2086150124
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 31,
+            "name": "they should be redirected as a success",
+            "match": {
+              "location": "test/browser/step_definitions/details.js:19"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1410291
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 14736166
+            }
+          }
+        ],
+        "tags": [
+          {
+            "name": "@mock-api:question-success",
+            "line": 1
+          },
+          {
+            "name": "@success",
+            "line": 1
+          },
+          {
+            "name": "@passthrough",
+            "line": 25
+          }
+        ],
+        "type": "scenario"
+      }
+    ],
+    "id": "happy-path",
+    "line": 2,
+    "keyword": "Feature",
+    "name": "Happy path",
+    "tags": [
+      {
+        "name": "@mock-api:question-success",
+        "line": 1
+      },
+      {
+        "name": "@success",
+        "line": 1
+      }
+    ],
+    "uri": "test/browser/features/kbv.feature"
+  },
+  {
+    "description": "  No Questions are available to be answered",
+    "elements": [
+      {
+        "description": "",
+        "id": "no-questions;display-check-page-and-first-question",
+        "keyword": "Scenario",
+        "line": 10,
+        "name": "Display check page and first question",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 5789041
+            }
+          },
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 112228624
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 7,
+            "name": "No Question Neil is using the system",
+            "match": {
+              "location": "test/browser/step_definitions/details.js:6"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 914100875
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 8,
+            "name": "they have provided their details",
+            "match": {
+              "location": "test/browser/step_definitions/details.js:13"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 180708
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 11,
+            "name": "they have started the KBV journey",
+            "match": {
+              "location": "test/browser/step_definitions/kbv.js:7"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 80541
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 12,
+            "name": "they continue to questions",
+            "match": {
+              "location": "test/browser/step_definitions/kbv.js:15"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 88375
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 13,
+            "name": "they should be redirected as a success",
+            "match": {
+              "location": "test/browser/step_definitions/details.js:19"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 351458
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 13981957
+            }
+          }
+        ],
+        "tags": [
+          {
+            "name": "@mock-api:no-questions",
+            "line": 1
+          }
+        ],
+        "type": "scenario"
+      }
+    ],
+    "id": "no-questions",
+    "line": 2,
+    "keyword": "Feature",
+    "name": "No Questions",
+    "tags": [
+      {
+        "name": "@mock-api:no-questions",
+        "line": 1
+      }
+    ],
+    "uri": "test/browser/features/no-questions.feature"
+  },
+  {
+    "description": "  API Errors in middle of journey",
+    "elements": [
+      {
+        "description": "",
+        "id": "error-handling;english-to-welsh",
+        "keyword": "Scenario",
+        "line": 13,
+        "name": "English to Welsh",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 2751874
+            }
+          },
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 172176249
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 7,
+            "name": "Error Ethem is using the system",
+            "match": {
+              "location": "test/browser/step_definitions/details.js:6"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 608586166
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 8,
+            "name": "they have provided their details",
+            "match": {
+              "location": "test/browser/step_definitions/details.js:13"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 246874
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 9,
+            "name": "they have started the KBV journey",
+            "match": {
+              "location": "test/browser/step_definitions/kbv.js:7"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 68333
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 10,
+            "name": "there is an immediate error",
+            "match": {
+              "location": "test/browser/step_definitions/errors.js:7"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 27417
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 11,
+            "name": "they should see the unrecoverable error page",
+            "match": {
+              "location": "test/browser/step_definitions/errors.js:9"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 22645666
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 14,
+            "name": "they set the language to \"English\"",
+            "match": {
+              "location": "test/browser/step_definitions/language.js:11"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 665400958
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 15,
+            "name": "they see the page in \"English\"",
+            "match": {
+              "location": "test/browser/step_definitions/language.js:17"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 15158166
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 16,
+            "name": "they set the language to \"Welsh\"",
+            "match": {
+              "location": "test/browser/step_definitions/language.js:11"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 624036375
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 17,
+            "name": "they should see the page in \"Welsh\"",
+            "match": {
+              "location": "test/browser/step_definitions/language.js:17"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 9140542
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 11980209
+            }
+          }
+        ],
+        "tags": [
+          {
+            "name": "@mock-api:session-error",
+            "line": 1
+          },
+          {
+            "name": "@focus",
+            "line": 1
+          }
+        ],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "error-handling;welsh-to-english",
+        "keyword": "Scenario",
+        "line": 19,
+        "name": "Welsh to English",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 2744541
+            }
+          },
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 183861374
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 7,
+            "name": "Error Ethem is using the system",
+            "match": {
+              "location": "test/browser/step_definitions/details.js:6"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 615577666
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 8,
+            "name": "they have provided their details",
+            "match": {
+              "location": "test/browser/step_definitions/details.js:13"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 243167
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 9,
+            "name": "they have started the KBV journey",
+            "match": {
+              "location": "test/browser/step_definitions/kbv.js:7"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 87582
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 10,
+            "name": "there is an immediate error",
+            "match": {
+              "location": "test/browser/step_definitions/errors.js:7"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 31833
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 11,
+            "name": "they should see the unrecoverable error page",
+            "match": {
+              "location": "test/browser/step_definitions/errors.js:9"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 20465499
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 20,
+            "name": "they set the language to \"Welsh\"",
+            "match": {
+              "location": "test/browser/step_definitions/language.js:11"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 625230499
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 21,
+            "name": "they see the page in \"Welsh\"",
+            "match": {
+              "location": "test/browser/step_definitions/language.js:17"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 14859999
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 22,
+            "name": "they set the language to \"English\"",
+            "match": {
+              "location": "test/browser/step_definitions/language.js:11"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 657640375
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 23,
+            "name": "they should see the page in \"English\"",
+            "match": {
+              "location": "test/browser/step_definitions/language.js:17"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 14093457
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 21254374
+            }
+          }
+        ],
+        "tags": [
+          {
+            "name": "@mock-api:session-error",
+            "line": 1
+          },
+          {
+            "name": "@focus",
+            "line": 1
+          }
+        ],
+        "type": "scenario"
+      }
+    ],
+    "id": "error-handling",
+    "line": 2,
+    "keyword": "Feature",
+    "name": "Error handling",
+    "tags": [
+      {
+        "name": "@mock-api:session-error",
+        "line": 1
+      },
+      {
+        "name": "@focus",
+        "line": 1
+      }
+    ],
+    "uri": "test/browser/features/translation.feature"
+  },
+  {
+    "description": "  KBV question validation",
+    "elements": [
+      {
+        "description": "",
+        "id": "happy-path;kbv-question-validation",
+        "keyword": "Scenario",
+        "line": 10,
+        "name": "KBV question validation",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 4543665
+            }
+          },
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 189602666
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 7,
+            "name": "Validating Valerie is using the system",
+            "match": {
+              "location": "test/browser/step_definitions/details.js:6"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 735854416
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 8,
+            "name": "they have provided their details",
+            "match": {
+              "location": "test/browser/step_definitions/details.js:13"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 227332
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 11,
+            "name": "they have started the KBV journey",
+            "match": {
+              "location": "test/browser/step_definitions/kbv.js:7"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 65332
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 12,
+            "name": "they have continued to questions",
+            "match": {
+              "location": "test/browser/step_definitions/kbv.js:15"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 44375
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 13,
+            "name": "they should see the first question",
+            "match": {
+              "location": "test/browser/step_definitions/kbv.js:23"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 22728665
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 14,
+            "name": "they do not answer the first question",
+            "match": {
+              "location": "test/browser/step_definitions/kbv.js:71"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 516160708
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 15,
+            "name": "they should see validation messages",
+            "match": {
+              "location": "test/browser/step_definitions/kbv.js:77"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 13828084
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 18617832
+            }
+          }
+        ],
+        "tags": [
+          {
+            "name": "@mock-api:question-success",
+            "line": 1
+          },
+          {
+            "name": "@success",
+            "line": 1
+          }
+        ],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "happy-path;kbv-question-validation",
+        "keyword": "Scenario",
+        "line": 17,
+        "name": "KBV question validation",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 5434959
+            }
+          },
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 184080874
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 7,
+            "name": "Validating Valerie is using the system",
+            "match": {
+              "location": "test/browser/step_definitions/details.js:6"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 749202999
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 8,
+            "name": "they have provided their details",
+            "match": {
+              "location": "test/browser/step_definitions/details.js:13"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 72124
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 18,
+            "name": "they have started the KBV journey",
+            "match": {
+              "location": "test/browser/step_definitions/kbv.js:7"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 27208
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 19,
+            "name": "they have continued to questions",
+            "match": {
+              "location": "test/browser/step_definitions/kbv.js:15"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 14208
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 20,
+            "name": "they should see the first question",
+            "match": {
+              "location": "test/browser/step_definitions/kbv.js:23"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 10915667
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 21,
+            "name": "they do not answer the first question",
+            "match": {
+              "location": "test/browser/step_definitions/kbv.js:71"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 519229000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 22,
+            "name": "they should see validation messages",
+            "match": {
+              "location": "test/browser/step_definitions/kbv.js:77"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 16040625
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 17340250
+            }
+          }
+        ],
+        "tags": [
+          {
+            "name": "@mock-api:question-success",
+            "line": 1
+          },
+          {
+            "name": "@success",
+            "line": 1
+          }
+        ],
+        "type": "scenario"
+      }
+    ],
+    "id": "happy-path",
+    "line": 2,
+    "keyword": "Feature",
+    "name": "Happy path",
+    "tags": [
+      {
+        "name": "@mock-api:question-success",
+        "line": 1
+      },
+      {
+        "name": "@success",
+        "line": 1
+      }
+    ],
+    "uri": "test/browser/features/validation.feature"
+  }
+]
