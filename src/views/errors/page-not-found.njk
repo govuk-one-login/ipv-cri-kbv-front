@@ -1,2 +1,14 @@
 {% extends "base-page.njk" %}
 {% set hmpoPageKey = "errors.pageNotFound" %}
+{% from "components/onPageLoad/macro.njk" import ga4OnPageLoad %}
+
+{{ ga4OnPageLoad({
+  nonce: cspNonce,
+  statusCode: '404',
+  englishPageTitle: 'pageNotFound.title' | translate,
+  taxonomyLevel1: 'web cri',
+  taxonomyLevel2: 'kbv',
+  contentId: 'undefined',
+  loggedInStatus: true,
+  dynamic: false
+}) }}
