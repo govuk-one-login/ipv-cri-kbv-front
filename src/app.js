@@ -100,7 +100,9 @@ setI18n({
     cookieDomain: APP.GTM.ANALYTICS_COOKIE_DOMAIN,
   },
 });
-setLanguageToggle({ app, showLanguageToggle: APP.LANGUAGE_TOGGLE_ENABLED });
+// Common express relies on 0/1 strings
+const showLanguageToggle = APP.LANGUAGE_TOGGLE_DISABLED == "true" ? "0" : "1";
+setLanguageToggle({ app, showLanguageToggle: showLanguageToggle });
 
 setAPIConfig({
   app,
