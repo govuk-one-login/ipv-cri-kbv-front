@@ -1,4 +1,3 @@
-// Steps for any background tasks we need to do pre tests
 const { Given, When, Then } = require("@cucumber/cucumber");
 const { ErrorPage } = require("../pages");
 const { expect } = require("chai");
@@ -30,6 +29,14 @@ Then(/^they (?:should )?see(?:ed)? the page in "(.*)"$/, async function (lang) {
   expect(errorTitle).to.equal(
     errorPage.getLocalisedSomethingWentWrongMessage(lang)
   );
+});
+
+Then(/^the page's language property should be "(.*)"$/, async function (lang) {
+  const code = lang.toLowerCase() === "welsh" ? "cy" : "en";
+  const hasLanguageCorrectCode = await this.page
+    .locator(`html[lang="${code}"]`)
+    .count();
+  expect(hasLanguageCorrectCode).to.equal(1);
 });
 
 async function setLanguageCookie(lang, url, context) {
