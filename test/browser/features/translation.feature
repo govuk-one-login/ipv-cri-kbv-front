@@ -1,7 +1,7 @@
-@mock-api:session-error @focus
-Feature: Error handling
+@mock-api:session-error @focus @lang
+Feature: Translation
 
-  API Errors in middle of journey
+  Tranlsations on error page in middle of the journey
 
   Background:
     Given Error Ethem is using the system
@@ -21,3 +21,16 @@ Feature: Error handling
     And they see the page in "Welsh"
     When they set the language to "English"
     Then they should see the page in "English"
+
+  Scenario: English to Welsh with the language toggle
+    Given they start with "English"
+    And they see the page in "English"
+    When they set the language to "Welsh" using the toggle
+    Then they should see the page in "Welsh"
+
+  Scenario: Welsh to Englishh with the language toggle
+    Given they start with "Welsh"
+    And they see the page in "Welsh"
+    When they set the language to "English" using the toggle
+    Then they should see the page in "English"
+

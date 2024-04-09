@@ -22,6 +22,12 @@ module.exports = class PlaywrightDevPage {
     }
   }
 
+  async toggleLanguage(code) {
+    await this.page.click(
+      `[data-journey-click="link - click:lang-select:${code}"]`
+    );
+  }
+
   isCurrentPage() {
     return this.page.url() === this.url;
   }

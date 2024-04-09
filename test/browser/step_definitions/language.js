@@ -14,6 +14,14 @@ When(/they set the language to "(.*)"$/, async function (lang) {
   await this.page.reload();
 });
 
+When(
+  /they set the language to "(.*)" using the toggle$/,
+  async function (lang) {
+    await setLanguageWithToggle(lang, this.page);
+    await this.page.reload();
+  }
+);
+
 Then(/^they (?:should )?see(?:ed)? the page in "(.*)"$/, async function (lang) {
   const errorPage = new ErrorPage(this.page);
 
@@ -34,4 +42,11 @@ async function setLanguageCookie(lang, url, context) {
   };
 
   await context.addCookies([cookie]);
+}
+
+async function setLanguageWithToggle(lang, page) {
+  const errorPage = new ErrorPage(page);
+  const code = lang.toLowerCase() === "welsh" ? "cy" : "en";
+
+  await errorPage.toggleLanguage(code);
 }
