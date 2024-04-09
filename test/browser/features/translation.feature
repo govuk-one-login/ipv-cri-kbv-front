@@ -33,4 +33,3 @@ Feature: Translation
     And they see the page in "Welsh"
     When they set the language to "English" using the toggle
     Then they should see the page in "English"
-

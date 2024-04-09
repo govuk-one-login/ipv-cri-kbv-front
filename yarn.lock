@@ -455,10 +455,10 @@
     lodash.differencewith "4.5.0"
     lodash.frompairs "4.0.1"
 
-"@govuk-one-login/one-login-analytics@0.0.9":
-  version "0.0.9"
-  resolved "https://registry.yarnpkg.com/@govuk-one-login/one-login-analytics/-/one-login-analytics-0.0.9.tgz#e5746f75943e26e6c52d43f1292af139589688ed"
-  integrity sha512-zsvmvDgkvMZyO5OGHAyjj3aYlIToOLEbORwjCXOB9+1kqBTe0HfXqhzy6TMxHg00UctbX8yy8Gw1muFHoe2C9A==
+"@govuk-one-login/one-login-analytics@0.0.10":
+  version "0.0.10"
+  resolved "https://registry.yarnpkg.com/@govuk-one-login/one-login-analytics/-/one-login-analytics-0.0.10.tgz#96debe6f5a31223aa9d7cf126db167d79586aefb"
+  integrity sha512-gVzpad29eb4dAWi4THXO0AZcwCf7XOsR6Ot6SSO1PZFp+MfiNAL7w2A9V9i7PvzIKlZwJ+jMq7S32Kb4LJ5mJA==
 
 "@govuk-one-login/one-login-language-toggle@2.0.0":
   version "2.0.0"
