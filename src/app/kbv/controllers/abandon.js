@@ -1,7 +1,10 @@
 const BaseController = require("hmpo-form-wizard").Controller;
-
+const {
+  createPersonalDataHeaders,
+} = require("@govuk-one-login/frontend-passthrough-headers");
 const {
   API: {
+    BASE_URL,
     PATHS: { ABANDON },
   },
 } = require("../../../lib/config");
@@ -29,6 +32,7 @@ class AbandonController extends BaseController {
         headers: {
           "session-id": req.session.tokenId,
           session_id: req.session.tokenId,
+          ...createPersonalDataHeaders(`${BASE_URL}${ABANDON}`, req),
         },
       }
     );

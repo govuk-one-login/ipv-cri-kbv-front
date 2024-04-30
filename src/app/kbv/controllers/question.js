@@ -1,9 +1,12 @@
 const dynamicQuestion = require("../../../lib/dynamic/question");
 const BaseController = require("hmpo-form-wizard").Controller;
-
+const {
+  createPersonalDataHeaders,
+} = require("@govuk-one-login/frontend-passthrough-headers");
 const presenters = require("../../../presenters");
 const {
   API: {
+    BASE_URL,
     PATHS: { QUESTION, ANSWER },
   },
 } = require("../../../lib/config");
@@ -55,6 +58,7 @@ class QuestionController extends BaseController {
             headers: {
               "session-id": req.session.tokenId,
               session_id: req.session.tokenId,
+              ...createPersonalDataHeaders(`${BASE_URL}${ANSWER}`, req),
             },
           }
         );
@@ -65,6 +69,7 @@ class QuestionController extends BaseController {
           headers: {
             "session-id": req.session.tokenId,
             session_id: req.session.tokenId,
+            ...createPersonalDataHeaders(`${BASE_URL}${QUESTION}`, req),
           },
         });
 

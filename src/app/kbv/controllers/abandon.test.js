@@ -43,6 +43,7 @@ describe("Abandon controller", () => {
             headers: {
               "session-id": req.session.tokenId,
               session_id: req.session.tokenId,
+              "txma-audit-encoded": "dummy-txma-header",
             },
           }
         );

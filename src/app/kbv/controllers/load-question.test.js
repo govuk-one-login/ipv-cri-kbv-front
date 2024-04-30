@@ -1,5 +1,10 @@
 const BaseController = require("hmpo-form-wizard").Controller;
 const LoadQuestionController = require("./load-question");
+const {
+  API: {
+    PATHS: { QUESTION },
+  },
+} = require("../../../lib/config");
 
 describe("Load Question controller", () => {
   let loadQuestionController;
@@ -42,7 +47,13 @@ describe("Load Question controller", () => {
     it("should get next question", async () => {
       await loadQuestionController.saveValues(req, res, next);
 
-      expect(req.axios.get).to.have.been.calledOnce;
+      expect(req.axios.get).to.have.been.calledWithExactly(QUESTION, {
+        headers: {
+          "session-id": req.session.tokenId,
+          session_id: req.session.tokenId,
+          "txma-audit-encoded": "dummy-txma-header",
+        },
+      });
     });
 
     it("should set question", async () => {

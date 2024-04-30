@@ -1,7 +1,10 @@
 const BaseController = require("hmpo-form-wizard").Controller;
-
+const {
+  createPersonalDataHeaders,
+} = require("@govuk-one-login/frontend-passthrough-headers");
 const {
   API: {
+    BASE_URL,
     PATHS: { QUESTION },
   },
 } = require("../../../lib/config");
@@ -14,6 +17,7 @@ class LoadQuestionController extends BaseController {
           headers: {
             "session-id": req.session.tokenId,
             session_id: req.session.tokenId,
+            ...createPersonalDataHeaders(`${BASE_URL}${QUESTION}`, req),
           },
         });
 

@@ -176,7 +176,13 @@ describe("Question controller", () => {
       expect(req.axios.post).to.have.been.calledWith(
         "/answer",
         { questionId: "Q1", answer: "A1" },
-        { headers: { "session-id": "abcdef", session_id: "abcdef" } }
+        {
+          headers: {
+            "session-id": "abcdef",
+            session_id: "abcdef",
+            "txma-audit-encoded": "dummy-txma-header",
+          },
+        }
       );
     });
 
@@ -193,7 +199,11 @@ describe("Question controller", () => {
 
       expect(req.axios.get).to.have.been.called;
       expect(req.axios.get).to.have.been.calledWith("/question", {
-        headers: { "session-id": "abcdef", session_id: "abcdef" },
+        headers: {
+          "session-id": "abcdef",
+          session_id: "abcdef",
+          "txma-audit-encoded": "dummy-txma-header",
+        },
       });
     });
 
