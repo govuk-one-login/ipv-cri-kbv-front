@@ -23,6 +23,10 @@ global.setupDefaultMocks = () => {
       get: sinon.fake(),
       post: sinon.fake(),
     },
+    headers: {
+      "txma-audit-encoded": "dummy-txma-header",
+      "x-forwarded-for": "198.51.100.10:46532",
+    },
   });
 
   req.journeyModel = new JourneyModel(null, {

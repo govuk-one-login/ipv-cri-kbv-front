@@ -3,6 +3,8 @@ const QuestionController = require("./question");
 const dynamicQuestion = require("../../../lib/dynamic/question");
 const presenters = require("../../../presenters");
 
+const { API } = require("../../../lib/config");
+
 describe("Question controller", () => {
   let questionController;
 
@@ -173,10 +175,17 @@ describe("Question controller", () => {
     it("should post to answer", async () => {
       await questionController.saveValues(req, res, next);
 
+      const headers = {
+        "session-id": "abcdef",
+        session_id: "abcdef",
+        "txma-audit-encoded": "dummy-txma-header",
+        "x-forwarded-for": "127.0.0.1",
+      };
+
       expect(req.axios.post).to.have.been.calledWith(
-        "/answer",
+        API.PATHS.ANSWER,
         { questionId: "Q1", answer: "A1" },
-        { headers: { "session-id": "abcdef", session_id: "abcdef" } }
+        { headers }
       );
     });
 
@@ -186,14 +195,21 @@ describe("Question controller", () => {
         data: { questionId: 1 },
       });
 
+      const headers = {
+        "session-id": "abcdef",
+        session_id: "abcdef",
+        "txma-audit-encoded": "dummy-txma-header",
+        "x-forwarded-for": "127.0.0.1",
+      };
+
       await questionController.saveValues(req, res, next);
 
       expect(req.axios.post).to.have.been.called;
       expect(req.axios.post).to.have.been.called;
 
       expect(req.axios.get).to.have.been.called;
-      expect(req.axios.get).to.have.been.calledWith("/question", {
-        headers: { "session-id": "abcdef", session_id: "abcdef" },
+      expect(req.axios.get).to.have.been.calledWith(API.PATHS.QUESTION, {
+        headers,
       });
     });
 

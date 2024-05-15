@@ -3,10 +3,10 @@ const BaseController = require("hmpo-form-wizard").Controller;
 
 const presenters = require("../../../presenters");
 const {
-  API: {
-    PATHS: { QUESTION, ANSWER },
-  },
-} = require("../../../lib/config");
+  createPersonalDataHeaders,
+} = require("@govuk-one-login/frontend-passthrough-headers");
+
+const { API } = require("../../../lib/config");
 
 class QuestionController extends BaseController {
   configure(req, res, next) {
@@ -44,28 +44,37 @@ class QuestionController extends BaseController {
         next(err);
       }
 
+      const answerHeaders = {
+        "session-id": req.session.tokenId,
+        session_id: req.session.tokenId,
+        ...createPersonalDataHeaders(`${API.BASE_URL}${API.PATHS.ANSWER}`, req),
+      };
+
+      const questionHeaders = {
+        "session-id": req.session.tokenId,
+        session_id: req.session.tokenId,
+        ...createPersonalDataHeaders(
+          `${API.BASE_URL}${API.PATHS.QUESTION}`,
+          req
+        ),
+      };
+
       try {
         await req.axios.post(
-          ANSWER,
+          API.PATHS.ANSWER,
           {
             questionId: req.session.question.questionID,
             answer: req.sessionModel.get(req.session.question.questionID),
           },
           {
-            headers: {
-              "session-id": req.session.tokenId,
-              session_id: req.session.tokenId,
-            },
+            headers: answerHeaders,
           }
         );
 
         req.session.question = undefined;
 
-        const nextQuestion = await req.axios.get(QUESTION, {
-          headers: {
-            "session-id": req.session.tokenId,
-            session_id: req.session.tokenId,
-          },
+        const nextQuestion = await req.axios.get(API.PATHS.QUESTION, {
+          headers: questionHeaders,
         });
 
         if (nextQuestion.data) {

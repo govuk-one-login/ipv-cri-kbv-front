@@ -1,11 +1,7 @@
 const BaseController = require("hmpo-form-wizard").Controller;
 const { expect } = require("chai");
 const AbandonController = require("./abandon");
-const {
-  API: {
-    PATHS: { ABANDON },
-  },
-} = require("../../../lib/config");
+const { API } = require("../../../lib/config");
 
 describe("Abandon controller", () => {
   let abandonController;
@@ -19,7 +15,6 @@ describe("Abandon controller", () => {
     req = setup.req;
     res = setup.res;
     next = setup.next;
-
     abandonController = new AbandonController({ route: "/test" });
   });
 
@@ -34,16 +29,20 @@ describe("Abandon controller", () => {
 
         req.form.values.abandonRadio = "stop";
 
+        const headers = {
+          "session-id": req.session.tokenId,
+          session_id: req.session.tokenId,
+          "txma-audit-encoded": "dummy-txma-header",
+          "x-forwarded-for": "127.0.0.1",
+        };
+
         await abandonController.saveValues(req, res, next);
         expect(next).to.have.been.calledOnce;
         expect(req.axios.post).to.have.been.calledWithExactly(
-          ABANDON,
+          API.PATHS.ABANDON,
           {},
           {
-            headers: {
-              "session-id": req.session.tokenId,
-              session_id: req.session.tokenId,
-            },
+            headers,
           }
         );
       });
