@@ -1,10 +1,10 @@
 const BaseController = require("hmpo-form-wizard").Controller;
 
 const {
-  API: {
-    PATHS: { ABANDON },
-  },
-} = require("../../../lib/config");
+  createPersonalDataHeaders,
+} = require("@govuk-one-login/frontend-passthrough-headers");
+
+const { API } = require("../../../lib/config");
 
 class AbandonController extends BaseController {
   async saveValues(req, res, next) {
@@ -22,14 +22,17 @@ class AbandonController extends BaseController {
   }
 
   abandonJourney(req) {
+    const headers = {
+      "session-id": req.session.tokenId,
+      session_id: req.session.tokenId,
+      ...createPersonalDataHeaders(`${API.BASE_URL}${API.PATHS.ABANDON}`, req),
+    };
+
     return req.axios.post(
-      ABANDON,
+      API.PATHS.ABANDON,
       {},
       {
-        headers: {
-          "session-id": req.session.tokenId,
-          session_id: req.session.tokenId,
-        },
+        headers,
       }
     );
   }
