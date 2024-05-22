@@ -43,8 +43,8 @@ Conditions:
     - !Equals [!Ref Environment, build]
 
   IsProductionOrIntegration: !Or
-    - !Equals [ !Ref Environment, production ]
-    - !Equals [ !Ref Environment, integration ]
+    - !Equals [!Ref Environment, production]
+    - !Equals [!Ref Environment, integration]
 
   IsBuildOrDev: !Or
     - !Equals [!Ref Environment, build]
