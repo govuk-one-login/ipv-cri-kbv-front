@@ -41,6 +41,11 @@ Conditions:
   IsProductionOrBuild: !Or
     - !Equals [!Ref Environment, production]
     - !Equals [!Ref Environment, build]
+
+  IsProductionOrIntegration: !Or
+    - !Equals [ !Ref Environment, production ]
+    - !Equals [ !Ref Environment, integration ]
+
   IsBuildOrDev: !Or
     - !Equals [!Ref Environment, build]
     - !Equals [!Ref Environment, dev]
@@ -338,7 +343,7 @@ Resources:
                   !Sub "${Environment}.account.gov.uk",
                 ]
             - Name: LANGUAGE_TOGGLE_DISABLED
-              Value: true
+              Value: !If [IsProductionOrIntegration, true, false]
             - Name: LOG_LEVEL
               Value: !If [IsBuildOrDev, "info", "request"]
           PortMappings:
