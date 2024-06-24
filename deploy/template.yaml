@@ -58,6 +58,8 @@ Conditions:
           - !Ref PermissionsBoundary
           - "none"
 
+  EnableSpotArmInstance: !Equals [!Ref Environment, dev]
+
 Mappings:
   EnvironmentConfiguration:
     dev:
@@ -243,6 +245,8 @@ Resources:
       ClusterSettings:
         - Name: containerInsights
           Value: enabled
+      CapacityProviders:
+        - !If [EnableSpotArmInstance, "FARGATE_SPOT", "FARGATE"]
       Tags:
         - Key: Name
           Value: !Sub "${AWS::StackName}-ECSCluster"
@@ -261,8 +265,8 @@ Resources:
         MaximumPercent: 200
         MinimumHealthyPercent: 50
         DeploymentCircuitBreaker:
-          Enable: TRUE
-          Rollback: TRUE
+          Enable: !If [EnableSpotArmInstance, FALSE, TRUE]
+          Rollback: !If [EnableSpotArmInstance, FALSE, TRUE]
       DesiredCount: 2
       EnableECSManagedTags: false
       HealthCheckGracePeriodSeconds: 60
@@ -398,6 +402,8 @@ Resources:
       NetworkMode: awsvpc
       RequiresCompatibilities:
         - FARGATE
+      RuntimePlatform:
+        CpuArchitecture: !If [EnableSpotArmInstance, "ARM64", "X86_64"]
       TaskRoleArn: !GetAtt ECSTaskRole.Arn
       Tags:
         - Key: Name
