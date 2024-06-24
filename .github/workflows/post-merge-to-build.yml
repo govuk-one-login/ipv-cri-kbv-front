@@ -37,7 +37,7 @@ jobs:
         run: sam validate --region ${{ env.AWS_REGION }} -t deploy/template.yaml
 
       - name: Deploy SAM app to ECR
-        uses: govuk-one-login/devplatform-upload-action-ecr@1.2.1
+        uses: govuk-one-login/devplatform-upload-action-ecr@v1.2.6
         with:
           artifact-bucket-name: ${{ secrets.BUILD_ARTIFACT_BUCKET }}
           working-directory: .
