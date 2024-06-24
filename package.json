@@ -48,7 +48,7 @@
     "sinon-chai": "3.7.0",
     "uglify-js": "3.17.4",
     "wait-on": "7.2.0",
-    "wiremock": "2.34.0"
+    "wiremock": "3.7.0"
   },
   "dependencies": {
     "@govuk-one-login/di-ipv-cri-common-express": "6.4.1",
