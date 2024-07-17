@@ -2066,7 +2066,7 @@ bytes@3.0.0:
   resolved "https://registry.yarnpkg.com/bytes/-/bytes-3.0.0.tgz#d32815404d689699f85a4ea4fa8755dd13a96048"
   integrity sha512-pMhOfFDPiv9t5jjIXkHosWmkSyQbvsgEVNkz0ERHbuLh2T/7j4Mqqpz523Fe8MVY89KC6Sh/QfS2sM+SjgFDcw==
 
-bytes@3.1.2:
+bytes@3.1.2, bytes@^3.1.2:
   version "3.1.2"
   resolved "https://registry.yarnpkg.com/bytes/-/bytes-3.1.2.tgz#8b0beeb98605adf1b128fa4386403c009e0221a5"
   integrity sha512-/Nf7TyzTx6S3yRJObOAV7956r8cr2+Oj8AC5dt8wSP3BQAoeX58NoHyCU8P8zGkNXStjTSi6fzO6F0pBdcYbEg==
@@ -2557,12 +2557,7 @@ decompress-response@^6.0.0:
   dependencies:
     mimic-response "^3.1.0"
 
-deep-clone-merge@^1.5.4:
-  version "1.5.4"
-  resolved "https://registry.yarnpkg.com/deep-clone-merge/-/deep-clone-merge-1.5.4.tgz#d2ecb85bc1bf8bb9313dd118c6674f690ae94677"
-  integrity sha512-Gb/b8aAFUeX/ZkQwfpYlzVXaUOnHj0jPmh8uwF0eBGhAuFMZA1IxeuSzLGG4B1lzrp0SZsd3UhL6zvhDY7l6ZQ==
-
-deep-clone-merge@^1.5.5:
+deep-clone-merge@^1.5.4, deep-clone-merge@^1.5.5:
   version "1.5.5"
   resolved "https://registry.yarnpkg.com/deep-clone-merge/-/deep-clone-merge-1.5.5.tgz#1bb2f4df74c52c90223572a869d60e8525ee0dc4"
   integrity sha512-ldHDqbpMP5VTZ/QrIQ6ikzYy4fWh8WPIfqEwetN/4Pxq/xPnWlnESGN41oam5DEwI+acHznEm1bp5Rn4bp4c0w==
@@ -3515,11 +3510,12 @@ hmpo-app@3.0.1:
   optionalDependencies:
     fsevents "~2.3.2"
 
-hmpo-components@5.5.2:
-  version "5.5.2"
-  resolved "https://registry.yarnpkg.com/hmpo-components/-/hmpo-components-5.5.2.tgz#8835260992e1da2ed4e199b15482f303ab7cd9c8"
-  integrity sha512-czwG9p/aCL3msQg2nTAnhVKwGYX21138UvYCL5+8xYOAOfZ0kbXLL9+uH3uTRNCOWmqLzZqP+LvdQ0qfE7bwHg==
+hmpo-components@5.12.0:
+  version "5.12.0"
+  resolved "https://registry.yarnpkg.com/hmpo-components/-/hmpo-components-5.12.0.tgz#12c2798569e27a53ff9e6ca5f630c0f07db2ee4e"
+  integrity sha512-VBQ5oWu9W2wRpDun4ddbk5+03mXjC8hIjkNAGs5yi7eKc0twffPLMf8wEcoJswJPWAWmM2oIMM1z+KI09w7Pxg==
   dependencies:
+    bytes "^3.1.2"
     deep-clone-merge "^1.5.4"
     moment "^2.29.3"
     underscore "^1.13.4"
