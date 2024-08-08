@@ -69,10 +69,8 @@ Conditions:
   UseCodeSigning: !Not
     - !Equals [!Ref CodeSigningConfigArn, "none"]
 
-  UseCanaryDeployment: !And
-    - !Condition IsBuildOrDev
-    - !Not
-      - !Equals [!Ref DeploymentStrategy, "None"]
+  UseCanaryDeployment: !Not
+    - !Equals [!Ref DeploymentStrategy, "None"]
 
 Mappings:
   EnvironmentConfiguration:
