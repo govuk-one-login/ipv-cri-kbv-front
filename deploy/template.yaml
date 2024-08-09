@@ -911,6 +911,11 @@ Resources:
           - UsePermissionsBoundary
           - Fn::ImportValue: !Sub "${AWS::StackName}-ECSCanaryPermissionsBoundaryArn"
           - none
+        SecurityGroups: !GetAtt ECSSecurityGroup.GroupId
+        Subnets: !Join
+          - ","
+          - - Fn::ImportValue: !Sub "${VpcStackName}-PrivateSubnetIdA"
+            - Fn::ImportValue: !Sub "${VpcStackName}-PrivateSubnetIdB"
         TargetGroupName: !GetAtt LoadBalancerListenerTargetGroupECS.TargetGroupName
         TGHealthCheckIntervalSeconds: 5
         TGHealthCheckTimeoutSeconds: 2
