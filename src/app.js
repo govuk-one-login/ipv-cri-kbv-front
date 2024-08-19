@@ -139,9 +139,8 @@ router.use("^/$", (req, res) => {
 router.use((err, req, res, next) => {
   if (req.session?.authParams?.redirect_uri) {
     next(err);
+    router.use(commonExpress.lib.errorHandling.redirectAsErrorToCallback);
   } else {
     res.render("error");
   }
 });
-
-router.use(commonExpress.lib.errorHandling.redirectAsErrorToCallback);
