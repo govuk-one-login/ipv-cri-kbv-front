@@ -136,12 +136,4 @@ router.use("^/$", (req, res) => {
   res.render("index");
 });
 
-router.use((err, req, res, next) => {
-  if (req.session?.authParams?.redirect_uri) {
-    next(err);
-  } else {
-    res.render("error");
-  }
-});
-
 router.use(commonExpress.lib.errorHandling.redirectAsErrorToCallback);
