@@ -43,6 +43,9 @@ class QuestionController extends BaseController {
       if (err) {
         next(err);
       }
+      if (!req.session.question) {
+        callback(new Error("Current session has no Question to save."));
+      }
 
       const answerHeaders = {
         "session-id": req.session.tokenId,
