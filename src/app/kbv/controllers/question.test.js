@@ -213,6 +213,27 @@ describe("Question controller", () => {
       });
     });
 
+    context("with no current session question", () => {
+      beforeEach(async () => {
+        req.session.question = undefined;
+      });
+
+      it("should call next with an error", async () => {
+        await questionController.saveValues(req, res, next);
+
+        expect(next).to.have.been.calledWith(
+          sinon.match
+            .instanceOf(Error)
+            .and(
+              sinon.match.has(
+                "message",
+                "Current session has no Question to save."
+              )
+            )
+        );
+      });
+    });
+
     context("on post answer error", () => {
       let error;
 
