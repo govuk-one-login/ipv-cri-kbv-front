@@ -10,6 +10,9 @@ const { API } = require("../../../lib/config");
 
 class QuestionController extends BaseController {
   configure(req, res, next) {
+    if (!req.session.question) {
+      return next(new Error("Current session has no Question to configure."));
+    }
     const fallbackTranslations = dynamicQuestion.questionToTranslations(
       req.session.question
     );
@@ -42,6 +45,9 @@ class QuestionController extends BaseController {
     super.saveValues(req, res, async (err, next) => {
       if (err) {
         next(err);
+      }
+      if (!req.session.question) {
+        callback(new Error("Current session has no Question to save."));
       }
 
       const answerHeaders = {
