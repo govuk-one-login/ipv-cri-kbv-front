@@ -81,6 +81,65 @@ describe("Question controller", () => {
     });
   });
 
+  describe("configured question undefined", () => {
+    let prototypeSpy;
+    let questionToTranslationsSpy;
+
+    beforeEach(() => {
+      req.form.options = {
+        fields: {},
+      };
+
+      req.session.question = undefined;
+
+      prototypeSpy = sinon.stub(BaseController.prototype, "configure");
+      BaseController.prototype.configure.callThrough();
+
+      questionToTranslationsSpy = sinon.stub(
+        dynamicQuestion,
+        "questionToTranslations"
+      );
+
+      questionController = new QuestionController({ route: "/test" });
+
+      questionController.configure(req, res, next);
+    });
+
+    afterEach(() => {
+      prototypeSpy.restore();
+      questionToTranslationsSpy.restore();
+    });
+
+    it("should not build fallback translations", () => {
+      expect(questionToTranslationsSpy).to.not.have.been.called;
+    });
+
+    it("should not add question as req.form.options", () => {
+      expect(req.form.options.fields.Q1).not.to.deep.equal({
+        type: "radios",
+        validate: ["required"],
+        items: ["V1", "V2", "V3"],
+      });
+    });
+
+    it("should not call super.configure", () => {
+      expect(prototypeSpy).to.not.have.been.calledWith(req, res, next);
+    });
+
+    it("should call next with an error", () => {
+      expect(next).to.have.been.calledWith(
+        sinon.match
+          .instanceOf(Error)
+          .and(
+            sinon.match.has(
+              "message",
+              "Current session has no Question to configure."
+            )
+          )
+      );
+    });
+  });
+
   describe("#locals", () => {
     let prototypeSpy;
     let translate;
@@ -215,6 +274,7 @@ describe("Question controller", () => {
 
     context("with no current session question", () => {
       beforeEach(async () => {
+        req.axios.post = sinon.fake.returns({});
         req.session.question = undefined;
       });
 
