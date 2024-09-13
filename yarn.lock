@@ -933,6 +933,13 @@
     forwarded-parse "^2.1.2"
     pino "^8.20.0"
 
+"@govuk-one-login/frontend-vital-signs@0.0.4":
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/@govuk-one-login/frontend-vital-signs/-/frontend-vital-signs-0.0.4.tgz#0c0b019c485e953811d37f4c03042f779e0b2112"
+  integrity sha512-IXPZowxi2uxdbMquk2jnTNMr3sYh1Nc3R1UGOTXhad3ta7vYQy1acm/Z9Dux3L2g5xYp9He+cFJFUoOqtMi8FA==
+  dependencies:
+    pino "^8.20.0"
+
 "@hapi/hoek@^9.0.0", "@hapi/hoek@^9.3.0":
   version "9.3.0"
   resolved "https://registry.yarnpkg.com/@hapi/hoek/-/hoek-9.3.0.tgz#8368869dcb735be2e7f5cb7647de78e167a251fb"
