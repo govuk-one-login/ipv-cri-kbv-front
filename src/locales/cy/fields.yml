@@ -253,6 +253,15 @@ Q00069:
 Q00083:
   legend: "Beth yw 2 lythyren gyntaf enw masnachu eich cwmni?"
   hint: "Meddyliwch am enw masnachu'r cwmni rydych chi yn, neu wedi bod, yn gyfarwyddwr."
+Q00088:
+  legend: Faint oedd eich bil dŵr diweddaraf?
+  hint: null
+Q00092:
+  legend: Faint oedd eich bil trydan diweddaraf?
+  hint: null
+Q00100:
+  legend: Faint oedd eich taliad yswiriant car diweddaraf?
+  hint: null
 # missingQuestions:
 # Q00001:
 #   legend: "Pryd wnaethoch chi symud i mewn i'ch cyfeiriad cartref presennol?"
