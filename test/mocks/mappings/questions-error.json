@@ -17,17 +17,28 @@
       "newScenarioState": "FirstQuestion",
       "request": {
         "method": "POST",
-        "url": "/authorize",
+        "url": "/session",
         "headers": {
           "x-scenario-id": {
             "equalTo": "question-error"
           }
-        }
+        },
+        "bodyPatterns": [
+          {
+            "equalToJson": {
+              "request": "${json-unit.any-string}",
+              "client_id": "${json-unit.any-string}"
+            },
+            "ignoreArrayOrder": true
+          }
+        ]
       },
       "response": {
         "status": 200,
         "jsonBody": {
-          "session_id": "ABADCAFE"
+          "session_id": "ABADCAFE",
+          "state": "sT@t3",
+          "redirect_uri": "http://example.net/return"
         }
       }
     },
@@ -49,7 +60,11 @@
       "response": {
         "status": 500,
         "jsonBody": {
-          "error": "Server error"
+          "redirect_uri": "http://example.net",
+          "oauth_error": {
+            "error_description": "gateway",
+            "error": "server_error"
+          }
         }
       }
     }
