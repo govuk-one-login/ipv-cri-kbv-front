@@ -13,7 +13,13 @@ Feature: Error handling
     And there is an immediate error
     Then they should see the unrecoverable error page
 
-  @mock-api:answer-error @wip
+  @mock-api:question-error
+  Scenario: Error on requesting first question
+    Given they have started the KBV journey
+    When they have continued to questions
+    Then they should be redirected as an error
+
+  @mock-api:answer-error
   Scenario: Error on answering first question
     Given they have started the KBV journey
     And they have continued to questions
