@@ -30,16 +30,19 @@ describe("question-to-radios", () => {
   it("should set radio name", () => {
     expect(config.name).to.equal("Q00051");
   });
+
   it("should set radio label", () => {
     expect(config.label).to.equal(
       "In which month and year did you open one of your current accounts"
     );
   });
+
   it("should set legend label", () => {
     expect(config.legend).to.equal(
       "In which month and year did you open one of your current accounts"
     );
   });
+
   it("should set fieldset", () => {
     expect(config.fieldset).to.deep.equal({
       legend: {
@@ -48,11 +51,13 @@ describe("question-to-radios", () => {
       },
     });
   });
+
   it("should set hint", () => {
     expect(config.hint.html).to.equal(
       "Think about when you opened your account"
     );
   });
+
   it("should use answers for items", () => {
     translate.returns("NONE OF THE ABOVE / DOES NOT APPLY");
 

@@ -2,6 +2,7 @@ const dynamicQuestion = require("./question");
 
 describe("question", () => {
   let question;
+
   beforeEach(() => {
     question = {
       questionID: "Q1",
@@ -33,6 +34,7 @@ describe("question", () => {
 
       expect(label).to.equal(`${question.text}`);
     });
+
     it("should use question.toolTip for hint", () => {
       const {
         fields: {
@@ -66,10 +68,12 @@ describe("question", () => {
     it("should contain all answers", () => {
       expect(Object.keys(items).length).to.equal(2);
     });
+
     it("should use answer for value", () => {
       expect(items.ABC.value).to.equal("ABC");
       expect(items.DEF.value).to.equal("DEF");
     });
+
     it("should use capitalised answer for label", () => {
       expect(items.ABC.label).to.equal("Abc");
       expect(items.DEF.label).to.equal("Def");
