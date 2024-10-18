@@ -21,6 +21,12 @@ describe("answer-to-radio-item", () => {
         id: answer,
         value: answer,
         text: "answers.noneOfTheAbove",
+        hint: {
+          html: " ",
+        },
+        conditional: {
+          html: "",
+        },
       });
     });
 
@@ -44,6 +50,12 @@ describe("answer-to-radio-item", () => {
         id: answer,
         value: answer,
         text: "answers.overUpToAmount",
+        hint: {
+          html: " ",
+        },
+        conditional: {
+          html: "",
+        },
       });
     });
 
@@ -70,6 +82,12 @@ describe("answer-to-radio-item", () => {
         id: answer,
         value: answer,
         text: "answers.upToAmount",
+        hint: {
+          html: " ",
+        },
+        conditional: {
+          html: "",
+        },
       });
     });
 
@@ -92,6 +110,12 @@ describe("answer-to-radio-item", () => {
         id: answer,
         value: answer,
         text: "answers.upToMonths",
+        hint: {
+          html: " ",
+        },
+        conditional: {
+          html: "",
+        },
       });
     });
 
@@ -113,6 +137,12 @@ describe("answer-to-radio-item", () => {
         id: answer,
         value: answer,
         text: "answers.overUpToMonths",
+        hint: {
+          html: " ",
+        },
+        conditional: {
+          html: "",
+        },
       });
     });
 
@@ -139,6 +169,12 @@ describe("answer-to-radio-item", () => {
         id: answer,
         value: answer,
         text: "AN UNMATCHED STRING",
+        hint: {
+          html: " ",
+        },
+        conditional: {
+          html: "",
+        },
       });
     });
 
