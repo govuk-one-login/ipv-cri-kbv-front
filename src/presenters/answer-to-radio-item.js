@@ -25,5 +25,11 @@ module.exports = function (answer, translate) {
     id: answer,
     value: answer,
     text: text,
+    hint: {
+      html: " ",
+    },
+    conditional: {
+      html: "",
+    },
   };
 };
