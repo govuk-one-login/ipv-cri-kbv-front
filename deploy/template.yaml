@@ -43,6 +43,10 @@ Parameters:
       - CodeDeployDefault.ECSCanary10Percent5Minutes
       - CodeDeployDefault.ECSCanary10Percent15Minutes
       - CodeDeployDefault.ECSAllAtOnce
+  SupportManualURL:
+    Type: String
+    Default: "https://team-manual.account.gov.uk/teams/CRI-Orange-team/supporting-cri-orange/experian-kbv-credential-issuer-runbook/#experian-knowledge-based-verification-kbv-credential-issuer-runbook"
+    Description: The support manual URL to be provided in alarm messages.
 
 Conditions:
   IsNotDevelopment: !Or
@@ -719,7 +723,7 @@ Resources:
           - MetricIntervalLowerBound: 35
             ScalingAdjustment: 500
 
-  StepScaleOutAlarm:
+  ExperianKBVStepScaleOutAlarm:
     Condition: IsProductionOrBuild
     DependsOn: ECSAutoScalingTarget
     Type: AWS::CloudWatch::Alarm
@@ -727,7 +731,8 @@ Resources:
       ActionsEnabled: true
       AlarmActions:
         - !Ref StepScaleOutPolicy
-      AlarmDescription: "KBVFrontClusterOver60PercentCPU"
+      AlarmName: !Sub ${AWS::StackName}-${Environment}-ExperianKBVStepScaleOutAlarm
+      AlarmDescription: "Experian KBV front cluster over 60 percent CPU."
       ComparisonOperator: "GreaterThanThreshold"
       DatapointsToAlarm: "2"
       Dimensions:
@@ -743,7 +748,7 @@ Resources:
       Period: "60"
       Threshold: "60"
 
-  StepScaleInAlarm:
+  ExperianKBVStepScaleInAlarm:
     Condition: IsProductionOrBuild
     DependsOn: ECSAutoScalingTarget
     Type: AWS::CloudWatch::Alarm
@@ -751,7 +756,8 @@ Resources:
       ActionsEnabled: true
       AlarmActions:
         - !Ref StepScaleInPolicy
-      AlarmDescription: "AddressFrontClusterUnder60PercentCPU"
+      AlarmName: !Sub ${AWS::StackName}-${Environment}-ExperianKBVStepScaleInAlarm
+      AlarmDescription: "Experian KBV front cluster under 60 Percent CPU."
       ComparisonOperator: "LessThanThreshold"
       DatapointsToAlarm: "5"
       Dimensions:
@@ -787,10 +793,11 @@ Resources:
         SSEEnabled: true
         SSEType: KMS
 
-  KBVNoTaskCountAlarm:
+  ExperianKBVNoTaskCountAlarm:
     Type: AWS::CloudWatch::Alarm
     Properties:
-      AlarmDescription: !Sub KBV ${Environment} frontend no ECS service tasks
+      AlarmName: !Sub ${AWS::StackName}-${Environment}-ExperianKBVNoTaskCountAlarm
+      AlarmDescription: !Sub Experian KBV ${Environment} frontend no ECS service tasks. ${SupportManualURL}
       ActionsEnabled: true
       AlarmActions:
         - !ImportValue core-infrastructure-AlarmTopic
@@ -809,10 +816,11 @@ Resources:
       ComparisonOperator: LessThanThreshold
       TreatMissingData: breaching
 
-  KBVOnlyOneTaskCountAlarm:
+  ExperianKBVOnlyOneTaskCountAlarm:
     Type: AWS::CloudWatch::Alarm
     Properties:
-      AlarmDescription: !Sub KBV ${Environment} frontend below desired ECS service tasks
+      AlarmName: !Sub ${AWS::StackName}-${Environment}-ExperianKBVOnlyOneTaskCountAlarm
+      AlarmDescription: !Sub Experian KBV ${Environment} frontend below desired ECS service tasks. ${SupportManualURL}
       ActionsEnabled: true
       AlarmActions:
         - !ImportValue core-infrastructure-AlarmTopic
@@ -831,10 +839,11 @@ Resources:
       ComparisonOperator: LessThanThreshold
       TreatMissingData: breaching
 
-  KBV5XXOnELB:
+  ExperianKBV5XXOnELB:
     Type: AWS::CloudWatch::Alarm
     Properties:
-      AlarmDescription: !Sub KBV ${Environment} frontend 5XX count
+      AlarmName: !Sub ${AWS::StackName}-${Environment}-ExperianKBV5XXOnELB
+      AlarmDescription: !Sub Experian KBV ${Environment} frontend 5XX count. ${SupportManualURL}
       ActionsEnabled: true
       AlarmActions:
         - !ImportValue core-infrastructure-AlarmTopic
@@ -855,11 +864,11 @@ Resources:
       ComparisonOperator: GreaterThanThreshold
       TreatMissingData: notBreaching
 
-  FrontTargetGroup5xxPercentErrors:
+  ExperianKBVFrontTargetGroup5xxPercentErrors:
     Type: AWS::CloudWatch::Alarm
     Condition: UseCanaryDeployment
     Properties:
-      AlarmName: FrontTargetGroup5xxPercentAlarm
+      AlarmName: !Sub ${AWS::StackName}-${Environment}-ExperianKBVFrontTargetGroup5xxPercentErrors
       AlarmDescription: >
         The number of HTTP 5XX server error codes that originate from the
         target group is greater than 5% of all traffic.
@@ -906,7 +915,7 @@ Resources:
           - UseCodeSigning
           - !Ref CodeSigningConfigArn
           - !Ref AWS::NoValue
-        CloudWatchAlarms: !Ref FrontTargetGroup5xxPercentErrors
+        CloudWatchAlarms: !Ref ExperianKBVFrontTargetGroup5xxPercentErrors
         ContainerName: app
         ContainerPort: 8080
         DeploymentStrategy: !Ref DeploymentStrategy
