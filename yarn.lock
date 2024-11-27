@@ -819,10 +819,10 @@
   dependencies:
     levn "^0.4.1"
 
-"@govuk-one-login/di-ipv-cri-common-express@8.0.3":
-  version "8.0.3"
-  resolved "https://registry.yarnpkg.com/@govuk-one-login/di-ipv-cri-common-express/-/di-ipv-cri-common-express-8.0.3.tgz#ff223aa11a7de33b7efeec65951df9393f056b79"
-  integrity sha512-Lxp/d0b+jmhQdKTiZBzwosrZZ7VCcluNP5/4hfwg6ishmSZDC8mvCul/OsR+uWWFtb/w9YiPr3x2H/Sj6yY/Ng==
+"@govuk-one-login/di-ipv-cri-common-express@8.1.0":
+  version "8.1.0"
+  resolved "https://registry.yarnpkg.com/@govuk-one-login/di-ipv-cri-common-express/-/di-ipv-cri-common-express-8.1.0.tgz#9d97a90742638f85fec5cc87ec902facd172f560"
+  integrity sha512-xdwZDPtijFC5F2GtUvllgNSTkOEjQGwFeTUcq9+ZCnqYJMZiwU6jDHvfc6ar26yh6iUqASsyLD9J5UzuD/szew==
   dependencies:
     hmpo-logger "7.0.1"
     i18next "23.8.1"
