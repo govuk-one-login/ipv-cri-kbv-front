@@ -52,9 +52,13 @@ abandonRadio:
     continue:
       label: "Parhewch i ateb y cwestiynau diogelwch"
       value: "parhau"
+      hint: ""
+      reveal: ""
     stop:
       label: "Stopiwch ateb y cwestiynau diogelwch a phrofi pwy ydych chi mewn ffordd arall"
       value: "stop"
+      hint: ""
+      reveal: ""
 Q00015:
   legend: "Faint sydd gennych ar ôl i'w dalu ar eich morgais?"
   hint: "Mae hyn yn cynnwys unrhyw log. Fel arfer gallwch ddod o hyd i'r swm hwn ar eich datganiad morgais diweddaraf neu drwy wirio'ch cyfrif ar-lein."
