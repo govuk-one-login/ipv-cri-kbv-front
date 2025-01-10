@@ -791,17 +791,26 @@
   dependencies:
     levn "^0.4.1"
 
-"@govuk-one-login/di-ipv-cri-common-express@8.1.0":
-  version "8.1.0"
-  resolved "https://registry.yarnpkg.com/@govuk-one-login/di-ipv-cri-common-express/-/di-ipv-cri-common-express-8.1.0.tgz#9d97a90742638f85fec5cc87ec902facd172f560"
-  integrity sha512-xdwZDPtijFC5F2GtUvllgNSTkOEjQGwFeTUcq9+ZCnqYJMZiwU6jDHvfc6ar26yh6iUqASsyLD9J5UzuD/szew==
+"@govuk-one-login/di-ipv-cri-common-express@10.0.0":
+  version "10.0.0"
+  resolved "https://registry.yarnpkg.com/@govuk-one-login/di-ipv-cri-common-express/-/di-ipv-cri-common-express-10.0.0.tgz#9703763f87bb4da30b028e677e6a5fc7e78dc63f"
+  integrity sha512-47EtwDmM7nCv9SOnlmOunuT56GauF375mefmcmy5FFUMABrE659W5ch2gLOwm57/l+scJkm6cAFNVOFYi9jmjg==
   dependencies:
+    async "^3.2.6"
+    compression "^1.7.5"
+    connect-redis "6.1.3"
+    cookie-parser "^1.4.7"
+    express-session "1.18.1"
+    fakeredis "^2.0.0"
+    helmet "^8.0.0"
     hmpo-logger "7.0.1"
     i18next "23.8.1"
     i18next-fs-backend "2.3.1"
     i18next-http-middleware "3.5.0"
     lodash.differencewith "4.5.0"
     lodash.frompairs "4.0.1"
+    nocache "^3.0.4"
+    redis "^4.7.0"
 
 "@govuk-one-login/frontend-analytics@3.0.1":
   version "3.0.1"
@@ -2194,7 +2203,7 @@ compressible@~2.0.18:
   dependencies:
     mime-db ">= 1.43.0 < 2"
 
-compression@^1.7.4:
+compression@^1.7.4, compression@^1.7.5:
   version "1.7.5"
   resolved "https://registry.yarnpkg.com/compression/-/compression-1.7.5.tgz#fdd256c0a642e39e314c478f6c2cd654edd74c93"
   integrity sha512-bQJ0YRck5ak3LgtnpKkiabX5pNF7tMUh1BSy2ZBOTh0Dim0BUu6aPPwByIns6/A5Prh8PufSPerMDUklpzes2Q==
@@ -2221,7 +2230,7 @@ connect-dynamodb@^2.0.4:
   optionalDependencies:
     aws-sdk "^2.1264.0"
 
-connect-redis@^6.1.3:
+connect-redis@6.1.3, connect-redis@^6.1.3:
   version "6.1.3"
   resolved "https://registry.yarnpkg.com/connect-redis/-/connect-redis-6.1.3.tgz#0a83c953f9ece45ae37d304a8e8d1c3c6a60b4b9"
   integrity sha512-aaNluLlAn/3JPxRwdzw7lhvEoU6Enb+d83xnokUNhC9dktqBoawKWL+WuxinxvBLTz6q9vReTnUDnUslaz74aw==
@@ -2258,7 +2267,7 @@ convert-source-map@^2.0.0:
   resolved "https://registry.yarnpkg.com/convert-source-map/-/convert-source-map-2.0.0.tgz#4b560f649fc4e918dd0ab75cf4961e8bc882d82a"
   integrity sha512-Kvp459HrV2FEJ1CAsi1Ku+MY3kasH19TFykTz2xWmMeq6bk2NU3XXvfJ+Q61m0xktWwt+1HSYf3JZsTms3aRJg==
 
-cookie-parser@^1.4.6:
+cookie-parser@^1.4.6, cookie-parser@^1.4.7:
   version "1.4.7"
   resolved "https://registry.yarnpkg.com/cookie-parser/-/cookie-parser-1.4.7.tgz#e2125635dfd766888ffe90d60c286404fa0e7b26"
   integrity sha512-nGUvgXnotP3BsjiLX2ypbQnWoGUPIIfHQNZkkC668ntrzGWEZVW70HDEB1qnNGMicPje6EttlIgzo51YSwNQGw==
@@ -2840,7 +2849,7 @@ express-async-errors@3.1.1:
   resolved "https://registry.yarnpkg.com/express-async-errors/-/express-async-errors-3.1.1.tgz#6053236d61d21ddef4892d6bd1d736889fc9da41"
   integrity sha512-h6aK1da4tpqWSbyCa3FxB/V6Ehd4EEB15zyQq9qe75OZBp0krinNKuH4rAY+S/U/2I36vdLAUFSjQJ+TFmODng==
 
-express-session@^1.18.0:
+express-session@1.18.1, express-session@^1.18.0:
   version "1.18.1"
   resolved "https://registry.yarnpkg.com/express-session/-/express-session-1.18.1.tgz#88d0bbd41878882840f24ec6227493fcb167e8d5"
   integrity sha512-a5mtTqEaZvBCL9A9aqkrtfz+3SMDhOVUnjafjo+s7A9Txkq+SVX2DLvSp1Zrv4uCXa3lMSK3viWnh9Gg07PBUA==
@@ -3417,6 +3426,11 @@ helmet@^6.2.0:
   version "6.2.0"
   resolved "https://registry.yarnpkg.com/helmet/-/helmet-6.2.0.tgz#c29d62014be4c70b8ef092c9c5e54c8c26b8e16e"
   integrity sha512-DWlwuXLLqbrIOltR6tFQXShj/+7Cyp0gLi6uAb8qMdFh/YBBFbKSgQ6nbXmScYd8emMctuthmgIa7tUfo9Rtyg==
+
+helmet@^8.0.0:
+  version "8.0.0"
+  resolved "https://registry.yarnpkg.com/helmet/-/helmet-8.0.0.tgz#05370fb1953aa7b81bd0ddfa459221247be6ea5c"
+  integrity sha512-VyusHLEIIO5mjQPUI1wpOAEu+wl6Q0998jzTxqUYGE45xCIcAxy3MsbEK/yyJUJ3ADeMoB6MornPH6GMWAf+Pw==
 
 hmpo-app@3.0.2:
   version "3.0.2"
