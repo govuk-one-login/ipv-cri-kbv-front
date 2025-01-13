@@ -2,7 +2,7 @@ buttons:
   next: "Parhau"
   cancel: "Canslo"
 govuk:
-  serviceName: "Profi pwy ydych chi"
+  serviceName: " "
   backLink: "Yn ôl"
   errorSummaryTitle: "Mae problem"
   error: "Gwall"
