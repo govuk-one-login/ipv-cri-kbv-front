@@ -61,9 +61,13 @@ abandonRadio:
     continue:
       label: Continue answering the security questions
       value: continue
+      reveal: ""
+      hint: ""
     stop:
       label: Stop answering the security questions and prove your identity another way
       value: stop
+      hint: ""
+      reveal: ""
 
 Q00015:
   legend: How much do you have left to pay on your mortgage?

@@ -64,14 +64,60 @@ describe("question-to-radios", () => {
     config = presenters.questionToRadios(question, translate);
 
     expect(config.items).to.deep.equal([
-      { id: "01 / 2022", value: "01 / 2022", text: "01 / 2022" },
-      { id: "05 / 1999", value: "05 / 1999", text: "05 / 1999" },
-      { id: "12 / 2020", value: "12 / 2020", text: "12 / 2020" },
-      { id: "07 / 2012", value: "07 / 2012", text: "07 / 2012" },
+      {
+        id: "01 / 2022",
+        value: "01 / 2022",
+        text: "01 / 2022",
+        hint: {
+          html: " ",
+        },
+        conditional: {
+          html: "",
+        },
+      },
+      {
+        id: "05 / 1999",
+        value: "05 / 1999",
+        text: "05 / 1999",
+        hint: {
+          html: " ",
+        },
+        conditional: {
+          html: "",
+        },
+      },
+      {
+        id: "12 / 2020",
+        value: "12 / 2020",
+        text: "12 / 2020",
+        hint: {
+          html: " ",
+        },
+        conditional: {
+          html: "",
+        },
+      },
+      {
+        id: "07 / 2012",
+        value: "07 / 2012",
+        text: "07 / 2012",
+        hint: {
+          html: " ",
+        },
+        conditional: {
+          html: "",
+        },
+      },
       {
         id: "NONE OF THE ABOVE / DOES NOT APPLY",
         value: "NONE OF THE ABOVE / DOES NOT APPLY",
         text: "NONE OF THE ABOVE / DOES NOT APPLY",
+        hint: {
+          html: " ",
+        },
+        conditional: {
+          html: "",
+        },
       },
     ]);
   });
