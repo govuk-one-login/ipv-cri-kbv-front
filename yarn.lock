@@ -3422,10 +3422,10 @@ helmet@^8.0.0:
   resolved "https://registry.yarnpkg.com/helmet/-/helmet-8.0.0.tgz#05370fb1953aa7b81bd0ddfa459221247be6ea5c"
   integrity sha512-VyusHLEIIO5mjQPUI1wpOAEu+wl6Q0998jzTxqUYGE45xCIcAxy3MsbEK/yyJUJ3ADeMoB6MornPH6GMWAf+Pw==
 
-hmpo-components@7.0.0:
-  version "7.0.0"
-  resolved "https://registry.yarnpkg.com/hmpo-components/-/hmpo-components-7.0.0.tgz#d60e5f6fa2387cdaf575359db7cab63b14d00ce6"
-  integrity sha512-ZuqzGGUfVKMhkaQLB8zwA0Ec3Uz6Ss6iX35BBUg7+vH+z0Z943riak9fIoTuIsXhY7Sx+ov0Upt3PG6tC3/8QA==
+hmpo-components@7.1.0:
+  version "7.1.0"
+  resolved "https://registry.yarnpkg.com/hmpo-components/-/hmpo-components-7.1.0.tgz#bae09ce82d3bb6a0a35d3f1d243f46dd7ae2ade0"
+  integrity sha512-gv/m2+tDfHU10xxnT9seoI2nVtJEgcMSFfl3zACdUY1rNV3SCUv426tvxuq0Z/7jAoHLfB8mvDcHaHpPEysVLw==
   dependencies:
     bytes "^3.1.2"
     deep-clone-merge "^1.5.5"
