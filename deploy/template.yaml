@@ -16,26 +16,24 @@ Description: >-
 
 Parameters:
   Environment:
-    Description: The name of the environment to deploy to.
     Type: String
+    Description: The name of the environment to deploy to.
     AllowedPattern: ((production)|(integration)|(staging)|(build)|(dev))
   VpcStackName:
-    Description: >
-      The name of the stack that defines the VPC in which this container will
-      run.
+    Description: The name of the stack that defines the VPC in which this container will run
     Type: String
   PermissionsBoundary:
-    Description: "The ARN of the permissions boundary to apply when creating IAM roles"
     Type: String
-    Default: "none"
+    Description: The ARN of the permissions boundary to apply when creating IAM roles
+    Default: none
   CodeSigningConfigArn:
     Type: String
-    Description: Asserts that lambdas are signed when deployed.
-    Default: "none"
+    Description: Asserts that lambdas are signed when deployed
+    Default: none
   DeploymentStrategy:
-    Description: "Predefined deployment configuration for ECS application"
     Type: String
-    Default: "None"
+    Description: Predefined deployment configuration for ECS application
+    Default: None
     # Allowed values: See https://docs.aws.amazon.com/codedeploy/latest/userguide/deployment-configurations.html
     AllowedValues:
       - None
@@ -61,7 +59,6 @@ Conditions:
     - !Equals [!Ref Environment, production]
   IsProduction: !Equals [!Ref Environment, production]
 
-  # This is for performance testing as build and production should be identical
   IsProductionOrBuild: !Or
     - !Equals [!Ref Environment, production]
     - !Equals [!Ref Environment, build]
@@ -73,13 +70,13 @@ Conditions:
   EnableSpotArmInstance: !Equals [!Ref Environment, dev]
 
   UsePermissionsBoundary: !Not
-    - !Equals [!Ref PermissionsBoundary, "none"]
+    - !Equals [!Ref PermissionsBoundary, none]
 
   UseCodeSigning: !Not
-    - !Equals [!Ref CodeSigningConfigArn, "none"]
+    - !Equals [!Ref CodeSigningConfigArn, none]
 
   UseCanaryDeployment: !Not
-    - !Equals [!Ref DeploymentStrategy, "None"]
+    - !Equals [!Ref DeploymentStrategy, None]
   DeployAlarms: !Or
     - !Condition IsNotDevelopment
     - !Equals [!Ref DeployAlarmsInDevEnvironment, "true"]
@@ -102,9 +99,8 @@ Mappings:
       AccountId: 652711504416
 
 Resources:
-  # Security Groups for the ECS service and load balancer
   LoadBalancerSG:
-    Type: "AWS::EC2::SecurityGroup"
+    Type: AWS::EC2::SecurityGroup
     Properties:
       GroupDescription: >-
         KBV Front LoadBalancer Security Group
@@ -118,7 +114,7 @@ Resources:
         Fn::ImportValue: !Sub "${VpcStackName}-VpcId"
 
   LoadBalancerSGEgressToECSSecurityGroup:
-    Type: "AWS::EC2::SecurityGroupEgress"
+    Type: AWS::EC2::SecurityGroupEgress
     Properties:
       GroupId: !GetAtt LoadBalancerSG.GroupId
       IpProtocol: tcp
@@ -130,7 +126,7 @@ Resources:
       ToPort: 8080
 
   ECSSecurityGroup:
-    Type: "AWS::EC2::SecurityGroup"
+    Type: AWS::EC2::SecurityGroup
     Properties:
       GroupDescription: >-
         KBV Front ECS Security Group permitting outbound
@@ -143,7 +139,7 @@ Resources:
         Fn::ImportValue: !Sub "${VpcStackName}-VpcId"
 
   ECSSecurityGroupIngressFromLoadBalancer:
-    Type: "AWS::EC2::SecurityGroupIngress"
+    Type: AWS::EC2::SecurityGroupIngress
     Properties:
       IpProtocol: tcp
       Description: >-
@@ -200,9 +196,8 @@ Resources:
       ResourceArn: !Ref LoadBalancer
       WebACLArn: !ImportValue cfront-origin-distrib-CloakingOriginWebACLArn
 
-  # Private Application Load Balancer
   LoadBalancer:
-    Type: "AWS::ElasticLoadBalancingV2::LoadBalancer"
+    Type: AWS::ElasticLoadBalancingV2::LoadBalancer
     Properties:
       Scheme: internal
       SecurityGroups:
@@ -222,7 +217,7 @@ Resources:
         - !Ref AWS::NoValue
 
   LoadBalancerListenerTargetGroupECS:
-    Type: "AWS::ElasticLoadBalancingV2::TargetGroup"
+    Type: AWS::ElasticLoadBalancingV2::TargetGroup
     Properties:
       HealthCheckEnabled: TRUE
       HealthCheckProtocol: HTTP
@@ -242,7 +237,7 @@ Resources:
           Value: 30
 
   SecondLoadBalancerListenerTargetGroupECS:
-    Type: "AWS::ElasticLoadBalancingV2::TargetGroup"
+    Type: AWS::ElasticLoadBalancingV2::TargetGroup
     Properties:
       HealthCheckEnabled: TRUE
       HealthCheckProtocol: HTTP
@@ -262,7 +257,7 @@ Resources:
           Value: 30
 
   LoadBalancerListener:
-    Type: "AWS::ElasticLoadBalancingV2::Listener"
+    Type: AWS::ElasticLoadBalancingV2::Listener
     Properties:
       DefaultActions:
         - TargetGroupArn: !Ref LoadBalancerListenerTargetGroupECS
@@ -271,9 +266,8 @@ Resources:
       Port: 80
       Protocol: HTTP
 
-  # ECS cluster, service and task definition
   KBVFrontEcsCluster:
-    Type: "AWS::ECS::Cluster"
+    Type: AWS::ECS::Cluster
     Properties:
       ClusterSettings:
         - Name: containerInsights
@@ -291,7 +285,7 @@ Resources:
           Value: !Sub "${Environment}"
 
   KBVFrontEcsService:
-    Type: "AWS::ECS::Service"
+    Type: AWS::ECS::Service
     Properties:
       Cluster: !Ref KBVFrontEcsCluster
       DeploymentConfiguration: !If
@@ -358,7 +352,7 @@ Resources:
       LogGroupName: !Ref ECSAccessLogsGroup
 
   ECSServiceTaskDefinition:
-    Type: "AWS::ECS::TaskDefinition"
+    Type: AWS::ECS::TaskDefinition
     Properties:
       ContainerDefinitions:
         - Essential: true
@@ -453,7 +447,7 @@ Resources:
           Value: !Sub "${Environment}"
 
   ECSTaskExecutionRole:
-    Type: "AWS::IAM::Role"
+    Type: AWS::IAM::Role
     Properties:
       AssumeRolePolicyDocument:
         Statement:
@@ -507,7 +501,7 @@ Resources:
         - !Ref AWS::NoValue
 
   ECSTaskRole:
-    Type: "AWS::IAM::Role"
+    Type: AWS::IAM::Role
     Properties:
       AssumeRolePolicyDocument:
         Statement:
@@ -560,13 +554,13 @@ Resources:
         - !Ref AWS::NoValue
 
   ApiGwHttpEndpoint:
-    Type: "AWS::ApiGatewayV2::Api"
+    Type: AWS::ApiGatewayV2::Api
     Properties:
       Name: !Sub KBV-front-${Environment}
       ProtocolType: HTTP
 
   ApiGwHttpEndpointIntegration:
-    Type: "AWS::ApiGatewayV2::Integration"
+    Type: AWS::ApiGatewayV2::Integration
     Properties:
       ApiId: !Ref ApiGwHttpEndpoint
       IntegrationType: HTTP_PROXY
@@ -578,7 +572,7 @@ Resources:
       PayloadFormatVersion: "1.0"
 
   APIGWRoute:
-    Type: "AWS::ApiGatewayV2::Route"
+    Type: AWS::ApiGatewayV2::Route
     Properties:
       ApiId: !Ref ApiGwHttpEndpoint
       RouteKey: "ANY /{proxy+}"
@@ -588,7 +582,7 @@ Resources:
           - !Ref ApiGwHttpEndpointIntegration
 
   APIStageDefault:
-    Type: "AWS::ApiGatewayV2::Stage"
+    Type: AWS::ApiGatewayV2::Stage
     Properties:
       ApiId: !Ref ApiGwHttpEndpoint
       StageName: $default
@@ -987,21 +981,16 @@ Resources:
         VpcId: !Sub ${VpcStackName}-VpcId
 
 Outputs:
-  StackName:
-    Description: "CloudFormation stack name"
-    Value: !Sub "${AWS::StackName}"
   KBVFrontUrl:
-    Description: >-
-      The API Gateway URL which KBV Front can be invoked on.
+    Description: The API Gateway URL which KBV Front can be invoked on
     Value: !GetAtt ApiGwHttpEndpoint.ApiEndpoint
   KBVFrontGatewayId:
     Description: KBV Front API Gateway ID
+    Value: !Ref ApiGwHttpEndpoint
     Export:
       Name: !Sub "${AWS::StackName}-KBVFrontGatewayId"
-    Value: !Ref ApiGwHttpEndpoint
   KBVLoadBalancerArn:
-    Description: >-
-      The ARN of the Fargate Front End Load Balancer
+    Description: The ARN of the Fargate Front End Load Balancer
+    Value: !Ref LoadBalancer
     Export:
       Name: !Sub "${AWS::StackName}-LoadBalancer"
-    Value: !Ref LoadBalancer
