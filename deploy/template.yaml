@@ -399,6 +399,14 @@ Resources:
               awslogs-group: !Ref ECSAccessLogsGroup
               awslogs-region: !Sub ${AWS::Region}
               awslogs-stream-prefix: !Sub kbv-front-${Environment}
+          HealthCheck:
+            Command:
+              - CMD-SHELL
+              - curl -f "http://localhost:8080/healthcheck" || exit 1
+            Interval: 10
+            Timeout: 2
+            Retries: 10 # Ensure that just one healthcheck failure won't cause the container to be drained and replaced
+            StartPeriod: 0
           Secrets:
             - Name: DT_TENANT
               ValueFrom: !Join
