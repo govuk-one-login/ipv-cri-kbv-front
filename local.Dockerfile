@@ -15,3 +15,9 @@ RUN yarn build
 CMD yarn run dev
 
 EXPOSE $PORT
+
+HEALTHCHECK --interval=10s --timeout=2s --start-period=5s --retries=3 \
+  CMD curl -f "http://localhost:$PORT/healthcheck" || exit 1
+
+ENTRYPOINT ["tini", "--"]
+CMD ["yarn", "run", "dev"]
