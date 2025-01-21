@@ -44,8 +44,6 @@ jobs:
         with:
           artifact-bucket-name: ${{ secrets.DEV_ARTIFACT_BUCKET }}
           container-sign-kms-key-arn: ${{ secrets.DEV_CONTAINER_SIGNING_ARN }}
-          working-directory: .
-          docker-build-path: .
           template-file: deploy/template.yaml
           dockerfile: dev.Dockerfile
           role-to-assume-arn: ${{ secrets.DEV_GH_ACTIONS_ROLE_ARN }}
