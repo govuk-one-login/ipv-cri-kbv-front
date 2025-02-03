@@ -42,20 +42,20 @@ preConfiguredValues:
     decerqueiraKenneth:
       label: "Decerqueria, Kenneth - Dilysu lefel 1"
 abandonRadio:
-  label: "Beth hoffech chi ei wneud?"
-  legend: "Beth hoffech chi ei wneud?"
+  label: ""
+  legend: ""
   hint: ""
   content: ""
   validation:
     required: "Mae'n rhaid i chi ddewis opsiwn i barhau"
   items:
     continue:
-      label: "Parhewch i ateb y cwestiynau diogelwch"
+      label: "Ydw - profi fy hunaniaeth mewn ffordd arall"
       value: "parhau"
       hint: ""
       reveal: ""
     stop:
-      label: "Stopiwch ateb y cwestiynau diogelwch a phrofi pwy ydych chi mewn ffordd arall"
+      label: "Na - parhau i ateb cwestiynau diogelwch"
       value: "stop"
       hint: ""
       reveal: ""
