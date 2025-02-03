@@ -51,20 +51,20 @@ preConfiguredValues:
       label: Decerqueria, Kenneth - Authenticated level 1
 
 abandonRadio:
-  label: What would you like to do?
-  legend: What would you like to do?
+  label: ""
+  legend: ""
   hint: ""
   content: ""
   validation:
     required: You must choose an option to continue
   items:
     continue:
-      label: Continue answering the security questions
+      label: No - continue answering security questions
       value: continue
       reveal: ""
       hint: ""
     stop:
-      label: Stop answering the security questions and prove your identity another way
+      label: Yes - prove my identity another way
       value: stop
       hint: ""
       reveal: ""
