@@ -68,7 +68,7 @@ const {
 
 const { app, router } = setup({
   config: { APP_ROOT: __dirname },
-  port: PORT,
+  port: false, /// Disabling the bootstrap starting the server.
   logs: loggerConfig,
   session: sessionConfig,
   helmet: helmetConfig,
