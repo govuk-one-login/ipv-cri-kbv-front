@@ -22,7 +22,7 @@
 {% endblock %}
 
 {% block submitButton %}
-  {{ hmpoSubmit(ctx, {id: "continue", text: translate("buttons.next")}) }}
+  {{ hmpoSubmit(ctx, {id: "continue", attributes: {"data-nav": true, "data-link": "/undefined"}, text: translate("buttons.next")}) }}
   <script nonce="{{ cspNonce }}">
       var formSubmitted = false;
       submitSpinner()
