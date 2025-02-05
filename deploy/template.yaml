@@ -443,9 +443,9 @@ Resources:
                       dynatraceSecretArn,
                     ]
                   - ":DT_CONNECTION_POINT::"
-      Cpu: "512"
+      Cpu: "2048"
       ExecutionRoleArn: !GetAtt ECSTaskExecutionRole.Arn
-      Memory: "1024"
+      Memory: "4096"
       NetworkMode: awsvpc
       RequiresCompatibilities:
         - FARGATE
