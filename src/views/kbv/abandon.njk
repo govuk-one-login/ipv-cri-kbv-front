@@ -1,10 +1,52 @@
 {% extends "base-form.njk" %}
 {% from "components/onPageLoad/macro.njk" import ga4OnPageLoad %}
+{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
+{% from "hmpo-radios/macro.njk" import hmpoRadios %}
+{% from "hmpo-form/macro.njk" import hmpoForm %}
 {% set hmpoPageKey = "abandonCheck" %}
 {% set isPageHeading = true %}
 
 {% block mainContent %}
-  {{ super() }}
+
+<h1 id="header" class="govuk-heading-l">{{translate("pages.abandonCheck.title")}}</h1>
+
+ {% call hmpoForm(ctx) %}
+      {{ hmpoRadios(ctx, {
+            id: "abandonRadio",
+            namePrefix: "abandonRadio",
+            fieldset: {
+                legend: {
+                    isPageHeading: true,
+                    classes: "govuk-fieldset__legend--l"
+                }
+            }
+        }) }}
+
+  {{ govukWarningText({text: translate("abandonCheck.warning")}) }}
+
+  {{ hmpoSubmit(ctx, {id: "continue", attributes: {"data-nav": true, "data-link": "/undefined"}, text: translate("buttons.next")}) }}
+  <script nonce="{{ cspNonce }}">
+        var formSubmitted = false;
+        submitSpinner()
+        function delayDisableButton(button) {
+          button.className += ' button--spinner'
+          setTimeout(function() {
+                button.setAttribute('disabled', true)
+            }, 200);
+        }
+        function submitSpinner() {
+          var select = document.getElementById('continue')
+          select.addEventListener('click', function (event) {
+          if (formSubmitted) {
+                event.preventDefault()
+              } else {
+                formSubmitted = true;
+                delayDisableButton(event.target);
+            }
+          })
+        }
+        </script>
+  {% endcall %}
 
   {{ hmpoHtml(translate("pages.abandonCheck.contact")) }}
 
@@ -19,29 +61,4 @@
     dynamic: false
   }) }}
 
-{% endblock %}
-
-{% block submitButton %}
-  {{ hmpoSubmit(ctx, {id: "continue", attributes: {"data-nav": true, "data-link": "/undefined"}, text: translate("buttons.next")}) }}
-  <script nonce="{{ cspNonce }}">
-      var formSubmitted = false;
-      submitSpinner()
-      function delayDisableButton(button) {
-        button.className += ' button--spinner'
-        setTimeout(function() {
-              button.setAttribute('disabled', true)
-          }, 200);
-      }
-      function submitSpinner() {
-        var select = document.getElementById('continue')
-        select.addEventListener('click', function (event) {
-        if (formSubmitted) {
-              event.preventDefault()
-            } else {
-              formSubmitted = true;
-              delayDisableButton(event.target);
-          }
-        })
-      }
-      </script>
 {% endblock %}

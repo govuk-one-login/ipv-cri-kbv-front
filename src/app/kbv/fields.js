@@ -1,7 +1,7 @@
 module.exports = {
   abandonRadio: {
     type: "radios",
-    items: ["continue", "stop"],
+    items: ["stop", "continue"],
     validate: ["required"],
   },
 };
