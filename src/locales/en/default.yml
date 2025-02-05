@@ -69,8 +69,9 @@ error:
 validation:
   required: "You need to answer the question"
 answers:
-  noneOfTheAbove: "None of the above / does not apply"
+  noneOfTheAbove: "None of the above or this question does not apply to me"
   upToMonths: "UP TO {{ months }} months"
   overUpToMonths: "OVER {{ months_low }} months UP TO {{ months_high }} months"
   upToAmount: "UP TO £ {{ amount }} "
   overUpToAmount: "OVER £{{ amount_low }} UP TO £{{ amount_high }}"
+  divider: "or"
