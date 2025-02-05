@@ -50,12 +50,12 @@ abandonRadio:
     required: "Mae'n rhaid i chi ddewis opsiwn i barhau"
   items:
     continue:
-      label: "Ydw - profi fy hunaniaeth mewn ffordd arall"
+      label: "Na - parhau i ateb cwestiynau diogelwch"
       value: "parhau"
       hint: ""
       reveal: ""
     stop:
-      label: "Na - parhau i ateb cwestiynau diogelwch"
+      label: "Ydw - profi fy hunaniaeth mewn ffordd arall"
       value: "stop"
       hint: ""
       reveal: ""
