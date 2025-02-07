@@ -52,6 +52,7 @@ module.exports = class PlaywrightDevPage {
   }
 
   async abandon() {
+    this.page.locator(".govuk-details__summary-text").click();
     await this.page.click('[data-id="abandon"]');
   }
 };
