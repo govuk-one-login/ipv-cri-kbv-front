@@ -91,7 +91,7 @@ describe("question", () => {
       expect(config).to.deep.equal({
         type: "radios",
         validate: ["required"],
-        items: ["ABC", "DEF"],
+        items: ["ABC", "DEF", { divider: true, key: "answers.divider" }],
       });
     });
   });
@@ -102,7 +102,11 @@ describe("question", () => {
         question.answerFormat.answerList
       );
 
-      expect(config).to.deep.equal(["ABC", "DEF"]);
+      expect(config).to.deep.equal([
+        "ABC",
+        "DEF",
+        { divider: true, key: "answers.divider" },
+      ]);
     });
   });
 });
