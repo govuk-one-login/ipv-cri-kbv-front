@@ -18,8 +18,8 @@ error:
     title: Sorry, there is a problem with the service
 
 simplifiedQuestion:
-  abandon: "<a href='/kbv/abandon' class='govuk-link' data-id='abandon'>I do not know the answer to this question</a>"
-  abandonBody: "If you cannot answer a question, you will need to prove your identity another way.<br/>You cannot skip any questions."
+  abandon: "I do not know the answer to this question"
+  abandonBody: "If you cannot answer a question, you will need to <a href='/kbv/abandon' class='govuk-link' data-id='abandon'>prove your identity another way</a>.<br><br>You cannot skip any questions."
 
 abandonCheck:
   title: Are you sure you want to prove your identity another way?

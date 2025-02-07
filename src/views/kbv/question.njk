@@ -1,5 +1,6 @@
 {% extends "base-form.njk" %}
 {% from "hmpo-radios/macro.njk" import hmpoRadios %}
+{% from "govuk/components/details/macro.njk" import govukDetails %}
 {% from "components/onPageLoad/macro.njk" import ga4OnPageLoad %}
 
 {% set gtmJourney = "kbv - middle" %}
@@ -12,6 +13,12 @@
 
   {% call hmpoForm(ctx) %}
     {{ hmpoRadios(ctx, question) }}
+
+    {{ govukDetails({
+      summaryText: translate("pages.simplifiedQuestion.abandon"),
+      text: translate("pages.simplifiedQuestion.abandonBody") | safe
+    }) }}
+
     {{ hmpoSubmit(ctx, {id: "continue", attributes: {"data-nav": true, "data-link": "/undefined"}, text: translate("buttons.next")}) }}
     <script nonce="{{ cspNonce }}">
         var formSubmitted = false;
@@ -35,8 +42,6 @@
         }
         </script>
   {% endcall %}
-
-  {{ hmpoHtml(translate("pages.simplifiedQuestion.abandon")) }}
 
 {{ ga4OnPageLoad({
   nonce: cspNonce,
