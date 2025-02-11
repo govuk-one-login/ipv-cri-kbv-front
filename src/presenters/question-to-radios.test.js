@@ -14,7 +14,7 @@ describe("question-to-radios", () => {
         "05 / 1999",
         "12 / 2020",
         "07 / 2012",
-        "NONE OF THE ABOVE / DOES NOT APPLY",
+        "None of the above / does not apply",
       ],
     },
   };
@@ -59,7 +59,7 @@ describe("question-to-radios", () => {
   });
 
   it("should use answers for items", () => {
-    translate.returns("NONE OF THE ABOVE / DOES NOT APPLY");
+    translate.returns("None of the above / does not apply");
 
     config = presenters.questionToRadios(question, translate);
 
@@ -109,9 +109,9 @@ describe("question-to-radios", () => {
         },
       },
       {
-        id: "NONE OF THE ABOVE / DOES NOT APPLY",
-        value: "NONE OF THE ABOVE / DOES NOT APPLY",
-        text: "NONE OF THE ABOVE / DOES NOT APPLY",
+        id: "None of the above / does not apply",
+        value: "None of the above / does not apply",
+        text: "None of the above / does not apply",
         hint: {
           html: " ",
         },

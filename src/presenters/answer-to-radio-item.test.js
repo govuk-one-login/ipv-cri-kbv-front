@@ -9,9 +9,9 @@ describe("answer-to-radio-item", () => {
     translate = sinon.stub().returnsArg(0);
   });
 
-  context("'NONE OF THE ABOVE / DOES NOT APPLY'", () => {
+  context("'None of the above / does not apply'", () => {
     beforeEach(() => {
-      answer = "NONE OF THE ABOVE / DOES NOT APPLY";
+      answer = "None of the above / does not apply";
 
       result = presenters.answerToRadioItem(answer, translate);
     });
