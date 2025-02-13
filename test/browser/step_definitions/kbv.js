@@ -27,6 +27,9 @@ Then("they should see the first question", async function () {
 
   this.questionTitle = await questionPage.getPageTitle();
   expect(this.questionTitle).not.to.be.empty;
+
+  const divider = await questionPage.orDivider();
+  expect(divider).not.to.be.empty;
 });
 
 When(/^they answer the first question$/, async function () {
@@ -53,6 +56,9 @@ When(/^they answer the first question incorrectly$/, async function () {
 Then("they should see the second question", async function () {
   const questionPage = new QuestionPage(this.page);
   expect(questionPage.isCurrentPage()).to.be.true;
+
+  const divider = await questionPage.orDivider();
+  expect(divider).not.to.be.empty;
 });
 
 Then(

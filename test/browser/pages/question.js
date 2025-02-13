@@ -51,6 +51,10 @@ module.exports = class PlaywrightDevPage {
       .check();
   }
 
+  async orDivider() {
+    return this.page.textContent(".govuk-radios__divider");
+  }
+
   async abandon() {
     this.page.locator(".govuk-details__summary-text").click();
     await this.page.click('[data-id="abandon"]');
