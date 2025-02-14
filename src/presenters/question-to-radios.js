@@ -16,6 +16,7 @@ module.exports = function (question, translate) {
     },
     hint: {
       html: questionToHint(question, translate),
+      classes: "govuk-hint p",
     },
     items: question?.answerFormat?.answerList?.map((answer) =>
       answerToRadioItem(answer, translate)

@@ -16,7 +16,8 @@ error:
   unrecoverable:
     title: "Mae'n ddrwg gennym, mae problem"
 simplifiedQuestion:
-  abandon: "<a href='/kbv/abandon' class='govuk-link' data-id='abandon'>Ni allaf ateb y cwestiwn hwn</a>"
+  abandon: "Nid wyf yn gwybod yr ateb i'r cwestiwn hwn"
+  abandonBody: "Os na allwch ateb cwestiwn, bydd angen i chi <a href='/kbv/abandon' class='govuk-link' data-id='abandon'>brofi eich hunaniaeth mewn ffordd arall</a>.<br><br>Ni allwch hepgor unrhyw gwestiynau."
 abandonCheck:
   title: "Ydych chi'n siŵr eich bod chi eisiau profi eich hunaniaeth mewn ffordd arall?"
   h1: "Ydych chi'n siŵr eich bod chi eisiau profi eich hunaniaeth mewn ffordd arall?"

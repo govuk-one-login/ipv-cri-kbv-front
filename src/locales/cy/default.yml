@@ -69,8 +69,9 @@ error:
 validation:
   required: "Mae angen i chi ateb y cwestiwn"
 answers:
-  noneOfTheAbove: "Dim o'r uchod / Nid yw'n berthnasol"
+  noneOfTheAbove: "Dim o'r uchod neu nid yw'r cwestiwn hwn yn berthnasol i mi"
   upToMonths: "Hyd at {{ months }} mis"
   overUpToMonths: "Dros {{ months_low }} mis hyd at {{ months_high }} mis"
   upToAmount: "Hyd at £{{ amount }}"
   overUpToAmount: "Dros £{{ amount_low }} hyd at £{{ amount_high }}"
+  divider: "neu"

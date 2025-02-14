@@ -16,7 +16,9 @@ function answerListToTranslatedItems(answerList) {
 }
 
 function answerListToFieldItems(answerList) {
-  return answerList.map((answer) => answer);
+  let fieldItems = answerList.map((answer) => answer);
+  fieldItems.splice(4, 0, { divider: true, key: "answers.divider" });
+  return fieldItems;
 }
 
 function questionToTranslations(question) {

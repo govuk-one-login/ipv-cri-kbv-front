@@ -72,7 +72,7 @@ describe("Question controller", () => {
       expect(req.form.options.fields.Q1).to.deep.equal({
         type: "radios",
         validate: ["required"],
-        items: ["V1", "V2", "V3"],
+        items: ["V1", "V2", "V3", { divider: true, key: "answers.divider" }],
       });
     });
 
