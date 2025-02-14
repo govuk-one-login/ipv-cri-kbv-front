@@ -194,6 +194,7 @@ Resources:
               - !Sub arn:aws:s3:::${AccessLogsBucket}/kbv-front-${Environment}/AWSLogs/${AWS::AccountId}/*
 
   CloudFrontWAFv2ACLAssociation:
+    Condition: IsNotDevelopment
     Type: AWS::WAFv2::WebACLAssociation
     Properties:
       ResourceArn: !Ref LoadBalancer
@@ -218,6 +219,9 @@ Resources:
           - Key: access_logs.s3.prefix
             Value: !Sub kbv-front-${Environment}
         - !Ref AWS::NoValue
+      Tags:
+        - Key: FMSRegionalPolicy
+          Value: false
 
   LoadBalancerListenerTargetGroupECS:
     Type: AWS::ElasticLoadBalancingV2::TargetGroup
