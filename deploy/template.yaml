@@ -194,7 +194,6 @@ Resources:
               - !Sub arn:aws:s3:::${AccessLogsBucket}/kbv-front-${Environment}/AWSLogs/${AWS::AccountId}/*
 
   CloudFrontWAFv2ACLAssociation:
-    Condition: IsNotDevelopment
     Type: AWS::WAFv2::WebACLAssociation
     Properties:
       ResourceArn: !Ref LoadBalancer
