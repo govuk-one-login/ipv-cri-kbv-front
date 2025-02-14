@@ -9,7 +9,7 @@ describe("question", () => {
       text: "text",
       toolTip: "tooltip",
       answerFormat: {
-        answerList: ["ABC", "DEF"],
+        answerList: ["ABC", "DEF", "GHI", "JKL", "none of the above"],
       },
     };
   });
@@ -52,7 +52,13 @@ describe("question", () => {
         },
       } = dynamicQuestion.questionToTranslations(question);
 
-      expect(items).to.have.all.keys("ABC", "DEF");
+      expect(items).to.have.all.keys(
+        "ABC",
+        "DEF",
+        "GHI",
+        "JKL",
+        "none of the above"
+      );
     });
   });
 
@@ -66,7 +72,7 @@ describe("question", () => {
     });
 
     it("should contain all answers", () => {
-      expect(Object.keys(items).length).to.equal(2);
+      expect(Object.keys(items).length).to.equal(5);
     });
 
     it("should use answer for value", () => {
@@ -91,7 +97,22 @@ describe("question", () => {
       expect(config).to.deep.equal({
         type: "radios",
         validate: ["required"],
-        items: ["ABC", "DEF", { divider: true, key: "answers.divider" }],
+        items: [
+          "ABC",
+          "DEF",
+          "GHI",
+          "JKL",
+          { divider: true, key: "answers.divider" },
+          "none of the above",
+        ],
+      });
+    });
+
+    it("should verify the divider is at the 5th radio element", () => {
+      const config = dynamicQuestion.questionToFieldsConfig(question);
+      expect(config.items[4]).to.deep.equal({
+        divider: true,
+        key: "answers.divider",
       });
     });
   });
@@ -105,7 +126,10 @@ describe("question", () => {
       expect(config).to.deep.equal([
         "ABC",
         "DEF",
+        "GHI",
+        "JKL",
         { divider: true, key: "answers.divider" },
+        "none of the above",
       ]);
     });
   });
