@@ -25,4 +25,4 @@ abandonCheck:
   title: Are you sure you want to prove your identity another way?
   h1: Are you sure you want to prove your identity another way?
   warning: You cannot return to this screen if you choose another way to prove your identity.
-  contact: "<p><a href='https://signin.account.gov.uk/contact-us?supportType=PUBLIC' class='govuk-link' rel='noreferrer noopener' target='_blank'>Contact the GOV.UK One Login team (opens in a new tab)</a></p>"
+  contact: "<a href='https://signin.account.gov.uk/contact-us?supportType=PUBLIC' class='govuk-link' rel='noreferrer noopener' target='_blank'>Contact the GOV.UK One Login team (opens in a new tab)</a>"

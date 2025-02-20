@@ -8,14 +8,13 @@
 
 {% block mainContent %}
 
-<h1 id="header" class="govuk-heading-l">{{translate("pages.abandonCheck.title")}}</h1>
-
  {% call hmpoForm(ctx) %}
       {{ hmpoRadios(ctx, {
             id: "abandonRadio",
             namePrefix: "abandonRadio",
             fieldset: {
                 legend: {
+                    html:translate("pages.abandonCheck.title"),
                     isPageHeading: true,
                     classes: "govuk-fieldset__legend--l"
                 }
