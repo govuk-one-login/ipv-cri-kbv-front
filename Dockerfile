@@ -8,20 +8,20 @@ FROM node:${NODE_VERSION}@${NODE_SHA} AS builder
 WORKDIR /app
 
 COPY /src ./src
-COPY package.json yarn.lock ./
+COPY package.json package.lock ./
 
 RUN <<COMMANDS
-  yarn install --ignore-scripts --frozen-lockfile
-  yarn build
+  npm install --ignore-scripts --frozen-lockfile
+  npm run build
   rm -rf node_modules/  # Only keep production packages
-  yarn install --production --ignore-scripts --frozen-lockfile
+  npm install --production --ignore-scripts --frozen-lockfile
 COMMANDS
 
 FROM node:${NODE_VERSION}@${NODE_SHA} AS runner
 RUN apk --no-cache upgrade && apk add --no-cache tini curl
 WORKDIR /app
 
-COPY --from=builder /app/package.json /app/yarn.lock ./
+COPY --from=builder /app/package.json /app/package.lock ./
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/src ./src
@@ -37,4 +37,4 @@ HEALTHCHECK --interval=10s --timeout=2s --start-period=5s --retries=3 \
 
 USER node
 ENTRYPOINT ["sh", "-c", "export DT_HOST_ID=EXPERIAN-KBV-CRI-FRONT-$RANDOM && tini npm start"]
-CMD ["yarn", "start"]
+CMD ["npm", "start"]
