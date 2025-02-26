@@ -38,6 +38,25 @@ describe("answer-to-radio-item", () => {
     });
   });
 
+  context("'NONE OF THE ABOVE / DOES NOT APPLY'", () => {
+    beforeEach(() => {
+      answer = "NONE OF THE ABOVE / DOES NOT APPLY";
+
+      result = presenters.answerToRadioItem(answer, translate);
+    });
+
+    it("should return radio item", () => {
+      expect(result.text).to.equal("answers.noneOfTheAbove");
+    });
+
+    it("should transform with extracted values", () => {
+      expect(translate).to.have.been.calledWithExactly(
+        "answers.noneOfTheAbove",
+        {}
+      );
+    });
+  });
+
   context("'OVER £9,500 UP TO £10,000'", () => {
     beforeEach(() => {
       answer = "OVER £9,500 UP TO £10,000";

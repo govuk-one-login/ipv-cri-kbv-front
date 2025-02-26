@@ -59,10 +59,13 @@ describe("question-to-radios", () => {
   });
 
   it("should use answers for items", () => {
-    translate.returns("None of the above / does not apply");
+    translate.returns(
+      "None of the above or this question does not apply to me"
+    );
 
     config = presenters.questionToRadios(question, translate);
 
+    expect(translate).to.have.been.calledWith("answers.noneOfTheAbove");
     expect(config.items).to.deep.equal([
       {
         id: "01 / 2022",
@@ -111,7 +114,7 @@ describe("question-to-radios", () => {
       {
         id: "None of the above / does not apply",
         value: "None of the above / does not apply",
-        text: "None of the above / does not apply",
+        text: "None of the above or this question does not apply to me",
         hint: {
           html: " ",
         },
@@ -120,5 +123,20 @@ describe("question-to-radios", () => {
         },
       },
     ]);
+  });
+
+  it("should accept case insensitive noneOfTheAbove radio", () => {
+    translate.returns(
+      "None of the above or this question does not apply to me"
+    );
+
+    question.answerFormat.answerList[4] = "NONE OF THE ABOVE / DOES NOT APPLY";
+
+    config = presenters.questionToRadios(question, translate);
+
+    expect(translate).to.have.been.calledWith("answers.noneOfTheAbove");
+    expect(config.items[4].text).to.equal(
+      "None of the above or this question does not apply to me"
+    );
   });
 });

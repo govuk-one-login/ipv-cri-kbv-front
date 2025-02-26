@@ -1,7 +1,7 @@
 module.exports = {
   noneOfTheAbove: {
     key: "answers.noneOfTheAbove",
-    regexp: /^None of the above \/ does not apply$/,
+    regexp: /^None of the above \/ does not apply$/i,
   },
   upToMonths: {
     key: "answers.upToMonths",
