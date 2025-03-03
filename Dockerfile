@@ -9,7 +9,7 @@ WORKDIR /app
 COPY package.json package-lock.json ./
 COPY /src ./src
 
-RUN npm ci && npm run build && npm prune
+RUN npm ci --omit=dev && npm run build && npm prune
 
 FROM node:22.4.1-alpine3.19@${NODE_SHA} AS final
 
