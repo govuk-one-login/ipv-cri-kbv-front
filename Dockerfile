@@ -15,6 +15,9 @@ RUN apk --no-cache upgrade && apk add --no-cache tini curl
 
 WORKDIR /app
 
+RUN echo | ls -al /app
+RUN echo | pwd
+
 # Copy in compile assets and deps from build container
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/dist ./dist
