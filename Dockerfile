@@ -6,7 +6,7 @@ FROM ${DYNATRACE_SOURCE} AS dynatrace
 WORKDIR /app
 
 COPY package.json package-lock.json ./
-COPY src/ ./src
+COPY src ./
 
 RUN npm ci --omit=dev && npm run build && npm prune
 
