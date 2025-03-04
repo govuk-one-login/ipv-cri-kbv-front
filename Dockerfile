@@ -13,8 +13,6 @@ RUN npm ci --omit=dev && npm run build && npm prune
 FROM node:22.4.1-alpine3.19@${NODE_SHA} AS final
 RUN apk --no-cache upgrade && apk add --no-cache tini curl
 
-WORKDIR /app
-
 # Copy in compile assets and deps from build container
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/dist ./dist
