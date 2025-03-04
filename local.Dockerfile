@@ -4,11 +4,11 @@ FROM node:22.4.1-alpine3.19@${NODE_SHA}
 WORKDIR /app
 
 COPY src ./src
-COPY package.json package.lock ./
+COPY package.json yarn.lock ./
 
 RUN <<COMMANDS
-    npm install --ignore-scripts --frozen-lockfile
-    npm run build
+    yarn install --ignore-scripts --frozen-lockfile
+    yarn build
     apk add --no-cache tini curl
 COMMANDS
 
@@ -19,4 +19,4 @@ HEALTHCHECK --interval=10s --timeout=2s --start-period=5s --retries=3 \
   CMD curl -f "http://localhost:$PORT/healthcheck" || exit 1
 
 ENTRYPOINT ["tini", "--"]
-CMD ["npm", "run", "dev"]
+CMD ["yarn", "run", "dev"]

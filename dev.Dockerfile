@@ -7,13 +7,13 @@ FROM arm64v8/node@${NODE_SHA} AS builder
 WORKDIR /app
 
 COPY /src ./src
-COPY package.json package.lock ./
+COPY package.json yarn.lock ./
 
 RUN <<COMMANDS
-  npm install --ignore-scripts --frozen-lockfile
-  npm run build
+  yarn install --ignore-scripts --frozen-lockfile
+  yarn build
   rm -rf node_modules/  # Only keep production packages
-  npm install --production --ignore-scripts --frozen-lockfile
+  yarn install --production --ignore-scripts --frozen-lockfile
 COMMANDS
 
 FROM arm64v8/node@${NODE_SHA} AS runner
@@ -25,7 +25,7 @@ RUN <<COMMANDS
   apt-get clean
 COMMANDS
 
-COPY --from=builder /app/package.json /app/package.lock ./
+COPY --from=builder /app/package.json /app/yarn.lock ./
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/src ./src
@@ -41,4 +41,4 @@ HEALTHCHECK --interval=10s --timeout=2s --start-period=5s --retries=3 \
 
 USER node
 ENTRYPOINT ["tini", "--"]
-CMD ["npm", "start"]
+CMD ["yarn", "start"]
