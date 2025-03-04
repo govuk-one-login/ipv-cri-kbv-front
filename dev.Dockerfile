@@ -7,7 +7,7 @@ FROM arm64v8/node@${NODE_SHA} AS builder
 WORKDIR /app
 
 COPY /src ./src
-COPY package.json package-lock.json ./
+COPY package.json package.lock ./
 
 RUN <<COMMANDS
   npm install --ignore-scripts --frozen-lockfile
@@ -25,7 +25,7 @@ RUN <<COMMANDS
   apt-get clean
 COMMANDS
 
-COPY --from=builder /app/package.json /app/package-lock.json ./
+COPY --from=builder /app/package.json /app/package.lock ./
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/src ./src

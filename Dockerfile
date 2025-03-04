@@ -8,7 +8,7 @@ FROM node:${NODE_VERSION}@${NODE_SHA} AS builder
 WORKDIR /app
 
 COPY /src ./src
-COPY package.json package-lock.json ./
+COPY package.json package.lock ./
 
 RUN <<COMMANDS
   npm install --ignore-scripts --frozen-lockfile
@@ -21,7 +21,7 @@ FROM node:${NODE_VERSION}@${NODE_SHA} AS runner
 RUN apk --no-cache upgrade && apk add --no-cache tini curl
 WORKDIR /app
 
-COPY --from=builder /app/package.json /app/package-lock.json ./
+COPY --from=builder /app/package.json /app/package.lock ./
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/src ./src

@@ -4,7 +4,7 @@ FROM node:22.4.1-alpine3.19@${NODE_SHA}
 WORKDIR /app
 
 COPY src ./src
-COPY package.json package-lock.json ./
+COPY package.json package.lock ./
 
 RUN <<COMMANDS
     npm install --ignore-scripts --frozen-lockfile
