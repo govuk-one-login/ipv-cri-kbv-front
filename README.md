@@ -11,7 +11,7 @@ This is the home for the front end user interface for a credential issuer as a p
 Clone this repository and then run
 
 ```bash
-npm install
+yarn install
 ```
 
 ## Precommit Hooks
@@ -45,7 +45,7 @@ Run `git config --unset-all core.hooksPath` to reset your git hook settings.
 
 This can be run by using:
 
-`npm run mock`
+`yarn run mock`
 
 The frontend can be configured to use this mock server through two environment variables:
 
@@ -67,7 +67,7 @@ These tests are written using [Cucumber](https://cucumber.io/docs/installation/j
 
 They can be run by using:
 
-`npm run test:browser`
+`yarn run test:browser`
 
 ## Using mocked scenario data
 
