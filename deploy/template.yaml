@@ -399,6 +399,8 @@ Resources:
                 ]
             - Name: LANGUAGE_TOGGLE_DISABLED
               Value: false
+            - Name: NODE_ENV
+              Value: "production"
             - Name: LOG_LEVEL
               Value: !If [IsBuildOrDev, "info", "warn"]
           PortMappings:
