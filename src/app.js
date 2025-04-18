@@ -136,7 +136,7 @@ setI18n({
   router,
   config: {
     secure: true,
-    cookieDomain: APP.GTM.ANALYTICS_COOKIE_DOMAIN,
+    cookieDomain: APP.FRONTEND_DOMAIN,
   },
 });
 // Common express relies on 0/1 strings
@@ -155,7 +155,7 @@ setOAuthPaths({ app, entryPointPath: APP.PATHS.KBV });
 
 setGTM({
   app,
-  analyticsCookieDomain: APP.GTM.ANALYTICS_COOKIE_DOMAIN,
+  analyticsCookieDomain: APP.FRONTEND_DOMAIN,
   uaEnabled: APP.GTM.UA_ENABLED,
   uaContainerId: APP.GTM.UA_CONTAINER_ID,
   ga4Enabled: APP.GTM.GA4_ENABLED,
