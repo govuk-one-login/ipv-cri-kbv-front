@@ -13,7 +13,6 @@ Feature: Happy path
     When they continue to questions
     Then they should see the first question
 
-  @passthrough
     Scenario: Display and answer first question
       Given they have started the KBV journey
       And they have continued to questions
@@ -22,7 +21,15 @@ Feature: Happy path
       Then they should see the second question
       And the second question should be different to the first
 
-    @passthrough
+    Scenario: Display and answer first question
+      Given they have started the KBV journey
+      And they have continued to questions
+      And they should see the first question
+      # The device intelligence cookie is set in client-side JS. If we check the cookies immediately after loading the first page the cookie won't be present, so we navigate to the next page before testing to ensure that Playwright picks up the cookie
+      When they answer the first question
+      Then they should see the second question
+      Then the di-device-intelligence cookie has been set
+
     Scenario: Display and answer multiple questions
       Given they have started the KBV journey
       And they have continued to questions
