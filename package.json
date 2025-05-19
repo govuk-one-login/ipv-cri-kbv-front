@@ -4,7 +4,7 @@
   "license": "MIT",
   "scripts": {
     "start": "node src/app.js",
-    "start:ci": "npm run build && API_BASE_URL=http://127.0.0.1:8020 DEVICE_INTELLIGENCE_ENABLED=true REDIS_SESSION_URL= NODE_ENV=development npm run start",
+    "start:ci": "npm run build && API_BASE_URL=http://127.0.0.1:8020 DEVICE_INTELLIGENCE_ENABLED=true DEVICE_INTELLIGENCE_DOMAIN=localhost REDIS_SESSION_URL= NODE_ENV=development npm run start",
     "dev": "nodemon src/app.js",
     "build": "npm run build-sass && npm run build-js && npm run copy-assets",
     "build-sass": "rm -rf dist/public/stylesheets/application.css && sass --no-source-map src/assets/scss/application.scss dist/public/stylesheets/application.css --style compressed",
