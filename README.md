@@ -30,7 +30,7 @@ Run `git config --unset-all core.hooksPath` to reset your git hook settings.
 
 ## Environment Variables
 
-- 'BASE_URL': Externally accessible base url of the webserver. Used to generate the callback url as part of credential issuer oauth flows
+- 'API_BASE_URL': Externally accessible base url of the webserver. Used to generate the callback url as part of credential issuer oauth flows
 - `PORT` - Default port to run webserver on. (Default to `5020`)
 - `GA4_ENABLED` - Feature flag to disable GA4, defaulted to `false`
 - `UA_ENABLED` - Feature flag to disable UA, defaulted to `false`
@@ -39,6 +39,7 @@ Run `git config --unset-all core.hooksPath` to reset your git hook settings.
 - `FRONTEND_DOMAIN` - Cookie domain to persist values throughout the different sections of the OneLogin journey. Default value is `localhost`
 - `LANGUAGE_TOGGLE_DISABLED` - Feature flag to disable Language Toggle, defaulted to `false`
 - `DEVICE_INTELLIGENCE_ENABLED` - Feature flag to enable device intelligence, defaulted to `false`
+- `DEVICE_INTELLIGENCE_DOMAIN` - Domain to apply to the device intelligence cookie if device intelligence is enabled. Defaults to `account.gov.uk`.
 
 # Mock Data
 
