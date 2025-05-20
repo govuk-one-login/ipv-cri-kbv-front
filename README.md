@@ -30,7 +30,7 @@ Run `git config --unset-all core.hooksPath` to reset your git hook settings.
 
 ## Environment Variables
 
-- 'BASE_URL': Externally accessible base url of the webserver. Used to generate the callback url as part of credential issuer oauth flows
+- 'API_BASE_URL': Externally accessible base url of the webserver. Used to generate the callback url as part of credential issuer oauth flows
 - `PORT` - Default port to run webserver on. (Default to `5020`)
 - `GA4_ENABLED` - Feature flag to disable GA4, defaulted to `false`
 - `UA_ENABLED` - Feature flag to disable UA, defaulted to `false`
