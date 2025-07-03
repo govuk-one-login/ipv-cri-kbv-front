@@ -24,6 +24,10 @@ const {
 const addLanguageParam = require("@govuk-one-login/frontend-language-toggle/build/cjs/language-param-setter.cjs");
 
 const {
+  frontendUiMiddlewareIdentityBypass,
+} = require("@govuk-one-login/frontend-ui");
+
+const {
   API,
   APP,
   LOG_LEVEL,
@@ -165,6 +169,7 @@ setGTM({
 
 router.use(getGTM);
 router.use(getLanguageToggle);
+router.use(frontendUiMiddlewareIdentityBypass);
 router.use(getDeviceIntelligence);
 router.use(setScenarioHeaders);
 router.use(setAxiosDefaults);
