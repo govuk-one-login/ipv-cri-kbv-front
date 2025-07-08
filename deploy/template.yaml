@@ -99,7 +99,7 @@ Mappings:
       minECSCount: 2
       maxECSCount: 4
       deviceIntelligenceEnabled: true
-      may2025RebrandEnabled: false
+      may2025RebrandEnabled: true
     production:
       dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceProductionVariables
       minECSCount: 6
