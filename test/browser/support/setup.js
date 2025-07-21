@@ -1,14 +1,6 @@
-const {
-  Before,
-  BeforeAll,
-  AfterAll,
-  After,
-  setDefaultTimeout,
-} = require("@cucumber/cucumber");
+const { Before, BeforeAll, AfterAll, After } = require("@cucumber/cucumber");
 const { chromium } = require("playwright");
 const axios = require("axios");
-
-setDefaultTimeout(30 * 1000);
 
 BeforeAll(async function () {
   // Browsers are expensive in Playwright so only create 1
