@@ -1,10 +1,18 @@
 {% extends "base-form.njk" %}
-{% from "components/onPageLoad/macro.njk" import ga4OnPageLoad %}
 {% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
 {% from "hmpo-radios/macro.njk" import hmpoRadios %}
 {% from "hmpo-form/macro.njk" import hmpoForm %}
 {% set hmpoPageKey = "abandonCheck" %}
 {% set isPageHeading = true %}
+
+
+{% set isPageDataSensitive = false %}
+{% set statusCode = '200' %}
+{% set pageTitleKey = "pages.abandonCheck.title" %}
+{% set contentID = "813d082c-191a-4ea3-a1de-0be164ea42c1" %}
+{% set taxLevel2 = 'kbv' %}
+{% set isPageDynamic = false %}
+{% set loggedInStatus = true %}
 
 {% block mainContent %}
 
@@ -48,16 +56,5 @@
   {% endcall %}
 
   {{ hmpoHtml(translate("pages.abandonCheck.contact")) }}
-
-  {{ ga4OnPageLoad({
-    nonce: cspNonce,
-    statusCode: '200',
-    englishPageTitle: 'pages.abandonCheck.title' | translate,
-    taxonomyLevel1: 'web cri',
-    taxonomyLevel2: 'kbv',
-    contentId: '813d082c-191a-4ea3-a1de-0be164ea42c1',
-    loggedInStatus: true,
-    dynamic: false
-  }) }}
 
 {% endblock %}
