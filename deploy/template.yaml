@@ -124,7 +124,7 @@ Resources:
           IpProtocol: tcp
           ToPort: 80
       VpcId:
-        Fn::ImportValue: !Sub "${VpcStackName}-VpcId"
+        Fn::ImportValue: !Sub "spoke-kbv-medium-VpcId"
 
   LoadBalancerSGEgressToECSSecurityGroup:
     Type: AWS::EC2::SecurityGroupEgress
@@ -149,7 +149,7 @@ Resources:
           Description: Allow all outbound traffic by default
           IpProtocol: "-1"
       VpcId:
-        Fn::ImportValue: !Sub "${VpcStackName}-VpcId"
+        Fn::ImportValue: !Sub "spoke-kbv-medium-VpcId"
 
   ECSSecurityGroupIngressFromLoadBalancer:
     Type: AWS::EC2::SecurityGroupIngress
@@ -209,15 +209,16 @@ Resources:
       ResourceArn: !Ref LoadBalancer
       WebACLArn: !ImportValue cfront-origin-distrib-CloakingOriginWebACLArn
 
-  LoadBalancer:
+  LoadBalancerNew:
     Type: AWS::ElasticLoadBalancingV2::LoadBalancer
     Properties:
       Scheme: internal
       SecurityGroups:
         - !GetAtt LoadBalancerSG.GroupId
       Subnets:
-        - Fn::ImportValue: !Sub "${VpcStackName}-PrivateSubnetIdA"
-        - Fn::ImportValue: !Sub "${VpcStackName}-PrivateSubnetIdB"
+        - Fn::ImportValue: !Sub "spoke-kbv-medium-PrivateSubnetIdA"
+        - Fn::ImportValue: !Sub "spoke-kbv-medium-PrivateSubnetIdB"
+        - Fn::ImportValue: !Sub "spoke-kbv-medium-PrivateSubnetIdC"
       Type: application
       LoadBalancerAttributes: !If
         - IsNotDevelopment
@@ -247,7 +248,7 @@ Resources:
       Protocol: HTTP
       TargetType: ip
       VpcId:
-        Fn::ImportValue: !Sub "${VpcStackName}-VpcId"
+        Fn::ImportValue: !Sub "spoke-kbv-medium-VpcId"
       TargetGroupAttributes:
         - Key: deregistration_delay.timeout_seconds
           Value: 30
@@ -267,7 +268,7 @@ Resources:
       Protocol: HTTP
       TargetType: ip
       VpcId:
-        Fn::ImportValue: !Sub "${VpcStackName}-VpcId"
+        Fn::ImportValue: !Sub "spoke-kbv-medium-VpcId"
       TargetGroupAttributes:
         - Key: deregistration_delay.timeout_seconds
           Value: 30
@@ -340,8 +341,9 @@ Resources:
             SecurityGroups:
               - !GetAtt ECSSecurityGroup.GroupId
             Subnets:
-              - Fn::ImportValue: !Sub "${VpcStackName}-PrivateSubnetIdA"
-              - Fn::ImportValue: !Sub "${VpcStackName}-PrivateSubnetIdB"
+              - Fn::ImportValue: !Sub "spoke-kbv-medium-PrivateSubnetIdA"
+              - Fn::ImportValue: !Sub "spoke-kbv-medium-PrivateSubnetIdB"
+              - Fn::ImportValue: !Sub "spoke-kbv-medium-PrivateSubnetIdC"
       TaskDefinition: !If
         - UseCanaryDeployment
         - !Ref AWS::NoValue
@@ -610,7 +612,7 @@ Resources:
       ApiId: !Ref ApiGwHttpEndpoint
       IntegrationType: HTTP_PROXY
       ConnectionId:
-        Fn::ImportValue: !Sub "${VpcStackName}-VpcLinkId"
+        Fn::ImportValue: !Sub "spoke-kbv-medium-VpcLinkId"
       ConnectionType: VPC_LINK
       IntegrationMethod: ANY
       IntegrationUri: !Ref LoadBalancerListener
@@ -1036,13 +1038,14 @@ Resources:
         SecurityGroups: !GetAtt ECSSecurityGroup.GroupId
         Subnets: !Join
           - ","
-          - - Fn::ImportValue: !Sub "${VpcStackName}-PrivateSubnetIdA"
-            - Fn::ImportValue: !Sub "${VpcStackName}-PrivateSubnetIdB"
+          - - Fn::ImportValue: !Sub "spoke-kbv-medium-PrivateSubnetIdA"
+            - Fn::ImportValue: !Sub "spoke-kbv-medium-PrivateSubnetIdB"
+            - Fn::ImportValue: !Sub "spoke-kbv-medium-PrivateSubnetIdC"
         TargetGroupName: !GetAtt LoadBalancerListenerTargetGroupECS.TargetGroupName
         TGHealthCheckIntervalSeconds: 5
         TGHealthCheckTimeoutSeconds: 2
         TGPort: 8080
-        VpcId: !Sub ${VpcStackName}-VpcId
+        VpcId: !Sub spoke-kbv-medium-VpcId
 
 Outputs:
   KBVFrontUrl:
