@@ -206,7 +206,7 @@ Resources:
   CloudFrontWAFv2ACLAssociation:
     Type: AWS::WAFv2::WebACLAssociation
     Properties:
-      ResourceArn: !Ref LoadBalancer
+      ResourceArn: !Ref LoadBalancerNew
       WebACLArn: !ImportValue cfront-origin-distrib-CloakingOriginWebACLArn
 
   LoadBalancerNew:
@@ -279,7 +279,7 @@ Resources:
       DefaultActions:
         - TargetGroupArn: !Ref LoadBalancerListenerTargetGroupECS
           Type: forward
-      LoadBalancerArn: !Ref LoadBalancer
+      LoadBalancerArn: !Ref LoadBalancerNew
       Port: 80
       Protocol: HTTP
 
@@ -959,7 +959,7 @@ Resources:
         - Name: TargetGroup
           Value: !Ref LoadBalancerListenerTargetGroupECS
         - Name: LoadBalancer
-          Value: !Ref LoadBalancer
+          Value: !Ref LoadBalancerNew
       Period: 60
       EvaluationPeriods: 5
       DatapointsToAlarm: 5
@@ -1058,6 +1058,6 @@ Outputs:
       Name: !Sub "${AWS::StackName}-KBVFrontGatewayId"
   KBVLoadBalancerArn:
     Description: The ARN of the Fargate Front End Load Balancer
-    Value: !Ref LoadBalancer
+    Value: !Ref LoadBalancerNew
     Export:
       Name: !Sub "${AWS::StackName}-LoadBalancer"
