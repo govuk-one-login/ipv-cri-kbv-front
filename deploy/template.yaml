@@ -55,6 +55,8 @@ Conditions:
     - !Equals [!Ref Environment, production]
     - !Equals [!Ref Environment, integration]
 
+  IsNotProductionOrIntegration: !Not [!Condition IsProductionOrIntegration]
+
   IsBuildOrDev: !Or
     - !Equals [!Ref Environment, build]
     - !Equals [!Ref Environment, dev]
@@ -255,6 +257,11 @@ Resources:
       Tags:
         - Key: FMSRegionalPolicy
           Value: false
+        - !If
+          - IsNotProductionOrIntegration
+          - Key: CustomPolicy
+            Value: "true"
+          - !Ref AWS::NoValue
 
   LoadBalancerListenerTargetGroupECS:
     Type: AWS::ElasticLoadBalancingV2::TargetGroup
@@ -628,6 +635,12 @@ Resources:
     Properties:
       Name: !Sub KBV-front-${Environment}
       ProtocolType: HTTP
+      Tags:
+        FMSRegionalPolicy: false
+        CustomPolicy: !If
+          - IsNotProductionOrIntegration
+          - "true"
+          - !Ref AWS::NoValue
 
   ApiGwHttpEndpointIntegration:
     Type: AWS::ApiGatewayV2::Integration
@@ -672,6 +685,12 @@ Resources:
           "responseLength":"$context.responseLength",
           "responseLatency":"$context.responseLatency"
           }
+      Tags:
+        FMSRegionalPolicy: false
+        CustomPolicy: !If
+          - IsNotProductionOrIntegration
+          - "true"
+          - !Ref AWS::NoValue
 
   APIGWAccessLogsGroup:
     Type: AWS::Logs::LogGroup
