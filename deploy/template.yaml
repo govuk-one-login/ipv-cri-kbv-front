@@ -54,8 +54,7 @@ Conditions:
   IsProductionOrIntegration: !Or
     - !Equals [!Ref Environment, production]
     - !Equals [!Ref Environment, integration]
-
-  IsNotProductionOrIntegration: !Not [!Condition IsProductionOrIntegration]
+  IsNotProduction: !Not [!Condition IsProduction]
 
   IsBuildOrDev: !Or
     - !Equals [!Ref Environment, build]
@@ -258,7 +257,7 @@ Resources:
         - Key: FMSRegionalPolicy
           Value: false
         - !If
-          - IsNotProductionOrIntegration
+          - IsNotProduction
           - Key: CustomPolicy
             Value: "true"
           - !Ref AWS::NoValue
@@ -638,7 +637,7 @@ Resources:
       Tags:
         FMSRegionalPolicy: false
         CustomPolicy: !If
-          - IsNotProductionOrIntegration
+          - IsNotProduction
           - "true"
           - !Ref AWS::NoValue
 
@@ -688,7 +687,7 @@ Resources:
       Tags:
         FMSRegionalPolicy: false
         CustomPolicy: !If
-          - IsNotProductionOrIntegration
+          - IsNotProduction
           - "true"
           - !Ref AWS::NoValue
 
