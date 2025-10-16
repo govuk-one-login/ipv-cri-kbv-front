@@ -54,7 +54,6 @@ Conditions:
   IsProductionOrIntegration: !Or
     - !Equals [!Ref Environment, production]
     - !Equals [!Ref Environment, integration]
-  IsNotProduction: !Not [!Condition IsProduction]
 
   IsBuildOrDev: !Or
     - !Equals [!Ref Environment, build]
@@ -256,11 +255,8 @@ Resources:
       Tags:
         - Key: FMSRegionalPolicy
           Value: false
-        - !If
-          - IsNotProduction
-          - Key: CustomPolicy
-            Value: "true"
-          - !Ref AWS::NoValue
+        - Key: CustomPolicy
+          Value: true
 
   LoadBalancerListenerTargetGroupECS:
     Type: AWS::ElasticLoadBalancingV2::TargetGroup
@@ -636,10 +632,7 @@ Resources:
       ProtocolType: HTTP
       Tags:
         FMSRegionalPolicy: false
-        CustomPolicy: !If
-          - IsNotProduction
-          - "true"
-          - !Ref AWS::NoValue
+        CustomPolicy: true
 
   ApiGwHttpEndpointIntegration:
     Type: AWS::ApiGatewayV2::Integration
@@ -686,10 +679,7 @@ Resources:
           }
       Tags:
         FMSRegionalPolicy: false
-        CustomPolicy: !If
-          - IsNotProduction
-          - "true"
-          - !Ref AWS::NoValue
+        CustomPolicy: true
 
   APIGWAccessLogsGroup:
     Type: AWS::Logs::LogGroup
