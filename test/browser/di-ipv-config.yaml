@@ -1,0 +1,13 @@
+credentialIssuerConfigs:
+  - id: kbv-cri-dev
+    name: Experian KBV Local
+    jwksEndpoint: https://api.review-k.dev.account.gov.uk/.well-known/jwks.json
+    useKeyRotation: true
+    authorizeUrl: http://localhost:5020/oauth2/authorize
+    tokenUrl: https://xxxxx.execute-api.eu-west-2.amazonaws.com/localdev/token
+    credentialUrl: https://xxxxx.execute-api.eu-west-2.amazonaws.com/localdev/credential/issue
+    audience: https://review-k.dev.account.gov.uk
+    sendIdentityClaims: true
+    publicEncryptionJwkBase64: ewogICJhbGciOiAiRVMyNTYiLAogICJ1c2UiOiAiZW5jIiwKICAia3R5IjogIlJTQSIsCiAgImUiOiAiQVFBQiIsCiAgIm4iOiAicW9oeHBENVEtcjVjNkg2bnhMbHBNUl9lR1o5a2xYQmJsdGFDdjRpOHE3dy1jTkdheUh5TVpTNFAyLUEwTm82OTQ5WDZRREZTcWRoYlBRd2h6SHdIem5TRlNEcDhST2VDRS1xOTlnX3ZiOVpRLVpVMDQybmRYem9hdF9LQjFlRmpvVHk4VjFLYzJkMmh2VGdOanUyTHNUMDB4WENKNnYzYzRnSHRydnBIS0VTQkpSQXV4dDJHUmR0bERneERoU0RzWk83QTQzVTZmMjJwREFoUWlfZWlvRFVxTXVYbnBVVG93aW5kT0tUNUIyQjBWTVp2bTd2VnFjVm5DTlNnVlh5Y0VyVWc2dVYwOTlrUk1CV3Y1TWppWUhYNUktWlBwUnNrMzFYRTNtejZJMXlLNk0wbUxRNTNoUnN1SjR0OUpPVHBCSTVrTm9HXzlQdllkVjBjaTRZWFh3Igp9
+    publicVCSigningVerificationJwkBase64: ewogICJhbGciOiAiRVMyNTYiLAogICJ1c2UiOiAic2lnIiwKICAia3R5IjogIkVDIiwKICAiY3J2IjogIlAtMjU2IiwKICAieCI6ICJHcXFwSk5uSW5fVGZrUG5KclhtWlA5cGdsTUFkYzRCbTVkWjBRUmtnT2w0IiwKICAieSI6ICJFZTc1c0tzbXhlWkxMWGZkb0ZuMWxxM1gxRFFnRUxpREJVRFFLeXhEUHdrIgp9
+    apiKeyEnvVar: API_KEY_CRI_DEV
