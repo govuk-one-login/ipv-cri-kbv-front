@@ -20,8 +20,12 @@ Parameters:
     Description: The name of the environment to deploy to.
     AllowedPattern: ((production)|(integration)|(staging)|(build)|(dev))
   VpcStackName:
-    Description: The name of the stack that defines the VPC in which this container will run
     Type: String
+    Description: The name of the stack that defines the current (blue) VPC
+  NewVpcStackName:
+    Type: String
+    Description: The name of the stack that defines the new (green) VPC for blue-green deployment
+    Default: none
   PermissionsBoundary:
     Type: String
     Description: The ARN of the permissions boundary to apply when creating IAM roles
@@ -34,7 +38,6 @@ Parameters:
     Type: String
     Description: Predefined deployment configuration for ECS application
     Default: None
-    # Allowed values: See https://docs.aws.amazon.com/codedeploy/latest/userguide/deployment-configurations.html
     AllowedValues:
       - None
       - ECSCanary50Percent5Minutes
@@ -46,6 +49,15 @@ Parameters:
     Description: "Set to the string value `true` to deploy alarms in a DEV environment"
     Type: String
     Default: false
+
+  BlueGreenTransition:
+    Type: String
+    Description: Controls blue-green deployment phase (blue, transition, green)
+    Default: blue
+    AllowedValues:
+      - blue
+      - transition
+      - green
 
 Conditions:
   IsNotDevelopment: !Not
@@ -72,6 +84,16 @@ Conditions:
   DeployAlarms: !Or
     - !Condition IsNotDevelopment
     - !Equals [!Ref DeployAlarmsInDevEnvironment, "true"]
+
+  EnableBlueGreen: !Not
+    - !Equals [!Ref NewVpcStackName, none]
+  UseBlue: !Or
+    - !Equals [!Ref BlueGreenTransition, blue]
+    - !Equals [!Ref BlueGreenTransition, transition]
+  UseGreen: !Or
+    - !Equals [!Ref BlueGreenTransition, green]
+    - !Equals [!Ref BlueGreenTransition, transition]
+  TransitionPhase: !Equals [!Ref BlueGreenTransition, transition]
 
 Mappings:
   StaticVariables:
@@ -109,13 +131,14 @@ Mappings:
       maxECSCount: 60
       deviceIntelligenceEnabled: true
       may2025RebrandEnabled: true
-  # see https://docs.aws.amazon.com/elasticloadbalancing/latest/application/load-balancer-access-logs.html
   ElasticLoadBalancerAccountIds:
     eu-west-2:
       AccountId: 652711504416
 
 Resources:
+  # Blue Environment (Existing VPC)
   LoadBalancerSG:
+    Condition: UseBlue
     Type: AWS::EC2::SecurityGroup
     Properties:
       GroupDescription: >-
@@ -130,6 +153,7 @@ Resources:
         Fn::ImportValue: !Sub "${VpcStackName}-VpcId"
 
   LoadBalancerSGEgressToECSSecurityGroup:
+    Condition: UseBlue
     Type: AWS::EC2::SecurityGroupEgress
     Properties:
       GroupId: !GetAtt LoadBalancerSG.GroupId
@@ -142,6 +166,7 @@ Resources:
       ToPort: 8080
 
   ECSSecurityGroup:
+    Condition: UseBlue
     Type: AWS::EC2::SecurityGroup
     Properties:
       GroupDescription: >-
@@ -155,6 +180,7 @@ Resources:
         Fn::ImportValue: !Sub "${VpcStackName}-VpcId"
 
   ECSSecurityGroupIngressFromLoadBalancer:
+    Condition: UseBlue
     Type: AWS::EC2::SecurityGroupIngress
     Properties:
       IpProtocol: tcp
@@ -218,13 +244,14 @@ Resources:
               NumericLessThan:
                 "s3:TlsVersion": "1.2"
 
-  CloudFrontWAFv2ACLAssociation:
-    Type: AWS::WAFv2::WebACLAssociation
-    Properties:
-      ResourceArn: !Ref LoadBalancer
-      WebACLArn: !ImportValue cfront-origin-distrib-CloakingOriginWebACLArn
+#  CloudFrontWAFv2ACLAssociation:
+#    Type: AWS::WAFv2::WebACLAssociation
+#    Properties:
+#      ResourceArn: !Ref LoadBalancer
+#      WebACLArn: !ImportValue cfront-origin-distrib-CloakingOriginWebACLArn
 
   LoadBalancer:
+    Condition: UseBlue
     Type: AWS::ElasticLoadBalancingV2::LoadBalancer
     Properties:
       Scheme: internal
@@ -233,6 +260,7 @@ Resources:
       Subnets:
         - Fn::ImportValue: !Sub "${VpcStackName}-PrivateSubnetIdA"
         - Fn::ImportValue: !Sub "${VpcStackName}-PrivateSubnetIdB"
+        - Fn::ImportValue: !Sub "${VpcStackName}-PrivateSubnetIdC"
       Type: application
       LoadBalancerAttributes:
         - Key: routing.http.drop_invalid_header_fields.enabled
@@ -259,26 +287,7 @@ Resources:
           Value: true
 
   LoadBalancerListenerTargetGroupECS:
-    Type: AWS::ElasticLoadBalancingV2::TargetGroup
-    Properties:
-      HealthCheckEnabled: TRUE
-      HealthCheckProtocol: HTTP
-      HealthCheckPath: /healthcheck
-      HealthCheckTimeoutSeconds: 2
-      HealthCheckIntervalSeconds: 5
-      HealthyThresholdCount: 2
-      Matcher:
-        HttpCode: 200
-      Port: 80
-      Protocol: HTTP
-      TargetType: ip
-      VpcId:
-        Fn::ImportValue: !Sub "${VpcStackName}-VpcId"
-      TargetGroupAttributes:
-        - Key: deregistration_delay.timeout_seconds
-          Value: 30
-
-  SecondLoadBalancerListenerTargetGroupECS:
+    Condition: UseBlue
     Type: AWS::ElasticLoadBalancingV2::TargetGroup
     Properties:
       HealthCheckEnabled: TRUE
@@ -299,12 +308,120 @@ Resources:
           Value: 30
 
   LoadBalancerListener:
+    Condition: UseBlue
     Type: AWS::ElasticLoadBalancingV2::Listener
     Properties:
       DefaultActions:
         - TargetGroupArn: !Ref LoadBalancerListenerTargetGroupECS
           Type: forward
       LoadBalancerArn: !Ref LoadBalancer
+      Port: 80
+      Protocol: HTTP
+
+  # Green Environment (New VPC)
+  GreenLoadBalancerSG:
+    Condition: UseGreen
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: KBV Front Green LoadBalancer Security Group
+      SecurityGroupIngress:
+        - CidrIp: 0.0.0.0/0
+          Description: Allow from anyone on port 80
+          FromPort: 80
+          IpProtocol: tcp
+          ToPort: 80
+      VpcId:
+        Fn::ImportValue: !Sub "${NewVpcStackName}-VpcId"
+
+  GreenLoadBalancerSGEgressToECSSecurityGroup:
+    Condition: UseGreen
+    Type: AWS::EC2::SecurityGroupEgress
+    Properties:
+      GroupId: !GetAtt GreenLoadBalancerSG.GroupId
+      IpProtocol: tcp
+      Description: Egress between the KBV Front green load balancer and the KBV Front green ECS security group
+      DestinationSecurityGroupId: !GetAtt GreenECSSecurityGroup.GroupId
+      FromPort: 8080
+      ToPort: 8080
+
+  GreenECSSecurityGroup:
+    Condition: UseGreen
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: KBV Front Green ECS Security Group permitting outbound to anywhere.
+      SecurityGroupEgress:
+        - CidrIp: 0.0.0.0/0
+          Description: Allow all outbound traffic by default
+          IpProtocol: "-1"
+      VpcId:
+        Fn::ImportValue: !Sub "${NewVpcStackName}-VpcId"
+
+  GreenECSSecurityGroupIngressFromLoadBalancer:
+    Condition: UseGreen
+    Type: AWS::EC2::SecurityGroupIngress
+    Properties:
+      IpProtocol: tcp
+      Description: KBV Front green ECS permits inbound from the KBV Front green load balancer.
+      FromPort: 8080
+      ToPort: 8080
+      GroupId: !GetAtt GreenECSSecurityGroup.GroupId
+      SourceSecurityGroupId: !GetAtt GreenLoadBalancerSG.GroupId
+
+  GreenLoadBalancer:
+    Condition: UseGreen
+    Type: AWS::ElasticLoadBalancingV2::LoadBalancer
+    Properties:
+      Scheme: internal
+      SecurityGroups:
+        - !GetAtt GreenLoadBalancerSG.GroupId
+      Subnets:
+        - Fn::ImportValue: !Sub "${NewVpcStackName}-PrivateSubnetIdA"
+        - Fn::ImportValue: !Sub "${NewVpcStackName}-PrivateSubnetIdB"
+        - Fn::ImportValue: !Sub "${NewVpcStackName}-PrivateSubnetIdC"
+      Type: application
+      LoadBalancerAttributes:
+        !If
+        - IsNotDevelopment
+        - - Key: access_logs.s3.enabled
+            Value: true
+          - Key: access_logs.s3.bucket
+            Value: !Ref AccessLogsBucket
+          - Key: access_logs.s3.prefix
+            Value: !Sub kbv-front-green-${Environment}
+        - !Ref AWS::NoValue
+      Tags:
+        - Key: FMSRegionalPolicy
+          Value: false
+
+  GreenLoadBalancerListenerTargetGroupECS:
+    Condition: UseGreen
+    Type: AWS::ElasticLoadBalancingV2::TargetGroup
+    Properties:
+      HealthCheckEnabled: TRUE
+      HealthCheckProtocol: HTTP
+      HealthCheckPath: /healthcheck
+      HealthCheckTimeoutSeconds: 2
+      HealthCheckIntervalSeconds: 5
+      HealthyThresholdCount: 2
+      Matcher:
+        HttpCode: 200
+      Port: 80
+      Protocol: HTTP
+      TargetType: ip
+      VpcId:
+        Fn::ImportValue: !Sub "${NewVpcStackName}-VpcId"
+      TargetGroupAttributes:
+        - Key: deregistration_delay.timeout_seconds
+          Value: 30
+
+  GreenLoadBalancerListener:
+    Condition: UseGreen
+    Type: AWS::ElasticLoadBalancingV2::Listener
+    Properties:
+      DefaultActions:
+        - TargetGroupArn: !Ref GreenLoadBalancerListenerTargetGroupECS
+          Type: forward
+      LoadBalancerArn: !Ref GreenLoadBalancer
       Port: 80
       Protocol: HTTP
 
@@ -327,6 +444,7 @@ Resources:
           Value: !Sub "${Environment}"
 
   KBVFrontEcsService:
+    Condition: UseBlue
     Type: AWS::ECS::Service
     Metadata:
       cfn-lint:
@@ -368,6 +486,7 @@ Resources:
             Subnets:
               - Fn::ImportValue: !Sub "${VpcStackName}-PrivateSubnetIdA"
               - Fn::ImportValue: !Sub "${VpcStackName}-PrivateSubnetIdB"
+              - Fn::ImportValue: !Sub "${VpcStackName}-PrivateSubnetIdC"
       TaskDefinition: !If
         - UseCanaryDeployment
         - !Ref AWS::NoValue
@@ -383,6 +502,54 @@ Resources:
           Value: !Sub "${Environment}"
     DependsOn:
       - LoadBalancerListener
+
+  GreenKBVFrontEcsService:
+    Condition: UseGreen
+    Type: AWS::ECS::Service
+    Metadata:
+      cfn-lint:
+        config:
+          ignore_checks:
+            - E3056
+    Properties:
+      Cluster: !Ref KBVFrontEcsCluster
+      DeploymentConfiguration:
+        MaximumPercent: 200
+        MinimumHealthyPercent: 50
+        DeploymentCircuitBreaker:
+          Enable: !If [EnableSpotArmInstance, FALSE, TRUE]
+          Rollback: !If [EnableSpotArmInstance, FALSE, TRUE]
+      DeploymentController:
+        Type: CODE_DEPLOY
+      DesiredCount: 2
+      EnableECSManagedTags: false
+      HealthCheckGracePeriodSeconds: 60
+      LaunchType: FARGATE
+      LoadBalancers:
+        - ContainerName: app
+          ContainerPort: 8080
+          TargetGroupArn: !Ref GreenLoadBalancerListenerTargetGroupECS
+      NetworkConfiguration:
+        AwsvpcConfiguration:
+          AssignPublicIp: DISABLED
+          SecurityGroups:
+            - !GetAtt GreenECSSecurityGroup.GroupId
+          Subnets:
+            - Fn::ImportValue: !Sub "${NewVpcStackName}-PrivateSubnetIdA"
+            - Fn::ImportValue: !Sub "${NewVpcStackName}-PrivateSubnetIdB"
+            - Fn::ImportValue: !Sub "${NewVpcStackName}-PrivateSubnetIdC"
+      TaskDefinition: !Ref ECSServiceTaskDefinition
+      Tags:
+        - Key: Name
+          Value: !Sub "${AWS::StackName}-GreenECS"
+        - Key: Product
+          Value: "GOV.UK sign in"
+        - Key: System
+          Value: "KBV CRI"
+        - Key: Environment
+          Value: !Sub "${Environment}"
+    DependsOn:
+      - GreenLoadBalancerListener
 
   ECSAccessLogsGroup:
     Type: AWS::Logs::LogGroup
@@ -414,7 +581,7 @@ Resources:
                     Fn::ImportValue: kbv-cri-api-v1-PrivateKBVApiGatewayId
                   Environment: !Ref Environment
             - Name: EXTERNAL_WEBSITE_HOST
-              Value: !GetAtt ApiGwHttpEndpoint.ApiEndpoint
+              Value: !If [UseGreen, !GetAtt GreenApiGwHttpEndpoint.ApiEndpoint, !GetAtt ApiGwHttpEndpoint.ApiEndpoint]
             - Name: SESSION_TABLE_NAME
               Value: !Ref KbvFrontSessionsTable
             - Name: UA_CONTAINER_ID
@@ -626,6 +793,7 @@ Resources:
         - !Ref AWS::NoValue
 
   ApiGwHttpEndpoint:
+    Condition: UseBlue
     Type: AWS::ApiGatewayV2::Api
     Properties:
       Name: !Sub KBV-front-${Environment}
@@ -635,6 +803,7 @@ Resources:
         CustomPolicy: true
 
   ApiGwHttpEndpointIntegration:
+    Condition: UseBlue
     Type: AWS::ApiGatewayV2::Integration
     Properties:
       ApiId: !Ref ApiGwHttpEndpoint
@@ -647,6 +816,7 @@ Resources:
       PayloadFormatVersion: "1.0"
 
   APIGWRoute:
+    Condition: UseBlue
     Type: AWS::ApiGatewayV2::Route
     Properties:
       ApiId: !Ref ApiGwHttpEndpoint
@@ -657,6 +827,7 @@ Resources:
           - !Ref ApiGwHttpEndpointIntegration
 
   APIStageDefault:
+    Condition: UseBlue
     Type: AWS::ApiGatewayV2::Stage
     Properties:
       ApiId: !Ref ApiGwHttpEndpoint
@@ -680,6 +851,49 @@ Resources:
       Tags:
         FMSRegionalPolicy: false
         CustomPolicy: true
+
+  GreenApiGwHttpEndpoint:
+    Condition: UseGreen
+    Type: AWS::ApiGatewayV2::Api
+    Properties:
+      Name: !Sub KBV-front-green-${Environment}
+      ProtocolType: HTTP
+
+  GreenApiGwHttpEndpointIntegration:
+    Condition: UseGreen
+    Type: AWS::ApiGatewayV2::Integration
+    Properties:
+      ApiId: !Ref GreenApiGwHttpEndpoint
+      IntegrationType: HTTP_PROXY
+      ConnectionId:
+        Fn::ImportValue: !Sub "${NewVpcStackName}-VpcLinkId"
+      ConnectionType: VPC_LINK
+      IntegrationMethod: ANY
+      IntegrationUri: !Ref GreenLoadBalancerListener
+      PayloadFormatVersion: "1.0"
+
+  GreenAPIGWRoute:
+    Condition: UseGreen
+    Type: AWS::ApiGatewayV2::Route
+    Properties:
+      ApiId: !Ref GreenApiGwHttpEndpoint
+      RouteKey: "ANY /{proxy+}"
+      Target: !Join
+        - /
+        - - integrations
+          - !Ref GreenApiGwHttpEndpointIntegration
+
+  GreenAPIStageDefault:
+    Condition: UseGreen
+    Type: AWS::ApiGatewayV2::Stage
+    Properties:
+      ApiId: !Ref GreenApiGwHttpEndpoint
+      StageName: $default
+      AutoDeploy: true
+      AccessLogSettings:
+        DestinationArn: !GetAtt APIGWAccessLogsGroup.Arn
+        Format: >-
+          { "requestId":"$context.requestId", "ip": "$context.identity.sourceIp", "requestTime":"$context.requestTime", "httpMethod":"$context.httpMethod", "path": "$context.path", "routeKey":"$context.routeKey", "status":"$context.status", "protocol":"$context.protocol", "responseLength":"$context.responseLength", "responseLatency":"$context.responseLatency" }
 
   APIGWAccessLogsGroup:
     Type: AWS::Logs::LogGroup
@@ -732,7 +946,7 @@ Resources:
               MetricName: Count
               Dimensions:
                 - Name: ApiId
-                  Value: !Ref ApiGwHttpEndpoint
+                  Value: !If [UseGreen, !Ref GreenApiGwHttpEndpoint, !Ref ApiGwHttpEndpoint]
             Period: 60
             Stat: Sum
         - Id: error
@@ -743,7 +957,7 @@ Resources:
               MetricName: 5xx
               Dimensions:
                 - Name: ApiId
-                  Value: !Ref ApiGwHttpEndpoint
+                  Value: !If [UseGreen, !Ref GreenApiGwHttpEndpoint, !Ref ApiGwHttpEndpoint]
             Period: 60
             Stat: Sum
 
@@ -856,7 +1070,7 @@ Resources:
         - Name: ClusterName
           Value: !Ref KBVFrontEcsCluster
         - Name: ServiceName
-          Value: !GetAtt KBVFrontEcsService.Name
+          Value: !If [UseGreen, !GetAtt GreenKBVFrontEcsService.Name, !GetAtt KBVFrontEcsService.Name]
       Unit: "Percent"
       EvaluationPeriods: "2"
       MetricName: "CPUUtilization"
@@ -880,7 +1094,7 @@ Resources:
         - Name: ClusterName
           Value: !Ref KBVFrontEcsCluster
         - Name: ServiceName
-          Value: !GetAtt KBVFrontEcsService.Name
+          Value: !If [UseGreen, !GetAtt GreenKBVFrontEcsService.Name, !GetAtt KBVFrontEcsService.Name]
       Unit: "Percent"
       EvaluationPeriods: "5"
       MetricName: "CPUUtilization"
@@ -991,9 +1205,9 @@ Resources:
       Statistic: Sum
       Dimensions:
         - Name: TargetGroup
-          Value: !Ref LoadBalancerListenerTargetGroupECS
+          Value: !If [UseGreen, !Ref GreenLoadBalancerListenerTargetGroupECS, !Ref LoadBalancerListenerTargetGroupECS]
         - Name: LoadBalancer
-          Value: !Ref LoadBalancer
+          Value: !If [UseGreen, !Ref GreenLoadBalancer, !Ref LoadBalancer]
       Period: 60
       EvaluationPeriods: 5
       DatapointsToAlarm: 5
@@ -1001,56 +1215,11 @@ Resources:
       ComparisonOperator: GreaterThanThreshold
       TreatMissingData: notBreaching
 
-  ExperianKBVFrontTargetGroup5xxPercentErrors:
-    Type: AWS::CloudWatch::Alarm
-    Condition: UseCanaryDeployment
-    Properties:
-      AlarmName: !Sub ${AWS::StackName}-${Environment}-ExperianKBVFrontTargetGroup5xxPercentErrors
-      AlarmDescription: >
-        The number of HTTP 5XX server error codes that originate from the
-        target group is greater than 5% of all traffic.
-      AlarmActions:
-        - !ImportValue platform-alarm-warning-alert-topic
-      OKActions:
-        - !ImportValue platform-alarm-warning-alert-topic
-      EvaluationPeriods: 2
-      DatapointsToAlarm: 2
-      Threshold: 5
-      ComparisonOperator: GreaterThanThreshold
-      TreatMissingData: notBreaching
-      Metrics:
-        - Id: e1
-          Label: ErrorPercent
-          ReturnData: true
-          Expression: (m1/m2)*100
-        - Id: m1
-          ReturnData: false
-          MetricStat:
-            Metric:
-              Namespace: AWS/ApplicationELB
-              MetricName: HTTPCode_Target_5XX_Count
-              Dimensions:
-                - Name: LoadBalancer
-                  Value: !GetAtt LoadBalancer.LoadBalancerFullName
-            Period: 60
-            Stat: Sum
-        - Id: m2
-          ReturnData: false
-          MetricStat:
-            Metric:
-              Namespace: AWS/ApplicationELB
-              MetricName: RequestCount
-              Dimensions:
-                - Name: LoadBalancer
-                  Value: !GetAtt LoadBalancer.LoadBalancerFullName
-            Period: 60
-            Stat: Sum
-
   ECSBlueGreenDeploymentStack:
-    Type: AWS::CloudFormation::Stack
     Condition: UseCanaryDeployment
+    Type: AWS::CloudFormation::Stack
     Properties:
-      TemplateURL: https://template-storage-templatebucket-1upzyw6v9cs42.s3.eu-west-2.amazonaws.com/ecs-canary-deployment/template.yaml?versionId=5RRU1nfKQD_d08FKttr8W7pzrAsqQiUM # v2.1.1
+      TemplateURL: https://template-storage-templatebucket-1upzyw6v9cs42.s3.eu-west-2.amazonaws.com/ecs-canary-deployment/template.yaml?versionId=5RRU1nfKQD_d08FKttr8W7pzrAsqQiUM
       Parameters:
         CodeSigningConfigArn: !If
           - UseCodeSigning
@@ -1061,36 +1230,76 @@ Resources:
         ContainerPort: 8080
         DeploymentStrategy: !Ref DeploymentStrategy
         ECSClusterName: !Ref KBVFrontEcsCluster
-        ECSServiceName: !GetAtt KBVFrontEcsService.Name
+        ECSServiceName: !If [UseGreen, !GetAtt GreenKBVFrontEcsService.Name, !GetAtt KBVFrontEcsService.Name]
         ECSServiceTaskDefinition: !Ref ECSServiceTaskDefinition
-        GreenTargetGroupName: !GetAtt SecondLoadBalancerListenerTargetGroupECS.TargetGroupName
-        LoadBalancerListenerARN: !Ref LoadBalancerListener
+        GreenTargetGroupName: !GetAtt GreenLoadBalancerListenerTargetGroupECS.TargetGroupName
+        LoadBalancerListenerARN: !If [UseGreen, !Ref GreenLoadBalancerListener, !Ref LoadBalancerListener]
         PermissionsBoundary: !If
           - UsePermissionsBoundary
           - Fn::ImportValue: !Sub "${AWS::StackName}-ECSCanaryPermissionsBoundaryArn"
           - none
-        SecurityGroups: !GetAtt ECSSecurityGroup.GroupId
-        Subnets: !Join
-          - ","
-          - - Fn::ImportValue: !Sub "${VpcStackName}-PrivateSubnetIdA"
-            - Fn::ImportValue: !Sub "${VpcStackName}-PrivateSubnetIdB"
+        SecurityGroups: !If [UseGreen, !GetAtt GreenECSSecurityGroup.GroupId, !GetAtt ECSSecurityGroup.GroupId]
+        Subnets: !If
+          - UseGreen
+          - !Join
+            - ","
+            - - Fn::ImportValue: !Sub "${NewVpcStackName}-PrivateSubnetIdA"
+              - Fn::ImportValue: !Sub "${NewVpcStackName}-PrivateSubnetIdB"
+              - Fn::ImportValue: !Sub "${NewVpcStackName}-PrivateSubnetIdC"
+          - !Join
+            - ","
+            - - Fn::ImportValue: !Sub "${VpcStackName}-PrivateSubnetIdA"
+              - Fn::ImportValue: !Sub "${VpcStackName}-PrivateSubnetIdB"
+              - Fn::ImportValue: !Sub "${VpcStackName}-PrivateSubnetIdC"
         TargetGroupName: !GetAtt LoadBalancerListenerTargetGroupECS.TargetGroupName
         TGHealthCheckIntervalSeconds: 5
         TGHealthCheckTimeoutSeconds: 2
         TGPort: 8080
-        VpcId: !Sub ${VpcStackName}-VpcId
+        VpcId: !If
+          - UseGreen
+          - Fn::ImportValue: !Sub "${NewVpcStackName}-VpcId"
+          - Fn::ImportValue: !Sub "${VpcStackName}-VpcId"
+
+  Route53HostedZone:
+    Type: AWS::Route53::HostedZone
+    Properties:
+      Name: !If [ IsProduction, "account.gov.uk", !Sub "${Environment}.account.gov.uk" ]
+
+  BlueRecordSet:
+    Condition: UseBlue
+    Type: AWS::Route53::RecordSet
+    Properties:
+      HostedZoneId: !Ref Route53HostedZone
+      Name: !If [ IsProduction, "account.gov.uk", !Sub "${Environment}.account.gov.uk" ]
+      Type: CNAME
+      TTL: 60
+      Weight: !If [TransitionPhase, 90, 100]
+      ResourceRecords:
+        - !GetAtt ApiGwHttpEndpoint.ApiEndpoint
+
+  GreenRecordSet:
+    Condition: UseGreen
+    Type: AWS::Route53::RecordSet
+    Properties:
+      HostedZoneId: !Ref Route53HostedZone
+      Name: !If [ IsProduction, "account.gov.uk", !Sub "${Environment}.account.gov.uk" ]
+      Type: CNAME
+      TTL: 60
+      Weight: !If [TransitionPhase, 10, 100]
+      ResourceRecords:
+        - !GetAtt GreenApiGwHttpEndpoint.ApiEndpoint
 
 Outputs:
   KBVFrontUrl:
     Description: The API Gateway URL which KBV Front can be invoked on
-    Value: !GetAtt ApiGwHttpEndpoint.ApiEndpoint
+    Value: !If [UseGreen, !GetAtt GreenApiGwHttpEndpoint.ApiEndpoint, !GetAtt ApiGwHttpEndpoint.ApiEndpoint]
   KBVFrontGatewayId:
     Description: KBV Front API Gateway ID
-    Value: !Ref ApiGwHttpEndpoint
+    Value: !If [UseGreen, !Ref GreenApiGwHttpEndpoint, !Ref ApiGwHttpEndpoint]
     Export:
       Name: !Sub "${AWS::StackName}-KBVFrontGatewayId"
   KBVLoadBalancerArn:
     Description: The ARN of the Fargate Front End Load Balancer
-    Value: !Ref LoadBalancer
+    Value: !If [UseGreen, !Ref GreenLoadBalancer, !Ref LoadBalancer]
     Export:
       Name: !Sub "${AWS::StackName}-LoadBalancer"
