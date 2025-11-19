@@ -30,7 +30,6 @@ const {
 const {
   API,
   APP,
-  LOG_LEVEL,
   PORT,
   SESSION_SECRET,
   SESSION_TABLE_NAME,
@@ -40,14 +39,6 @@ const {
 
 const { setup } =
   require("@govuk-one-login/di-ipv-cri-common-express").bootstrap;
-
-const loggerConfig = {
-  console: true,
-  consoleJSON: true,
-  consoleLevel: LOG_LEVEL,
-  appLevel: LOG_LEVEL,
-  app: false,
-};
 
 const dynamodb = new DynamoDB({
   region: "eu-west-2",
@@ -70,11 +61,12 @@ const helmetConfig = require("@govuk-one-login/di-ipv-cri-common-express/src/lib
 const {
   frontendVitalSignsInitFromApp,
 } = require("@govuk-one-login/frontend-vital-signs");
+const { logger } = require("./lib/logger");
 
 const { app, router } = setup({
   config: { APP_ROOT: __dirname },
   port: false, /// Disabling the bootstrap starting the server.
-  logs: loggerConfig,
+  logs: logger,
   session: sessionConfig,
   helmet: helmetConfig,
   redis: SESSION_TABLE_NAME ? false : commonExpress.lib.redis(),
