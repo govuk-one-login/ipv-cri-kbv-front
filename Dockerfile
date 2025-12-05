@@ -6,7 +6,7 @@ FROM node:22.4.1-alpine3.19@${NODE_SHA} AS builder
 
 WORKDIR /app
 
-COPY package.json package-lock.json ./
+COPY package.json package-lock.json .npmrc ./
 COPY /src ./src
 
 RUN npm ci --omit=dev && npm run build && npm prune

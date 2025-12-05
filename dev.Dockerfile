@@ -6,7 +6,7 @@ FROM arm64v8/node@${NODE_SHA} AS builder
 
 WORKDIR /app
 
-COPY package.json package-lock.json ./
+COPY package.json package-lock.json .npmrc ./
 COPY /src ./src
 
 RUN npm ci && npm run build && npm prune
