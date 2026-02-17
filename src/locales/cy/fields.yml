@@ -59,6 +59,9 @@ abandonRadio:
       value: "stop"
       hint: ""
       reveal: ""
+Q00002:
+  legend: "Ym mha flwyddyn wnaethoch chi symud i'ch cyfeiriad presennol?"
+  hint:
 Q00015:
   legend: "Faint sydd gennych ar ôl i'w dalu ar eich morgais?"
   hint: "Mae hyn yn cynnwys unrhyw log. Fel arfer gallwch ddod o hyd i'r swm hwn ar eich datganiad morgais diweddaraf neu drwy wirio'ch cyfrif ar-lein."

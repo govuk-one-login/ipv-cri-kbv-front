@@ -69,6 +69,9 @@ abandonRadio:
       hint: ""
       reveal: ""
 
+Q00002:
+  legend: In which year did you move to your current address?
+  hint:
 Q00015:
   legend: How much do you have left to pay on your mortgage?
   hint: This includes any interest. You can usually find this amount on your most recent mortgage statement or by checking your online account.
