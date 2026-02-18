@@ -61,7 +61,7 @@ abandonRadio:
       reveal: ""
 Q00002:
   legend: "Ym mha flwyddyn wnaethoch chi symud i'ch cyfeiriad presennol?"
-  hint:
+  hint: null
 Q00015:
   legend: "Faint sydd gennych ar ôl i'w dalu ar eich morgais?"
   hint: "Mae hyn yn cynnwys unrhyw log. Fel arfer gallwch ddod o hyd i'r swm hwn ar eich datganiad morgais diweddaraf neu drwy wirio'ch cyfrif ar-lein."
@@ -261,27 +261,11 @@ Q00083:
   legend: "Beth yw 2 lythyren gyntaf enw masnachu eich cwmni?"
   hint: "Meddyliwch am enw masnachu'r cwmni rydych chi yn, neu wedi bod, yn gyfarwyddwr."
 Q00088:
-  legend: Faint oedd eich bil dŵr diweddaraf?
+  legend: "Faint oedd eich bil dŵr diweddaraf?"
   hint: null
 Q00092:
-  legend: Faint oedd eich bil trydan diweddaraf?
+  legend: "Faint oedd eich bil trydan diweddaraf?"
   hint: null
 Q00100:
-  legend: Faint oedd eich taliad yswiriant car diweddaraf?
+  legend: "Faint oedd eich taliad yswiriant car diweddaraf?"
   hint: null
-# missingQuestions:
-# Q00001:
-#   legend: "Pryd wnaethoch chi symud i mewn i'ch cyfeiriad cartref presennol?"
-#   hint: null
-# Q00002:
-#   legend: "Pryd wnaethoch chi symud i mewn i'ch cyfeiriad cartref presennol?"
-#   hint: null
-# Q00008:
-#   legend: "Pa gyfenw ydych chi wedi cael eich adnabod ganddo o'r blaen?"
-#   hint: null
-# Q00045:
-#   legend: "Pryd cafodd y person wnaethoch chi gymryd benthyciad allan gyda eu geni?"
-#   hint: null
-# Q00054:
-#   legend: "Beth yw'r 5 rhif olaf o'ch rhif cyfrif cyfredol?"
-#   hint: "Gallwch ddod o hyd i'r rhif yma ar eich datganiad banc. Gallai hefyd ymddangos ar eich cerdyn banc neu yn eich ap bancio."

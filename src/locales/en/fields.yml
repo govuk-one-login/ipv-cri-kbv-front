@@ -273,10 +273,10 @@ Q00083:
   hint: Think about the trading name of the company you are, or have been, the director of.
 Q00088:
   legend: How much was your most recent water bill?
-  hint: null
+  hint:
 Q00092:
   legend: How much was your most recent electricity bill?
-  hint: null
+  hint:
 Q00100:
   legend: How much was your most recent car insurance payment?
-  hint: null
+  hint:
