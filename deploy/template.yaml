@@ -703,9 +703,9 @@ Resources:
         - SupportManualURL: !FindInMap [StaticVariables, Urls, SupportManualURL]
       ActionsEnabled: true
       AlarmActions:
-        - !ImportValue platform-alarm-critical-alert-topic
+        - !If [IsProduction, !ImportValue slack-notifications-PagerDutySNSTopicArn, !ImportValue slack-notifications-CriticalAlertsTopicArn]
       OKActions:
-        - !ImportValue platform-alarm-critical-alert-topic
+        - !If [IsProduction, !ImportValue slack-notifications-PagerDutySNSTopicArn, !ImportValue slack-notifications-CriticalAlertsTopicArn]
       EvaluationPeriods: 5
       DatapointsToAlarm: 2
       Threshold: 80
@@ -918,9 +918,9 @@ Resources:
         - SupportManualURL: !FindInMap [StaticVariables, Urls, SupportManualURL]
       ActionsEnabled: true
       AlarmActions:
-        - !ImportValue platform-alarm-critical-alert-topic
+        - !If [IsProduction, !ImportValue slack-notifications-PagerDutySNSTopicArn, !ImportValue slack-notifications-CriticalAlertsTopicArn]
       OKActions:
-        - !ImportValue platform-alarm-critical-alert-topic
+        - !If [IsProduction, !ImportValue slack-notifications-PagerDutySNSTopicArn, !ImportValue slack-notifications-CriticalAlertsTopicArn]
       InsufficientDataActions: []
       MetricName: TaskCount
       Namespace: ECS/ContainerInsights
@@ -945,9 +945,9 @@ Resources:
         - SupportManualURL: !FindInMap [StaticVariables, Urls, SupportManualURL]
       ActionsEnabled: true
       AlarmActions:
-        - !ImportValue platform-alarm-critical-alert-topic
+        - !If [IsProduction, !ImportValue slack-notifications-PagerDutySNSTopicArn, !ImportValue slack-notifications-CriticalAlertsTopicArn]
       OKActions:
-        - !ImportValue platform-alarm-critical-alert-topic
+        - !If [IsProduction, !ImportValue slack-notifications-PagerDutySNSTopicArn, !ImportValue slack-notifications-CriticalAlertsTopicArn]
       InsufficientDataActions: []
       MetricName: TaskCount
       Namespace: ECS/ContainerInsights
@@ -972,9 +972,9 @@ Resources:
         - SupportManualURL: !FindInMap [StaticVariables, Urls, SupportManualURL]
       ActionsEnabled: true
       AlarmActions:
-        - !ImportValue platform-alarm-critical-alert-topic
+        - !If [IsProduction, !ImportValue slack-notifications-PagerDutySNSTopicArn, !ImportValue slack-notifications-CriticalAlertsTopicArn]
       OKActions:
-        - !ImportValue platform-alarm-critical-alert-topic
+        - !If [IsProduction, !ImportValue slack-notifications-PagerDutySNSTopicArn, !ImportValue slack-notifications-CriticalAlertsTopicArn]
       InsufficientDataActions: []
       MetricName: HTTPCode_Target_5XX_Count
       Namespace: AWS/ApplicationELB
@@ -1000,9 +1000,9 @@ Resources:
         The number of HTTP 5XX server error codes that originate from the
         target group is greater than 5% of all traffic.
       AlarmActions:
-        - !ImportValue platform-alarm-warning-alert-topic
+        - !ImportValue slack-notifications-WarningAlertsTopicArn
       OKActions:
-        - !ImportValue platform-alarm-warning-alert-topic
+        - !ImportValue slack-notifications-WarningAlertsTopicArn
       EvaluationPeriods: 2
       DatapointsToAlarm: 2
       Threshold: 5
