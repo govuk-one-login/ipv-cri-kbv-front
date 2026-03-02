@@ -78,7 +78,7 @@
     "hmpo-i18n": "7.0.1",
     "hmpo-logger": "8.0.3",
     "nunjucks": "3.2.4",
-    "sass": "^1.77.6",
+    "sass": "^1.97.3",
     "uglify-js": "3.17.4"
   },
   "overrides": {
