@@ -95,7 +95,6 @@ const { app, router } = setup({
   translation: {
     allowedLangs: ["en", "cy"],
     fallbackLang: ["en"],
-    cookie: { name: "lng" },
   },
   middlewareSetupFn: (app) => {
     frontendVitalSignsInitFromApp(app, {
