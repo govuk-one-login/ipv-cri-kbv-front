@@ -53,7 +53,7 @@
     "wiremock": "3.8.0"
   },
   "dependencies": {
-    "@aws-sdk/client-dynamodb": "3.981.0",
+    "@aws-sdk/client-dynamodb": "3.1005.0",
     "@govuk-one-login/di-ipv-cri-common-express": "13.1.0",
     "@govuk-one-login/frontend-analytics": "4.0.5",
     "@govuk-one-login/frontend-device-intelligence": "1.1.0",
