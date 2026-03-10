@@ -101,3 +101,4 @@ dist
 
 # IDE files
 .idea
+.vscode
