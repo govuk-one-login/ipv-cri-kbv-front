@@ -1,17 +1,29 @@
 const { Before, BeforeAll, AfterAll, After } = require("@cucumber/cucumber");
-const { chromium } = require("playwright");
+const { chromium, firefox, webkit } = require("playwright");
 const axios = require("axios");
+
+const browserTypes = {
+  chromium,
+  firefox,
+  webkit,
+  edge: {
+    launch: (options) => chromium.launch({ ...options, channel: "msedge" }),
+  },
+};
 
 BeforeAll(async function () {
   // Browsers are expensive in Playwright so only create 1
-  global.browser = process.env.GITHUB_ACTIONS
-    ? await chromium.launch()
-    : await chromium.launch({
-        // Not headless so we can watch test runs
-        headless: false,
-        // Slow so we can see things happening
-        slowMo: 500,
-      });
+  const browserName = process.env.BROWSER || "chromium";
+  const browserType = browserTypes[browserName];
+
+  if (!browserType) throw new Error(`Unsupported browser: ${browserName}`);
+
+  // eslint-disable-next-line no-console
+  console.log(`Running scenarios in browser type: ${browserName}`);
+  global.browser = await browserType.launch({
+    headless: true,
+    slowMo: process.env.GITHUB_ACTIONS ? 0 : 500,
+  });
 });
 
 AfterAll(async function () {

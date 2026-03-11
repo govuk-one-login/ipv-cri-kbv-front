@@ -4,6 +4,9 @@
     "urlPath": "/return"
   },
   "response": {
-    "status": 200
+    "status": 200,
+    "headers": {
+      "Content-Type": "text/html; charset=utf-8"
+    }
   }
 }

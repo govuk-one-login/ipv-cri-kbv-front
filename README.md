@@ -42,6 +42,7 @@ Run `git config --unset-all core.hooksPath` to reset your git hook settings.
 - `DEVICE_INTELLIGENCE_ENABLED` - Feature flag to enable device intelligence, defaulted to `false`
 - `DEVICE_INTELLIGENCE_DOMAIN` - Domain to apply to the device intelligence cookie if device intelligence is enabled. Defaults to `account.gov.uk`.
 - `MAY_2025_REBRAND_ENABLED` - Feature flag to enable the May 2025 GOV.UK branding change, defaults to `false`
+- `BROWSER` - Run browser test via different browser types i.e. `firefox`
 
 # Mock Data
 
@@ -72,6 +73,14 @@ These tests are written using [Cucumber](https://cucumber.io/docs/installation/j
 They can be run by using:
 
 `npm run test:browser`
+
+# Running browser tests locally on different browser types
+
+The following browserType are: `firefox`, `chromium` and `edge`.
+
+If you would like to see the web pages, change `headless: true` to `headless: false` in the setup.js file.
+
+`BROWSER=firefox npm run test:browser`
 
 ## Using mocked scenario data
 
