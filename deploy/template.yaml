@@ -85,7 +85,7 @@ Mappings:
       may2025RebrandEnabled: true
     build:
       dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables
-      minECSCount: 6
+      minECSCount: 3
       maxECSCount: 60
       deviceIntelligenceEnabled: true
       may2025RebrandEnabled: true
