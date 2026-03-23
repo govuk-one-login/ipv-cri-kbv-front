@@ -1,0 +1,16 @@
+{
+  "questionID": "Q00015",
+  "text": "What is the outstanding balance of your current mortgage?",
+  "toolTip": "The approximate amount in £s, including interest. A loan to buy property (or land) where the loan is secured by a charge on that property.",
+  "answerFormat": {
+    "identifier": "A00042",
+    "fieldType": "R ",
+    "answerList": [
+      "UP TO £60,000",
+      "OVER £60,000 UP TO £85,000",
+      "OVER £85,000 UP TO £110,000",
+      "OVER £110,000 UP TO £135,000",
+      "None of the above / does not apply"
+    ]
+  }
+}
