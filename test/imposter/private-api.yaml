@@ -51,7 +51,7 @@ paths:
             type: string
             format: string
           required: false
-        - $ref: '#/components/parameters/AuditHeader'
+        - $ref: "#/components/parameters/AuditHeader"
       requestBody:
         content:
           application/json:

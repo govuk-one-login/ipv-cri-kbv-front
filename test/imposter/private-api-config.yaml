@@ -34,7 +34,7 @@ resources:
       template: true
       content: '{"session_id": "${stores.testStore.cid}", "state": "sT@t3", "redirect_uri": "${system.server.url}/return"}'
 
-# Session error scenario
+  # Session error scenario
   - method: POST
     path: /session
     requestBody:
@@ -44,7 +44,7 @@ resources:
       statusCode: 500
       content: "{}"
 
-# 400 session response
+  # 400 session response
   - method: POST
     path: /session
     requestBody:
@@ -54,7 +54,7 @@ resources:
       statusCode: 400
       content: "{}"
 
-# Question success scenario
+  # Question success scenario
   - method: GET
     path: /question
     requestHeaders:
@@ -157,7 +157,6 @@ resources:
     response:
       statusCode: 200
 
-
   - method: POST
     path: /answer
     requestHeaders:
@@ -189,7 +188,7 @@ resources:
       template: true
       content: '{"error":"server_error", "error_description":"gateway", "redirect_uri": "${system.server.url}/return"}'
 
-# Authorization endpoint - success
+  # Authorization endpoint - success
   - method: GET
     path: /authorization
     requestHeaders:
@@ -206,7 +205,7 @@ resources:
           "redirect_uri": "${system.server.url}/return"
         }
 
-# Authorization endpoint - abandon
+  # Authorization endpoint - abandon
   - method: GET
     path: /authorization
     requestHeaders:
@@ -240,7 +239,7 @@ resources:
           "redirect_uri": "${system.server.url}/return"
         }
 
-# Return endpoint for testing - authorization error redirect
+  # Return endpoint for testing - authorization error redirect
   - method: GET
     path: /return
     queryParams:
@@ -248,7 +247,6 @@ resources:
     response:
       statusCode: 200
       content: "OK"
-
 
   - method: GET
     path: /return
@@ -258,7 +256,7 @@ resources:
       statusCode: 200
       content: "OK"
 
-# Return endpoint for testing - default
+  # Return endpoint for testing - default
   - method: GET
     path: /return
     response:
