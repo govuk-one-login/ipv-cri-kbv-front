@@ -44,25 +44,61 @@ Run `git config --unset-all core.hooksPath` to reset your git hook settings.
 - `MAY_2025_REBRAND_ENABLED` - Feature flag to enable the May 2025 GOV.UK branding change, defaults to `false`
 - `BROWSER` - Run browser test via different browser types i.e. `firefox`
 
-# Mock Data
+# Imposter
 
-[Wiremock](https://wiremock.org/) has been used to create a [stateful mock](https://wiremock.org/docs/stateful-behaviour/) of the API, through the use of scenarios. These configuration files are stored as JSON files in the [./test/mocks/mappings](./test/mocks/mappings) directory.
+[Imposter](https://www.imposter.sh/) is a mocking solution for APIs.
+
+## Running
+
+Imposter can be [run locally](https://docs.imposter.sh/getting_started/) using the [Imposter CLI](https://docs.imposter.sh/run_imposter_cli/). Alternatively, it can also be run using [Docker](https://docs.imposter.sh/run_imposter_docker/) or a [JAR](https://docs.imposter.sh/run_imposter_jar/) file.
+
+The Imposter server can be started using Docker:
+
+```bash
+docker run --rm -p 8080:8080 -v $(pwd):/opt/imposter/config outofcoffee/imposter:3.25.1
+```
+
+Imposter runs on port `8080` by default.
+
+## Endpoints
+
+To test that the system is running as expected hit the following endpoint:
+
+```bash
+curl http://localhost:8080/system/status
+```
+
+Test the session endpoint:
+
+```bash
+curl -X POST http://localhost:8080/session \
+  -H "Content-Type: application/json" \
+  -d '{"client_id": "question-success", "request": "test"}'
+```
+
+### Docker Compose (recommended for testing)
+
+For browser testing with the full application stack:
+
+```bash
+cd ../docker
+docker-compose up mocks
+```
+
+This starts Imposter as part of the complete testing environment.
+
+# Mock Data
 
 This can be run by using:
 
-`npm run mock`
+`imposter up`
 
 The frontend can be configured to use this mock server through two environment variables:
 
 - `NODE_ENV = development` - this enables a middleware that passes the `x-scenario-id` header from web requests through to the API
-- `API_BASE_URL = http://localhost:8090` - this points the frontend at the Wiremock instance
+- `API_BASE_URL = http://localhost:8080` - this points the frontend at the Imposter instance
 
 A browser extension, such as [Mod Header](https://modheader.com/), can be used to set the value of this header in a web browser.
-
-# Request properties
-
-In order to support consistent use of headers for API requests, [middleware](./src/lib/axios) is applied to add an instance of
-[axios](https://axios-http.com/) on each request onto `req.axios`. This is then reused in any code that uses the API.
 
 # Browser tests
 
@@ -72,7 +108,9 @@ These tests are written using [Cucumber](https://cucumber.io/docs/installation/j
 
 They can be run by using:
 
-`npm run test:browser`
+`npm run start:ci"` in the main repository
+
+`npm run test:browser` in the test repository
 
 # Running browser tests locally on different browser types
 
