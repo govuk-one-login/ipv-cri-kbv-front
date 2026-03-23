@@ -4,7 +4,8 @@
   "license": "MIT",
   "scripts": {
     "start": "node src/app.js",
-    "start:ci": "npm run build && API_BASE_URL=http://127.0.0.1:8020 DEVICE_INTELLIGENCE_ENABLED=true DEVICE_INTELLIGENCE_DOMAIN=localhost REDIS_SESSION_URL= NODE_ENV=development npm run start",
+    "start:ci": "npm run build && NODE_ENV=development API_BASE_URL=http://127.0.0.1:8080/ DEVICE_INTELLIGENCE_ENABLED=true DEVICE_INTELLIGENCE_DOMAIN=localhost npm start",
+    "start:local:all": "NODE_ENV=development API_BASE_URL=http://localhost:8080/ npm-run-all -p -r imposter dev",
     "dev": "nodemon src/app.js",
     "build": "npm run build-sass && npm run build-js && npm run copy-assets",
     "build-sass": "rm -rf dist/public/stylesheets/application.css && sass --no-source-map src/assets/scss/application.scss dist/public/stylesheets/application.css --style compressed",
@@ -21,14 +22,14 @@
     "test": "mocha",
     "test:coverage": "nyc --reporter=lcov --reporter=text-summary npm run test",
     "test:watch": "mocha --watch",
-    "mocks": "npx wiremock --port 8020 --root-dir test/mocks",
+    "imposter": "cd test/docker && docker compose up -d imposter",
+    "imposter:stop": "cd test/docker && docker compose down",
     "test:browser:install": "playwright install --with-deps $BROWSER",
-    "test:browser": "wait-on tcp:127.0.0.1:8020 tcp:127.0.0.1:5020 && API_BASE_URL=http://127.0.0.1:8020 MOCK_API=true cucumber-js --config test/browser/cucumber.js --tags \"not @skip\"",
-    "test:browser:only": "wait-on tcp:127.0.0.1:8020 tcp:127.0.0.1:5020 && API_BASE_URL=http://127.0.0.1:8020 MOCK_API=true cucumber-js --config test/browser/cucumber.js --tags @only",
-    "test:browser:ci": "npm-run-all -s test:browser:install -p -r start:ci mocks test:browser",
-    "test:browser:ci:only": "npm-run-all -s test:browser:install -p -r test:browser:install start:ci mocks test:browser:only",
-    "check-translation": "node node_modules/@govuk-one-login/di-ipv-cri-common-express/scripts/checkTranslations.js '../../../../src/locales'",
-    "ipv-core-stub": "cd test/docker && trap 'docker compose --profile core-stub down' EXIT && docker compose --profile core-stub up --build ipv-core-stub"
+    "test:browser": "cd test/docker && trap 'docker compose down' EXIT && COMPOSE_BAKE=true docker compose run --rm cucumber npx cucumber-js --tags \"not @skip\"",
+    "test:browser:ci": "cd test/docker && trap 'docker compose down' EXIT && COMPOSE_BAKE=true docker compose run --rm cucumber",
+    "test:browser:only": "cd test/docker && trap 'docker compose down' EXIT && COMPOSE_BAKE=true docker compose run --rm cucumber npx cucumber-js --tags \"@only and not @skip\"",
+    "test:browser:ci:only": "cd test/docker && trap 'docker compose down' EXIT && COMPOSE_BAKE=true docker compose run --rm cucumber npx cucumber-js --tags \"@only and not @skip\"",
+    "check-translation": "node node_modules/@govuk-one-login/di-ipv-cri-common-express/scripts/checkTranslations.js '../../../../src/locales'"
   },
   "devDependencies": {
     "@cucumber/cucumber": "11.3.0",
@@ -48,9 +49,7 @@
     "playwright": "1.55.1",
     "prettier": "3.2.4",
     "sinon": "15.0.3",
-    "sinon-chai": "3.7.0",
-    "wait-on": "8.0.4",
-    "wiremock": "3.8.0"
+    "sinon-chai": "3.7.0"
   },
   "dependencies": {
     "@aws-sdk/client-dynamodb": "3.1005.0",
