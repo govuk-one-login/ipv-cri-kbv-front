@@ -1,6 +1,5 @@
 const { Before, BeforeAll, AfterAll, After } = require("@cucumber/cucumber");
 const { chromium, firefox, webkit } = require("playwright");
-const axios = require("axios");
 
 const browserTypes = {
   chromium,
@@ -30,7 +29,7 @@ AfterAll(async function () {
   await global.browser.close();
 });
 
-// Add scenario header
+// Extract client_id from scenario tags for Imposter
 Before(async function ({ pickle } = {}) {
   if (!(process.env.MOCK_API === "true")) {
     return;
@@ -43,37 +42,26 @@ Before(async function ({ pickle } = {}) {
     return;
   }
 
-  const header = tag?.name.substring(10);
-
-  this.SCENARIO_ID_HEADER = header;
-
-  try {
-    await axios.get(`${process.env.API_BASE_URL}/__reset/${header}`);
-  } catch (e) {
-    /* eslint-disable no-console */
-    console.log("Error resetting mock");
-    console.log(`${process.env.API_BASE_URL}/__reset/${header}`);
-    console.log(e.message);
-    /* eslint-enable no-console */
-    throw e;
-  }
+  // Extract client_id from @mock-api:scenario-name tag
+  this.clientId = tag?.name.substring(10);
 });
 
 // Create a new test context and page per scenario
 Before(async function () {
   this.context = await global.browser.newContext({});
 
-  if (this.SCENARIO_ID_HEADER) {
-    await this.context.setExtraHTTPHeaders({
-      "x-scenario-id": this.SCENARIO_ID_HEADER,
-    });
-  }
-
   this.page = await this.context.newPage();
 });
 
 // Cleanup after each scenario
 After(async function () {
+  if (process.env.MOCK_API === "true" && this.clientId) {
+    const mockApiUrl = process.env.MOCK_API_URL || "http://localhost:8080";
+    await fetch(`${mockApiUrl}/system/store/${this.clientId}`, {
+      method: "DELETE",
+    });
+    await new Promise((resolve) => setTimeout(resolve, 500));
+  }
   await this.page.close();
   await this.context.close();
 });

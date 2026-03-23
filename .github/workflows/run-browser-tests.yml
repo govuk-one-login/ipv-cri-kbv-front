@@ -6,10 +6,6 @@ concurrency:
   group: browser-tests-${{ github.workflow }}-${{ github.head_ref || github.ref_name }}
   cancel-in-progress: true
 
-defaults:
-  run:
-    shell: bash
-
 permissions: {}
 
 jobs:
@@ -21,7 +17,7 @@ jobs:
       matrix:
         browser: [chromium, firefox]
     steps:
-      - name: Run tests on ${{ matrix.browser }}
+      - name: Run browser tests on ${{ matrix.browser }}
         uses: govuk-one-login/github-actions/node/run-script@c8eefadf581d2087ce2af48b7060c1329cfa5251
         env:
           BROWSER: ${{ matrix.browser }}
