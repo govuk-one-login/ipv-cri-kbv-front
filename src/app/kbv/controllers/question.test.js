@@ -90,7 +90,9 @@ describe("Question controller", () => {
         fields: {},
       };
 
+      req.baseUrl = "/kbv";
       req.session.question = undefined;
+      res.redirect = sinon.fake();
 
       prototypeSpy = sinon.stub(BaseController.prototype, "configure");
       BaseController.prototype.configure.callThrough();
@@ -126,17 +128,8 @@ describe("Question controller", () => {
       expect(prototypeSpy).to.not.have.been.calledWith(req, res, next);
     });
 
-    it("should call next with an error", () => {
-      expect(next).to.have.been.calledWith(
-        sinon.match
-          .instanceOf(Error)
-          .and(
-            sinon.match.has(
-              "message",
-              "Current session has no Question to configure."
-            )
-          )
-      );
+    it("should redirect to done", () => {
+      expect(res.redirect).to.have.been.calledWith("/kbv/done");
     });
   });
 
