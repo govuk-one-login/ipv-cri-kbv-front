@@ -1,4 +1,4 @@
-@mock-api:question-success @success
+@mock-api:question-success @success @post-merge
 Feature: Happy path
 
   Viewing the Knowledge Based Verification questions successfully

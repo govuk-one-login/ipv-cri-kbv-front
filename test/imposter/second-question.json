@@ -1,0 +1,16 @@
+{
+  "questionID": "Q00000",
+  "text": "When did you take out a loan?",
+  "toolTip": "This includes personal loans and credit cards",
+  "answerFormat": {
+    "identifier": "A000004",
+    "fieldType": "G ",
+    "answerList": [
+      "01 / 2022",
+      "05 / 1999",
+      "12 / 2020",
+      "07 / 2012",
+      "None of the above / does not apply"
+    ]
+  }
+}

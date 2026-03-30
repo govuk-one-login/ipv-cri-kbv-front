@@ -1,0 +1,264 @@
+plugin: rest
+
+resources:
+  # Session endpoints - map client_id to session scenarios
+  - method: POST
+    path: /session
+    requestBody:
+      anyOf:
+        - jsonPath: $.client_id
+          value: "question-success"
+        - jsonPath: $.client_id
+          value: "question-error"
+        - jsonPath: $.client_id
+          value: "no-questions"
+        - jsonPath: $.client_id
+          value: "answer-error"
+        - jsonPath: $.client_id
+          value: "question-abandon"
+    capture:
+      cid:
+        jsonPath: $.client_id
+        store: testStore
+    steps:
+      - type: script
+        lang: javascript
+        code: |
+          const clientId = JSON.parse(context.request.body).client_id;
+          logger.info("POST /session body: " + context.request.body);
+          var store = stores.open(clientId);
+          store.save('state', 'Started');
+          logger.info("Set initial state for: " + clientId);
+    response:
+      statusCode: 201
+      template: true
+      content: '{"session_id": "${stores.testStore.cid}", "state": "sT@t3", "redirect_uri": "${system.server.url}/return"}'
+
+  # Session error scenario
+  - method: POST
+    path: /session
+    requestBody:
+      jsonPath: $.client_id
+      value: "session-error"
+    response:
+      statusCode: 500
+      content: "{}"
+
+  # 400 session response
+  - method: POST
+    path: /session
+    requestBody:
+      jsonPath: $.client_id
+      value: "session-400"
+    response:
+      statusCode: 400
+      content: "{}"
+
+  # Question success scenario
+  - method: GET
+    path: /question
+    requestHeaders:
+      session_id: "question-success"
+    steps:
+      - type: script
+        lang: javascript
+        code: |
+          const store = stores.open("question-success");
+          const state = store.load("state");
+          logger.info("GET /question state: " + state);
+           if (state === "Started") {
+          respond().withStatusCode(200).withFile("question-success.json").skipDefaultBehaviour();
+          } else if (state === "FirstQuestion") {
+          respond().withStatusCode(200).withFile("first-question.json").skipDefaultBehaviour();
+          } else if (state === "LastQuestion") {
+          respond().withStatusCode(200).withFile("second-question.json").skipDefaultBehaviour();
+          } else if (state === "NoMoreQuestions") {
+          respond().withStatusCode(204).skipDefaultBehaviour();
+          }
+    response:
+      statusCode: 200
+      file: question-success.json
+
+  # Question error scenario
+  - method: GET
+    path: /question
+    requestHeaders:
+      session_id: "question-error"
+    response:
+      statusCode: 500
+      template: true
+      content: '{"error":"server_error", "error_description":"gateway", "redirect_uri": "${system.server.url}/return"}'
+
+  - method: GET
+    path: /question
+    requestHeaders:
+      session_id: "answer-error"
+    response:
+      statusCode: 200
+      file: question-success.json
+
+  - method: GET
+    path: /question
+    requestHeaders:
+      session_id: "no-questions"
+    response:
+      statusCode: 204
+
+  # Abandon scenario
+  - method: GET
+    path: /question
+    requestHeaders:
+      session_id: "question-abandon"
+    response:
+      statusCode: 200
+      file: question-success.json
+
+  - method: POST
+    path: /abandon
+    requestHeaders:
+      session_id: "question-abandon"
+    response:
+      statusCode: 200
+
+  # Answer success scenarios
+  - method: POST
+    path: /answer
+    requestHeaders:
+      session_id: "question-success"
+    requestBody:
+      allOf:
+        - jsonPath: $.questionId
+          value: "Q00015"
+    steps:
+      - type: script
+        lang: javascript
+        code: |
+          const store = stores.open("question-success");
+          store.save("state", "FirstQuestion");
+          logger.info("Answer received for Q00015");
+    response:
+      statusCode: 200
+
+  - method: POST
+    path: /answer
+    requestHeaders:
+      session_id: "question-success"
+    requestBody:
+      allOf:
+        - jsonPath: $.questionId
+          value: "Q00042"
+    steps:
+      - type: script
+        lang: javascript
+        code: |
+          const store = stores.open("question-success");
+          store.save("state", "LastQuestion");
+          logger.info("Answer received for Q00042");
+    response:
+      statusCode: 200
+
+  - method: POST
+    path: /answer
+    requestHeaders:
+      session_id: "question-success"
+    requestBody:
+      allOf:
+        - jsonPath: $.questionId
+          value: "Q00000"
+    steps:
+      - type: script
+        lang: javascript
+        code: |
+          const store = stores.open("question-success");
+          store.save("state", "NoMoreQuestions");
+    response:
+      statusCode: 200
+
+  # Answer error scenarios
+  - method: POST
+    path: /answer
+    requestHeaders:
+      session_id: "answer-error"
+    requestBody:
+      allOf:
+        - jsonPath: $.questionId
+          value: "Q00015"
+    response:
+      statusCode: 500
+      template: true
+      content: '{"error":"server_error", "error_description":"gateway", "redirect_uri": "${system.server.url}/return"}'
+
+  # Authorization endpoint - success
+  - method: GET
+    path: /authorization
+    requestHeaders:
+      session_id: "question-success"
+    response:
+      statusCode: 200
+      template: true
+      content: |
+        {
+          "authorizationCode": {
+            "value": "FACEFEED"
+          },
+          "state": "sT@t3",
+          "redirect_uri": "${system.server.url}/return"
+        }
+
+  # Authorization endpoint - abandon
+  - method: GET
+    path: /authorization
+    requestHeaders:
+      session_id: "question-abandon"
+    response:
+      statusCode: 200
+      template: true
+      content: |
+        {
+          "authorizationCode": {
+            "value": "FACEFEED"
+          },
+          "state": "sT@t3",
+          "redirect_uri": "${system.server.url}/return"
+        }
+
+  # Authorization endpoint - no question
+  - method: GET
+    path: /authorization
+    requestHeaders:
+      session_id: "no-questions"
+    response:
+      statusCode: 200
+      template: true
+      content: |
+        {
+          "authorizationCode": {
+            "value": "FACEFEED"
+          },
+          "state": "sT@t3",
+          "redirect_uri": "${system.server.url}/return"
+        }
+
+  # Return endpoint for testing - authorization error redirect
+  - method: GET
+    path: /return
+    queryParams:
+      error: "server_error"
+    response:
+      statusCode: 200
+      content: "OK"
+
+  - method: GET
+    path: /return
+    queryParams:
+      code: "FACEFEED"
+    response:
+      statusCode: 200
+      content: "OK"
+
+  # Return endpoint for testing - default
+  - method: GET
+    path: /return
+    response:
+      statusCode: 200
+      content: "OK"

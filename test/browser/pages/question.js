@@ -4,7 +4,7 @@ module.exports = class PlaywrightDevPage {
    */
   constructor(page) {
     this.page = page;
-    this.url = "http://localhost:5020/kbv/question";
+    this.url = `${process.env.WEBSITE_HOST || "http://localhost:5020"}/kbv/question`;
     this.questionTitle = page.locator(".govuk-fieldset__heading");
     this.answerRadios = page.locator('input[name="question"]');
   }
