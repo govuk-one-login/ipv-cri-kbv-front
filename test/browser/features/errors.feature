@@ -26,3 +26,11 @@ Feature: Error handling
     And they should see the first question
     When they answer the first question
     Then they should be redirected as an error
+
+  @mock-api:question-success
+  Scenario: Error - Page not found
+    Given they have started the KBV journey
+    And they have continued to questions
+    And they should see the first question
+    When they go to an unknown page
+    Then they should see the Page not found error page
