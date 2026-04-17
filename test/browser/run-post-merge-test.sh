@@ -10,6 +10,8 @@ export ENVIRONMENT
 export GITHUB_ACTIONS=true
 export MOCK_API=false
 
-cd /test/browser || exit 1
+# This script must be copied to the root of the image filesystem in the post-merge dockerfile.
+# Therefore, ensure that we cd to the browser tests directory before attempting to run them.
+cd /app/test/browser || exit 1
 
-npm test -- --tags "@post-merge and not @live" --fail-fast
+npm run test -- --tags "@post-merge and not @live" --fail-fast
