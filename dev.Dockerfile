@@ -1,8 +1,9 @@
+# https://hub.docker.com/layers/arm64v8/node/22-bookworm/images/sha256-1d625ee0a8aba3fcbabe2ce39330b4d2a53a80f38979f200d6ef11e899bde1df
+ARG NODE_SHA=sha256:47eaa0cad48cd06a6da0d2a0a3f3dbbcb3b311513ae1e23b7aa3a822d490486a
 ARG DYNATRACE_SOURCE=khw46367.live.dynatrace.com/linux/oneagent-codemodules-musl:nodejs
-ARG NODE_SHA=sha256:9ed7b5265e6af2910e66e097057b38533cf669ee4fa6d9d574c01135bd0c6b6a
 
 FROM ${DYNATRACE_SOURCE} AS dynatrace
-FROM arm64v8/node@${NODE_SHA} AS builder
+FROM arm64v8/node:22-bookworm@${NODE_SHA} AS builder
 
 WORKDIR /app
 
@@ -11,7 +12,7 @@ COPY /src ./src
 
 RUN npm ci && npm run build && npm prune
 
-FROM arm64v8/node@${NODE_SHA} AS final
+FROM arm64v8/node:22-bookworm@${NODE_SHA} AS final
 
 RUN <<COMMANDS
   apt-get update -y
