@@ -86,7 +86,7 @@ Mappings:
     build:
       logLevel: "info"
       dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables
-      minECSCount: 6
+      minECSCount: 3
       maxECSCount: 60
       deviceIntelligenceEnabled: true
       may2025RebrandEnabled: true
@@ -875,7 +875,7 @@ Resources:
       AlarmActions:
         - !Ref StepScaleOutPolicy
       AlarmName: !Sub ${AWS::StackName}-${Environment}-ExperianKBVStepScaleOutAlarm
-      AlarmDescription: "Experian KBV front cluster over 60 percent CPU."
+      AlarmDescription: "Experian KBV front cluster over 30 percent CPU."
       ComparisonOperator: "GreaterThanThreshold"
       DatapointsToAlarm: "2"
       Dimensions:
@@ -889,7 +889,7 @@ Resources:
       Namespace: "AWS/ECS"
       Statistic: "Average"
       Period: "60"
-      Threshold: "60"
+      Threshold: "30"
 
   ExperianKBVStepScaleInAlarm:
     DependsOn: ECSAutoScalingTarget
@@ -899,7 +899,7 @@ Resources:
       AlarmActions:
         - !Ref StepScaleInPolicy
       AlarmName: !Sub ${AWS::StackName}-${Environment}-ExperianKBVStepScaleInAlarm
-      AlarmDescription: "Experian KBV front cluster under 60 Percent CPU."
+      AlarmDescription: "Experian KBV front cluster under 30 Percent CPU."
       ComparisonOperator: "LessThanThreshold"
       DatapointsToAlarm: "5"
       Dimensions:
@@ -913,7 +913,7 @@ Resources:
       Namespace: "AWS/ECS"
       Statistic: "Average"
       Period: "60"
-      Threshold: "60"
+      Threshold: "30"
 
   KbvFrontSessionsTable:
     Type: AWS::DynamoDB::Table
