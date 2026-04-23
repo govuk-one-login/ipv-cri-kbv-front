@@ -141,6 +141,7 @@ You can run the Experian KBV frontend with a deployed Experian KBV CRI stack in 
 ### Prerequisites
 
 1. The required repositories need to be cloned into the same parent directory, this is a one-time setup:
+
    - This repository (`ipv-cri-kbv-front`)
    - [ipv-stubs](https://github.com/govuk-one-login/ipv-stubs)
    - [ipv-config](https://github.com/govuk-one-login/ipv-config)

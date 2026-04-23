@@ -2,7 +2,6 @@ const keys = require("./keys");
 
 describe("keys", () => {
   describe("#singleKeysNotDynamic", () => {
-
     context("with string key that does not start with `fields.Q`", () => {
       it("should return false", () => {
         expect(keys.singleKeyNotDynamic("fields.idNumber")).to.be.true;
@@ -17,7 +16,6 @@ describe("keys", () => {
   });
 
   describe("#multpleKeysNotDynamic", () => {
-
     context("with Array keys and no key starts with `fields.Q`", () => {
       it("should return false", () => {
         expect(keys.multipleKeysNotDynamic(["fields.idNumber", "fields.a100"]))
