@@ -2,7 +2,7 @@ const questionToHint = require("./question-to-hint");
 const questionToLegend = require("./question-to-legend");
 const answerToRadioItem = require("./answer-to-radio-item");
 
-module.exports = function (question, translate) {
+module.exports = function questionToRadios(question, translate) {
   return {
     id: question?.questionID,
     name: question?.questionID,
