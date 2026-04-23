@@ -1,6 +1,6 @@
 const answerConfig = require("../lib/answer-config");
 
-module.exports = function (answer, translate) {
+module.exports = function answerToRadioItem(answer, translate) {
   // This is running the equivalent of:
   // match = answer.match(answerConfig.KEY_NAME.regexp);
   // if (match) {

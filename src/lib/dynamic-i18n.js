@@ -4,7 +4,7 @@ const debug = require("debug")("app:lib:dynamic-i18n");
 const dynamicKeys = require("./dynamic/keys");
 
 function arrayify(value) {
-  return [].concat(value || []);
+  return [value || []].flat();
 }
 
 const getFallbackTranslationFromFields = function (key, fields) {
