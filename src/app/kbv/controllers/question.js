@@ -11,7 +11,7 @@ const { API } = require("../../../lib/config");
 class QuestionController extends BaseController {
   configure(req, res, next) {
     if (!req.session.question) {
-      return next(new Error("Current session has no Question to configure."));
+      return res.redirect(`${req.baseUrl}/done`);
     }
     const fallbackTranslations = dynamicQuestion.questionToTranslations(
       req.session.question
