@@ -52,6 +52,7 @@ Parameters:
     Default: "kbv-cri-api-v1-PrivateKBVApiGatewayId"
 
   ContainerImageName:
+    Description: "A custom Image name for the ECS TaskDefinition - used for localdev"
     Type: String
     Default: ""
 
