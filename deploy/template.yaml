@@ -51,13 +51,13 @@ Parameters:
     Type: String
     Default: "kbv-cri-api-v1-PrivateKBVApiGatewayId"
 
-  ContainerImageName:
+  ContainerImageNameOverride:
     Description: "A custom Image name for the ECS TaskDefinition - used for localdev"
     Type: String
     Default: ""
 
 Conditions:
-  UseContainerImageNameOverride: !Not [!Equals [!Ref ContainerImageName, ""]]
+  UseContainerImageNameOverride: !Not [!Equals [!Ref ContainerImageNameOverride, ""]]
 
   IsNotDevelopment: !Not
     - !Equals [!Ref Environment, dev]
@@ -422,7 +422,7 @@ Resources:
         - Essential: true
           Image: !If
             - UseContainerImageNameOverride
-            - !Ref ContainerImageName
+            - !Ref ContainerImageNameOverride
             - CONTAINER-IMAGE-PLACEHOLDER
           Name: app
           ReadonlyRootFilesystem: true
