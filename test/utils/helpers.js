@@ -1,28 +1,16 @@
-const chai = require("chai");
-const sinon = require("sinon");
-const sinonChai = require("sinon-chai");
-const chaiAsPromised = require("chai-as-promised");
+import { vi } from "vitest";
 
 const JourneyModel = require("hmpo-form-wizard/lib/journey-model");
 const WizardModel = require("hmpo-form-wizard/lib/wizard-model.js");
 
-chai.should();
-chai.use(sinonChai);
-chai.use(chaiAsPromised);
-
-const expect = chai.expect;
-
-global.sinon = sinon;
-global.expect = expect;
-
-global.setupDefaultMocks = () => {
+export const setupDefaultMocks = () => {
   const req = {
     url: "/",
     body: {},
     form: { values: {} },
     axios: {
-      get: sinon.fake(),
-      post: sinon.fake(),
+      get: vi.fn(),
+      post: vi.fn(),
     },
     session: {
       "hmpo-wizard-previous": {},
@@ -46,12 +34,7 @@ global.setupDefaultMocks = () => {
   });
 
   const res = {};
+  const next = vi.fn();
 
-  const next = sinon.fake();
-
-  return {
-    req,
-    res,
-    next,
-  };
+  return { req, res, next };
 };

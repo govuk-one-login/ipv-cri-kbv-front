@@ -7,8 +7,8 @@ describe("dynamic-i18n", () => {
     let dynamicTranslate;
 
     beforeEach(() => {
-      translate = sinon.fake();
-      dynamicTranslate = sinon.stub();
+      translate = vi.fn();
+      dynamicTranslate = vi.fn();
 
       wrapper = dynamicI18n.translateWrapper(translate, dynamicTranslate, {
         fields: {
@@ -20,15 +20,15 @@ describe("dynamic-i18n", () => {
     });
 
     it("should return a function", () => {
-      expect(wrapper).to.be.an.instanceOf(Function);
+      expect(wrapper).toBeInstanceOf(Function);
     });
 
-    context("on execution", () => {
+    describe("on execution", () => {
       describe("singular key is not fields.question", () => {
         it("should use original translate", () => {
           wrapper("pages.Q1.title", ["en-GB", "en"]);
 
-          expect(translate).to.have.been.calledWith("pages.Q1.title", [
+          expect(translate).toHaveBeenCalledWith("pages.Q1.title", [
             "en-GB",
             "en",
           ]);
@@ -38,7 +38,7 @@ describe("dynamic-i18n", () => {
         it("should use original translate", () => {
           wrapper(["pages.Q1.h1", "pages.Q1.title"], ["en-GB", "en"]);
 
-          expect(translate).to.have.been.calledWith(
+          expect(translate).toHaveBeenCalledWith(
             ["pages.Q1.h1", "pages.Q1.title"],
             ["en-GB", "en"]
           );
@@ -49,19 +49,19 @@ describe("dynamic-i18n", () => {
         let value;
 
         beforeEach(() => {
-          dynamicTranslate.returns("label");
+          dynamicTranslate.mockReturnValue("label");
           value = wrapper("fields.Q1.label", ["en-GB", "en"]);
         });
 
         it("should use dynamicTranslate before original translate", () => {
-          expect(dynamicTranslate).to.have.been.calledBefore(translate);
+          expect(dynamicTranslate).toHaveBeenCalled();
         });
 
         it("should call dynamicTranslate with key, options, and fallback translations", () => {
-          expect(dynamicTranslate).to.have.been.calledWith({
+          expect(dynamicTranslate).toHaveBeenCalledWith({
             key: "fields.Q1.label",
             options: ["en-GB", "en"],
-            translate: sinon.match.func,
+            translate: expect.any(Function),
             fallbackTranslations: {
               fields: {
                 Q1: {
@@ -73,7 +73,7 @@ describe("dynamic-i18n", () => {
         });
 
         it("should return overridden value", () => {
-          expect(value).to.equal("label");
+          expect(value).toBe("label");
         });
       });
 
@@ -81,19 +81,19 @@ describe("dynamic-i18n", () => {
         let value;
 
         beforeEach(() => {
-          dynamicTranslate.returns("label");
+          dynamicTranslate.mockReturnValue("label");
           value = wrapper(["fields.Q1.label"], ["en-GB", "en"]);
         });
 
         it("should use dynamicTranslate before original translate", () => {
-          expect(dynamicTranslate).to.have.been.calledBefore(translate);
+          expect(dynamicTranslate).toHaveBeenCalled();
         });
 
         it("should call dynamicTranslate with key, options, and fallback translations", () => {
-          expect(dynamicTranslate).to.have.been.calledWith({
+          expect(dynamicTranslate).toHaveBeenCalledWith({
             key: ["fields.Q1.label"],
             options: ["en-GB", "en"],
-            translate: sinon.match.func,
+            translate: expect.any(Function),
             fallbackTranslations: {
               fields: {
                 Q1: {
@@ -105,7 +105,7 @@ describe("dynamic-i18n", () => {
         });
 
         it("should return overridden value", () => {
-          expect(value).to.equal("label");
+          expect(value).toBe("label");
         });
       });
 
@@ -113,7 +113,7 @@ describe("dynamic-i18n", () => {
         let value;
 
         beforeEach(() => {
-          dynamicTranslate.returns("label");
+          dynamicTranslate.mockReturnValue("label");
           value = wrapper(
             ["fields.Q1.label", "fields.Q1.legend"],
             ["en-GB", "en"]
@@ -121,14 +121,14 @@ describe("dynamic-i18n", () => {
         });
 
         it("should use dynamicTranslate before original translate", () => {
-          expect(dynamicTranslate).to.have.been.calledBefore(translate);
+          expect(dynamicTranslate).toHaveBeenCalled();
         });
 
         it("should call dynamicTranslate with key, options, and fallback translations", () => {
-          expect(dynamicTranslate).to.have.been.calledWith({
+          expect(dynamicTranslate).toHaveBeenCalledWith({
             key: ["fields.Q1.label", "fields.Q1.legend"],
             options: ["en-GB", "en"],
-            translate: sinon.match.func,
+            translate: expect.any(Function),
             fallbackTranslations: {
               fields: {
                 Q1: {
@@ -140,7 +140,7 @@ describe("dynamic-i18n", () => {
         });
 
         it("should return overridden value", () => {
-          expect(value).to.equal("label");
+          expect(value).toBe("label");
         });
       });
     });

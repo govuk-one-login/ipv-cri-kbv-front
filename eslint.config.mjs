@@ -1,5 +1,5 @@
 import globals from "globals";
-import mocha from "eslint-plugin-mocha";
+import vitest from "@vitest/eslint-plugin";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import js from "@eslint/js";
@@ -32,10 +32,6 @@ export default [
     languageOptions: {
       globals: {
         ...globals.node,
-        ...globals.mocha,
-        sinon: true,
-        expect: true,
-        setupDefaultMocks: "readonly",
       },
     },
 
@@ -52,20 +48,21 @@ export default [
       ],
     },
   },
-  ...compat.extends("plugin:mocha/recommended").map((config) => ({
-    ...config,
-    files: ["src/**/*.test.js"],
-  })),
   {
     files: ["src/**/*.test.js"],
 
     plugins: {
-      mocha,
+      vitest,
+    },
+
+    languageOptions: {
+      globals: {
+        ...vitest.environments.env.globals,
+      },
     },
 
     rules: {
-      "mocha/no-mocha-arrows": 0,
-      "mocha/no-setup-in-describe": 0,
+      ...vitest.configs.recommended.rules,
     },
   },
 ];

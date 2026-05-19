@@ -10,53 +10,53 @@ describe("question-to-hint", () => {
       toolTip: "question toolTip",
     };
 
-    translate = sinon.stub();
+    translate = vi.fn();
   });
 
   it("should call translate using questionID", () => {
     presenters.questionToHint(question, translate);
 
-    expect(translate).to.have.been.calledWithExactly("fields.Q00.hint");
+    expect(translate).toHaveBeenCalledWith("fields.Q00.hint");
   });
 
-  context("with found key", () => {
+  describe("with found key", () => {
     it("should return translated hint when found", () => {
-      translate.returns("translated question hint");
+      translate.mockReturnValue("translated question hint");
 
       const result = presenters.questionToHint(question, translate);
 
-      expect(result).to.equal("translated question hint");
+      expect(result).toBe("translated question hint");
     });
   });
 
-  context("with undefined key", () => {
+  describe("with undefined key", () => {
     it("should use question tooltip", () => {
-      translate.returns(undefined);
+      translate.mockReturnValue(undefined);
 
       const result = presenters.questionToHint(question, translate);
 
-      expect(result).to.equal("question toolTip");
+      expect(result).toBe("question toolTip");
     });
   });
 
-  context("with fallback to data behaviour", () => {
+  describe("with fallback to data behaviour", () => {
     it("should fallback to using tooltip", () => {
-      translate.returns("fields.Q00.hint");
+      translate.mockReturnValue("fields.Q00.hint");
 
       const result = presenters.questionToHint(question, translate);
 
-      expect(result).to.equal("question toolTip");
+      expect(result).toBe("question toolTip");
     });
   });
 
-  context("with missing key and data behaviour", () => {
+  describe("with missing key and data behaviour", () => {
     it("should fallback to using tooltip", () => {
-      translate.returns("fields.Q00.hint");
+      translate.mockReturnValue("fields.Q00.hint");
       question.toolTip = "";
 
       const result = presenters.questionToHint(question, translate);
 
-      expect(result).to.equal(" ");
+      expect(result).toBe(" ");
     });
   });
 });

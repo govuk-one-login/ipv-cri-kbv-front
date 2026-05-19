@@ -22,29 +22,29 @@ describe("question-to-radios", () => {
   let translate;
 
   beforeEach(() => {
-    translate = sinon.stub();
+    translate = vi.fn();
 
     config = presenters.questionToRadios(question, translate);
   });
 
   it("should set radio name", () => {
-    expect(config.name).to.equal("Q00051");
+    expect(config.name).toBe("Q00051");
   });
 
   it("should set radio label", () => {
-    expect(config.label).to.equal(
+    expect(config.label).toBe(
       "In which month and year did you open one of your current accounts"
     );
   });
 
   it("should set legend label", () => {
-    expect(config.legend).to.equal(
+    expect(config.legend).toBe(
       "In which month and year did you open one of your current accounts"
     );
   });
 
   it("should set fieldset", () => {
-    expect(config.fieldset).to.deep.equal({
+    expect(config.fieldset).toEqual({
       legend: {
         isPageHeading: true,
         classes: "govuk-fieldset__legend--l",
@@ -53,20 +53,18 @@ describe("question-to-radios", () => {
   });
 
   it("should set hint", () => {
-    expect(config.hint.html).to.equal(
-      "Think about when you opened your account"
-    );
+    expect(config.hint.html).toBe("Think about when you opened your account");
   });
 
   it("should use answers for items", () => {
-    translate.returns(
+    translate.mockReturnValue(
       "None of the above or this question does not apply to me"
     );
 
     config = presenters.questionToRadios(question, translate);
 
-    expect(translate).to.have.been.calledWith("answers.noneOfTheAbove");
-    expect(config.items).to.deep.equal([
+    expect(translate).toHaveBeenCalledWith("answers.noneOfTheAbove", {});
+    expect(config.items).toEqual([
       {
         id: "01 / 2022",
         value: "01 / 2022",
@@ -126,7 +124,7 @@ describe("question-to-radios", () => {
   });
 
   it("should accept case insensitive noneOfTheAbove radio", () => {
-    translate.returns(
+    translate.mockReturnValue(
       "None of the above or this question does not apply to me"
     );
 
@@ -134,8 +132,8 @@ describe("question-to-radios", () => {
 
     config = presenters.questionToRadios(question, translate);
 
-    expect(translate).to.have.been.calledWith("answers.noneOfTheAbove");
-    expect(config.items[4].text).to.equal(
+    expect(translate).toHaveBeenCalledWith("answers.noneOfTheAbove", {});
+    expect(config.items[4].text).toBe(
       "None of the above or this question does not apply to me"
     );
   });

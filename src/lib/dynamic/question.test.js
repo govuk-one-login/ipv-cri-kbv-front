@@ -22,7 +22,7 @@ describe("question", () => {
         },
       } = dynamicQuestion.questionToTranslations(question);
 
-      expect(legend).to.equal(`${question.text}`);
+      expect(legend).toBe(`${question.text}`);
     });
 
     it("should use question.text for label", () => {
@@ -32,7 +32,7 @@ describe("question", () => {
         },
       } = dynamicQuestion.questionToTranslations(question);
 
-      expect(label).to.equal(`${question.text}`);
+      expect(label).toBe(`${question.text}`);
     });
 
     it("should use question.toolTip for hint", () => {
@@ -42,7 +42,7 @@ describe("question", () => {
         },
       } = dynamicQuestion.questionToTranslations(question);
 
-      expect(hint).to.equal(`${question.toolTip}`);
+      expect(hint).toBe(`${question.toolTip}`);
     });
 
     it("should contain items", () => {
@@ -52,13 +52,16 @@ describe("question", () => {
         },
       } = dynamicQuestion.questionToTranslations(question);
 
-      expect(items).to.have.all.keys(
-        "ABC",
-        "DEF",
-        "GHI",
-        "JKL",
-        "none of the above"
+      expect(Object.keys(items)).toEqual(
+        expect.arrayContaining([
+          "ABC",
+          "DEF",
+          "GHI",
+          "JKL",
+          "none of the above",
+        ])
       );
+      expect(Object.keys(items)).toHaveLength(5);
     });
   });
 
@@ -72,29 +75,29 @@ describe("question", () => {
     });
 
     it("should contain all answers", () => {
-      expect(Object.keys(items).length).to.equal(5);
+      expect(Object.keys(items)).toHaveLength(5);
     });
 
     it("should use answer for value", () => {
-      expect(items.ABC.value).to.equal("ABC");
-      expect(items.DEF.value).to.equal("DEF");
+      expect(items.ABC.value).toBe("ABC");
+      expect(items.DEF.value).toBe("DEF");
     });
 
     it("should use capitalised answer for label", () => {
-      expect(items.ABC.label).to.equal("Abc");
-      expect(items.DEF.label).to.equal("Def");
+      expect(items.ABC.label).toBe("Abc");
+      expect(items.DEF.label).toBe("Def");
     });
   });
 
   describe("with missing question data", () => {
-    it("should do something");
+    it.todo("should do something");
   });
 
   describe("#questionsToFieldsConfig", () => {
     it("should return config based on questions", () => {
       const config = dynamicQuestion.questionToFieldsConfig(question);
 
-      expect(config).to.deep.equal({
+      expect(config).toEqual({
         type: "radios",
         validate: ["required"],
         items: [
@@ -110,7 +113,7 @@ describe("question", () => {
 
     it("should verify the divider is at the 5th radio element", () => {
       const config = dynamicQuestion.questionToFieldsConfig(question);
-      expect(config.items[4]).to.deep.equal({
+      expect(config.items[4]).toEqual({
         divider: true,
         key: "answers.divider",
       });
@@ -123,7 +126,7 @@ describe("question", () => {
         question.answerFormat.answerList
       );
 
-      expect(config).to.deep.equal([
+      expect(config).toEqual([
         "ABC",
         "DEF",
         "GHI",

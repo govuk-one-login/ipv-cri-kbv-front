@@ -1,7 +1,7 @@
 const BaseController = require("hmpo-form-wizard").Controller;
-const { expect } = require("chai");
 const AbandonController = require("./abandon");
 const { API } = require("../../../lib/config");
+import { setupDefaultMocks } from "../../../../test/utils/helpers.js";
 
 describe("Abandon controller", () => {
   let abandonController;
@@ -19,13 +19,13 @@ describe("Abandon controller", () => {
   });
 
   it("should be an instance of BaseController", () => {
-    expect(abandonController).to.be.an.instanceOf(BaseController);
+    expect(abandonController).toBeInstanceOf(BaseController);
   });
 
   describe("#saveValues", () => {
-    context("on journey abandoned", () => {
+    describe("on journey abandoned", () => {
       it("should call abandon endpoint", async () => {
-        req.axios.post = sinon.fake.resolves();
+        req.axios.post = vi.fn().mockResolvedValue(undefined);
 
         req.form.values.abandonRadio = "stop";
 
@@ -37,22 +37,20 @@ describe("Abandon controller", () => {
         };
 
         await abandonController.saveValues(req, res, next);
-        expect(next).to.have.been.calledOnce;
-        expect(req.axios.post).to.have.been.calledWithExactly(
+        expect(next).toHaveBeenCalledOnce();
+        expect(req.axios.post).toHaveBeenCalledWith(
           API.PATHS.ABANDON,
           {},
-          {
-            headers,
-          }
+          { headers }
         );
       });
 
       it("should not call abandon endpoint", async () => {
-        req.axios.post = sinon.fake.resolves();
+        req.axios.post = vi.fn().mockResolvedValue(undefined);
 
         await abandonController.saveValues(req, res, next);
-        expect(next).to.have.been.calledOnce;
-        expect(req.axios.post).to.not.have.been.calledOnce;
+        expect(next).toHaveBeenCalledOnce();
+        expect(req.axios.post).not.toHaveBeenCalled();
       });
     });
   });
