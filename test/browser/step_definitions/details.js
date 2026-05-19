@@ -1,7 +1,7 @@
 const { Given, Then } = require("@cucumber/cucumber");
+const assert = require("node:assert/strict");
 
 const { RelyingPartyPage } = require("../pages");
-const { expect } = require("chai");
 
 Given(/^([A-Za-z ]+)is using the system$/, async function (name) {
   this.user = this.allUsers[name];
@@ -22,17 +22,17 @@ Then("they should be redirected as a success", async function () {
   await this.page.waitForURL(/\/return/);
   const rpPage = new RelyingPartyPage(this.page);
 
-  expect(rpPage.isRelyingPartyServer()).to.be.true;
+  assert.ok(rpPage.isRelyingPartyServer());
 
   const clientId = this.clientId || "standalone";
-  expect(rpPage.hasSuccessQueryParams(clientId)).to.be.true;
+  assert.ok(rpPage.hasSuccessQueryParams(clientId));
 });
 
 Then("they should be redirected as an error", async function () {
   await this.page.waitForURL(/\/return/);
   const rpPage = new RelyingPartyPage(this.page);
 
-  expect(rpPage.isRelyingPartyServer()).to.be.true;
+  assert.ok(rpPage.isRelyingPartyServer());
 
-  expect(rpPage.hasErrorQueryParams("general error")).to.be.true;
+  assert.ok(rpPage.hasErrorQueryParams("general error"));
 });

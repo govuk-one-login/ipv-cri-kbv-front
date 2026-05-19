@@ -1,6 +1,5 @@
 const { Given, When, Then } = require("@cucumber/cucumber");
-
-const { expect } = require("chai");
+const assert = require("node:assert/strict");
 
 const { CheckPage, QuestionPage, DonePage } = require("../pages");
 
@@ -9,13 +8,13 @@ When(/^they (?:have )?start(?:ed)? the KBV journey$/, async function () {});
 Given(/they (?:can )?see? the check page$/, async function () {
   const checkPage = new CheckPage(this.page);
 
-  expect(checkPage.isCurrentPage()).to.be.true;
+  assert.ok(checkPage.isCurrentPage());
 });
 
 Given(/^they (?:have )?continue(?:d)? to questions$/, async function () {
   // const checkPage = new CheckPage(this.page);
   //
-  // expect(checkPage.isCurrentPage()).to.be.true;
+  // assert.ok(checkPage.isCurrentPage());
   //
   // await checkPage.continue();
 });
@@ -23,13 +22,13 @@ Given(/^they (?:have )?continue(?:d)? to questions$/, async function () {
 Then("they should see the first question", async function () {
   const questionPage = new QuestionPage(this.page);
 
-  expect(questionPage.isCurrentPage()).to.be.true;
+  assert.ok(questionPage.isCurrentPage());
 
   this.questionTitle = await questionPage.getPageTitle();
-  expect(this.questionTitle).not.to.be.empty;
+  assert.ok(this.questionTitle);
 
   const divider = await questionPage.orDivider();
-  expect(divider).not.to.be.empty;
+  assert.ok(divider);
 });
 
 When(/^they answer the first question$/, async function () {
@@ -55,22 +54,22 @@ When(/^they answer the first question incorrectly$/, async function () {
 
 Then("they should see the second question", async function () {
   const questionPage = new QuestionPage(this.page);
-  expect(questionPage.isCurrentPage()).to.be.true;
+  assert.ok(questionPage.isCurrentPage());
 
   const divider = await questionPage.orDivider();
-  expect(divider).not.to.be.empty;
+  assert.ok(divider);
 });
 
 Then(
   /^the second question should be different to the first$/,
   async function () {
     const questionPage = new QuestionPage(this.page);
-    expect(questionPage.isCurrentPage()).to.be.true;
+    assert.ok(questionPage.isCurrentPage());
 
     const secondQuestionTitle = await questionPage.getPageTitle();
-    expect(secondQuestionTitle).not.to.be.empty;
+    assert.ok(secondQuestionTitle);
 
-    expect(this.questionTitle).to.not.equal(secondQuestionTitle);
+    assert.notStrictEqual(this.questionTitle, secondQuestionTitle);
   }
 );
 
@@ -85,7 +84,7 @@ Then(/^they should see validation messages$/, async function () {
 
   const errorSummary = await questionPage.getErrorSummary();
 
-  expect(errorSummary).to.include(questionPage.getNotAnsweredErrorMessage());
+  assert.ok(errorSummary.includes(questionPage.getNotAnsweredErrorMessage()));
 });
 
 When(/^they have answered all the questions successfully$/, async function () {
@@ -104,5 +103,5 @@ When(/^they have answered all the questions successfully$/, async function () {
 Then(/^they should see the done page$/, function () {
   const donePage = new DonePage(this.page);
 
-  expect(donePage.isCurrentPage()).to.be.true;
+  assert.ok(donePage.isCurrentPage());
 });
