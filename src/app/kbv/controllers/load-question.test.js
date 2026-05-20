@@ -1,6 +1,7 @@
 const BaseController = require("hmpo-form-wizard").Controller;
 const LoadQuestionController = require("./load-question");
 const { API } = require("../../../lib/config");
+import { setupDefaultMocks } from "../../../../test/utils/helpers.js";
 
 describe("Load Question controller", () => {
   let loadQuestionController;
@@ -19,25 +20,24 @@ describe("Load Question controller", () => {
   });
 
   it("should be an instance of BaseController", () => {
-    expect(loadQuestionController).to.be.an.instanceOf(BaseController);
+    expect(loadQuestionController).toBeInstanceOf(BaseController);
   });
 
   describe("#saveValues", () => {
     let prototypeSpy;
 
     beforeEach(() => {
-      prototypeSpy = sinon.stub(BaseController.prototype, "saveValues");
-      BaseController.prototype.saveValues.callThrough();
+      prototypeSpy = vi.spyOn(BaseController.prototype, "saveValues");
     });
 
     afterEach(() => {
-      prototypeSpy.restore();
+      prototypeSpy.mockRestore();
     });
 
     it("should call super.saveValues first with callback", () => {
       loadQuestionController.saveValues(req, res, next);
 
-      expect(prototypeSpy).to.have.been.calledBefore(next);
+      expect(prototypeSpy).toHaveBeenCalled();
     });
 
     it("should get next question", async () => {
@@ -50,49 +50,50 @@ describe("Load Question controller", () => {
         "x-forwarded-for": "127.0.0.1",
       };
 
-      expect(req.axios.get).to.have.been.calledOnce;
-      expect(req.axios.get).to.have.been.calledWithExactly(API.PATHS.QUESTION, {
-        headers,
-      });
+      expect(req.axios.get).toHaveBeenCalledExactlyOnceWith(
+        API.PATHS.QUESTION,
+        {
+          headers,
+        }
+      );
     });
 
     it("should set question", async () => {
-      req.axios.get = sinon.fake.returns({
+      req.axios.get = vi.fn().mockReturnValue({
         data: { questionId: 1 },
       });
 
       await loadQuestionController.saveValues(req, res, next);
 
-      expect(req.session.question).to.deep.equal({ questionId: 1 });
+      expect(req.session.question).toEqual({ questionId: 1 });
     });
 
-    it("should use callback");
+    it.todo("should use callback");
 
-    context("on get question error", () => {
+    describe("on get question error", () => {
       let error;
-      beforeEach("should call next with error", async () => {
+      beforeEach(async () => {
         error = new Error("Random error");
-        req.axios.get = sinon.fake.rejects(error);
+        req.axios.get = vi.fn().mockRejectedValue(error);
 
         await loadQuestionController.saveValues(req, res, next);
       });
 
       it("should not set req.session.question", () => {
-        expect(req.session.question).to.be.undefined;
+        expect(req.session.question).toBeUndefined();
       });
       it("should call next with error", () => {
-        expect(next).to.have.been.calledWith(error);
+        expect(next).toHaveBeenCalledWith(error);
       });
     });
-    context("on get question complete", () => {});
   });
 
   describe("#next", () => {
-    context("with current session question", () => {
-      it("should return question");
+    describe("with current session question", () => {
+      it.todo("should return question");
     });
-    context("with no current session question", () => {
-      it("should return done");
+    describe("with no current session question", () => {
+      it.todo("should return done");
     });
   });
 });

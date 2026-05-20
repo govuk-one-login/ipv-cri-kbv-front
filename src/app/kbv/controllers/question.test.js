@@ -2,8 +2,8 @@ const BaseController = require("hmpo-form-wizard").Controller;
 const QuestionController = require("./question");
 const dynamicQuestion = require("../../../lib/dynamic/question");
 const presenters = require("../../../presenters");
-
 const { API } = require("../../../lib/config");
+import { setupDefaultMocks } from "../../../../test/utils/helpers.js";
 
 describe("Question controller", () => {
   let questionController;
@@ -22,7 +22,7 @@ describe("Question controller", () => {
   });
 
   it("should be an instance of BaseController", () => {
-    expect(questionController).to.be.an.instanceOf(BaseController);
+    expect(questionController).toBeInstanceOf(BaseController);
   });
 
   describe("#configure", () => {
@@ -46,13 +46,10 @@ describe("Question controller", () => {
         },
       };
 
-      prototypeSpy = sinon.stub(BaseController.prototype, "configure");
-      BaseController.prototype.configure.callThrough();
-
-      questionToTranslationsSpy = sinon.stub(
-        dynamicQuestion,
-        "questionToTranslations"
-      );
+      prototypeSpy = vi.spyOn(BaseController.prototype, "configure");
+      questionToTranslationsSpy = vi
+        .spyOn(dynamicQuestion, "questionToTranslations")
+        .mockReturnValue(undefined);
 
       questionController = new QuestionController({ route: "/test" });
 
@@ -60,16 +57,16 @@ describe("Question controller", () => {
     });
 
     afterEach(() => {
-      prototypeSpy.restore();
-      questionToTranslationsSpy.restore();
+      prototypeSpy.mockRestore();
+      questionToTranslationsSpy.mockRestore();
     });
 
     it("should build fallback translations", () => {
-      expect(questionToTranslationsSpy).to.have.been.called;
+      expect(questionToTranslationsSpy).toHaveBeenCalled();
     });
 
     it("should add question as req.form.options", () => {
-      expect(req.form.options.fields.Q1).to.deep.equal({
+      expect(req.form.options.fields.Q1).toEqual({
         type: "radios",
         validate: ["required"],
         items: ["V1", "V2", "V3", { divider: true, key: "answers.divider" }],
@@ -77,7 +74,7 @@ describe("Question controller", () => {
     });
 
     it("should call super.configure", () => {
-      expect(prototypeSpy).to.have.been.calledWith(req, res, next);
+      expect(prototypeSpy).toHaveBeenCalledWith(req, res, next);
     });
   });
 
@@ -92,13 +89,10 @@ describe("Question controller", () => {
 
       req.session.question = undefined;
 
-      prototypeSpy = sinon.stub(BaseController.prototype, "configure");
-      BaseController.prototype.configure.callThrough();
-
-      questionToTranslationsSpy = sinon.stub(
-        dynamicQuestion,
-        "questionToTranslations"
-      );
+      prototypeSpy = vi.spyOn(BaseController.prototype, "configure");
+      questionToTranslationsSpy = vi
+        .spyOn(dynamicQuestion, "questionToTranslations")
+        .mockReturnValue(undefined);
 
       questionController = new QuestionController({ route: "/test" });
 
@@ -106,16 +100,16 @@ describe("Question controller", () => {
     });
 
     afterEach(() => {
-      prototypeSpy.restore();
-      questionToTranslationsSpy.restore();
+      prototypeSpy.mockRestore();
+      questionToTranslationsSpy.mockRestore();
     });
 
     it("should not build fallback translations", () => {
-      expect(questionToTranslationsSpy).to.not.have.been.called;
+      expect(questionToTranslationsSpy).not.toHaveBeenCalled();
     });
 
     it("should not add question as req.form.options", () => {
-      expect(req.form.options.fields.Q1).not.to.deep.equal({
+      expect(req.form.options.fields.Q1).not.toEqual({
         type: "radios",
         validate: ["required"],
         items: ["V1", "V2", "V3"],
@@ -123,19 +117,14 @@ describe("Question controller", () => {
     });
 
     it("should not call super.configure", () => {
-      expect(prototypeSpy).to.not.have.been.calledWith(req, res, next);
+      expect(prototypeSpy).not.toHaveBeenCalledWith(req, res, next);
     });
 
     it("should call next with an error", () => {
-      expect(next).to.have.been.calledWith(
-        sinon.match
-          .instanceOf(Error)
-          .and(
-            sinon.match.has(
-              "message",
-              "Current session has no Question to configure."
-            )
-          )
+      const [callErr] = next.mock.calls[0];
+      expect(callErr).toBeInstanceOf(Error);
+      expect(callErr.message).toBe(
+        "Current session has no Question to configure."
       );
     });
   });
@@ -146,35 +135,35 @@ describe("Question controller", () => {
     let questionToRadiosSpy;
 
     beforeEach(() => {
-      prototypeSpy = sinon.stub(BaseController.prototype, "locals");
-      BaseController.prototype.locals.callThrough();
+      prototypeSpy = vi.spyOn(BaseController.prototype, "locals");
 
-      questionToRadiosSpy = sinon.stub(presenters, "questionToRadios");
-      questionToRadiosSpy.returns({ name: "Q1" });
+      questionToRadiosSpy = vi
+        .spyOn(presenters, "questionToRadios")
+        .mockReturnValue({ name: "Q1" });
 
-      translate = sinon.stub();
+      translate = vi.fn();
       req.translate = translate;
     });
 
     afterEach(() => {
-      prototypeSpy.restore();
-      questionToRadiosSpy.restore();
+      prototypeSpy.mockRestore();
+      questionToRadiosSpy.mockRestore();
     });
 
     it("should call locals first with a callback", () => {
       questionController.locals(req, res, next);
 
-      expect(prototypeSpy).to.have.been.calledBefore(next);
+      expect(prototypeSpy).toHaveBeenCalledBefore(next);
     });
 
     it("should add question from session into locals", () => {
       req.session.question = "question";
       questionController.locals(req, res, next);
 
-      expect(next).to.have.been.calledWith(null, { question: { name: "Q1" } });
+      expect(next).toHaveBeenCalledWith(null, { question: { name: "Q1" } });
     });
 
-    context("with error on callback", () => {
+    describe("with error on callback", () => {
       let error;
       let locals;
       let superLocals;
@@ -189,13 +178,15 @@ describe("Question controller", () => {
           key: "value",
         };
         res.locals = locals;
-        BaseController.prototype.locals.yields(error, superLocals);
+        prototypeSpy.mockImplementation((_req, _res, cb) =>
+          cb(error, superLocals)
+        );
 
         await questionController.locals(req, res, next);
       });
 
       it("should call callback with error and existing locals", () => {
-        expect(next).to.have.been.calledWith(error, superLocals);
+        expect(next).toHaveBeenCalledWith(error, superLocals);
       });
     });
   });
@@ -204,8 +195,7 @@ describe("Question controller", () => {
     let prototypeSpy;
 
     beforeEach(() => {
-      prototypeSpy = sinon.stub(BaseController.prototype, "saveValues");
-      BaseController.prototype.saveValues.callThrough();
+      prototypeSpy = vi.spyOn(BaseController.prototype, "saveValues");
 
       req.session.question = { questionID: "Q1" };
       req.session.tokenId = "abcdef";
@@ -213,22 +203,22 @@ describe("Question controller", () => {
     });
 
     afterEach(() => {
-      prototypeSpy.restore();
+      prototypeSpy.mockRestore();
     });
 
     it("should call super.saveValues first with callback", async () => {
       await questionController.saveValues(req, res, next);
 
-      expect(prototypeSpy).to.have.been.calledBefore(next);
+      expect(prototypeSpy).toHaveBeenCalled();
     });
 
     it("should call next with error when super.saveValues has an error", async () => {
       const error = new Error("Random error");
-      BaseController.prototype.saveValues.callsArgWith(2, error, next);
+      prototypeSpy.mockImplementation((_req, _res, cb) => cb(error, next));
 
       await questionController.saveValues(req, res, next);
 
-      expect(next).to.have.been.calledWith(error);
+      expect(next).toHaveBeenCalledWith(error);
     });
 
     it("should post to answer", async () => {
@@ -241,7 +231,7 @@ describe("Question controller", () => {
         "x-forwarded-for": "127.0.0.1",
       };
 
-      expect(req.axios.post).to.have.been.calledWith(
+      expect(req.axios.post).toHaveBeenCalledWith(
         API.PATHS.ANSWER,
         { questionId: "Q1", answer: "A1" },
         { headers }
@@ -249,8 +239,8 @@ describe("Question controller", () => {
     });
 
     it("should get next question", async () => {
-      req.axios.post = sinon.fake.returns({});
-      req.axios.get = sinon.fake.returns({
+      req.axios.post = vi.fn().mockReturnValue({});
+      req.axios.get = vi.fn().mockReturnValue({
         data: { questionId: 1 },
       });
 
@@ -263,108 +253,101 @@ describe("Question controller", () => {
 
       await questionController.saveValues(req, res, next);
 
-      expect(req.axios.post).to.have.been.called;
-      expect(req.axios.post).to.have.been.called;
-
-      expect(req.axios.get).to.have.been.called;
-      expect(req.axios.get).to.have.been.calledWith(API.PATHS.QUESTION, {
+      expect(req.axios.post).toHaveBeenCalled();
+      expect(req.axios.get).toHaveBeenCalled();
+      expect(req.axios.get).toHaveBeenCalledWith(API.PATHS.QUESTION, {
         headers,
       });
     });
 
-    context("with no current session question", () => {
+    describe("with no current session question", () => {
       beforeEach(async () => {
-        req.axios.post = sinon.fake.returns({});
+        req.axios.post = vi.fn().mockReturnValue({});
         req.session.question = undefined;
       });
 
       it("should call next with an error", async () => {
         await questionController.saveValues(req, res, next);
 
-        expect(next).to.have.been.calledWith(
-          sinon.match
-            .instanceOf(Error)
-            .and(
-              sinon.match.has(
-                "message",
-                "Current session has no Question to save."
-              )
-            )
+        const [callErr] = next.mock.calls[0];
+        expect(callErr).toBeInstanceOf(Error);
+        expect(callErr.message).toBe(
+          "Current session has no Question to save."
         );
       });
     });
 
-    context("on post answer error", () => {
+    describe("on post answer error", () => {
       let error;
 
       beforeEach(async () => {
         error = new Error("Random error");
-        req.axios.post = sinon.fake.rejects(error);
+        req.axios.post = vi.fn().mockRejectedValue(error);
 
         await questionController.saveValues(req, res, next);
       });
 
       it("should call callback with error", () => {
-        expect(next).to.have.been.calledWith(error);
+        expect(next).toHaveBeenCalledWith(error);
       });
       it("should call callback once", () => {
-        expect(next).to.have.been.calledOnce;
+        expect(next).toHaveBeenCalledOnce();
       });
     });
 
-    context("on get question error", () => {
+    describe("on get question error", () => {
       let error;
 
       beforeEach(async () => {
         error = new Error("Random error");
 
-        req.axios.post = sinon.fake.returns(200);
-        req.axios.get = sinon.fake.rejects(error);
+        req.axios.post = vi.fn().mockReturnValue(200);
+        req.axios.get = vi.fn().mockRejectedValue(error);
 
         await questionController.saveValues(req, res, next);
       });
 
       it("should call callback with error", () => {
-        expect(next).to.have.been.calledWith(error);
+        expect(next).toHaveBeenCalledWith(error);
       });
       it("should call callback once", () => {
-        expect(next).to.have.been.calledOnce;
+        expect(next).toHaveBeenCalledOnce();
       });
     });
-    context("on get question complete", () => {
+    describe("on get question complete", () => {
       beforeEach(async () => {
-        req.axios.post = sinon.fake.resolves(200);
-        req.axios.get = sinon.fake.resolves({ data: {} });
+        req.axios.post = vi.fn().mockResolvedValue(200);
+        req.axios.get = vi.fn().mockResolvedValue({ data: {} });
 
         await questionController.saveValues(req, res, next);
       });
 
       it("should call callback", () => {
-        expect(next).to.have.been.calledWith();
+        expect(next).toHaveBeenCalledWith();
       });
       it("should call callback once", () => {
-        expect(next).to.have.been.calledOnce;
+        expect(next).toHaveBeenCalledOnce();
       });
     });
   });
 
   describe("#next", () => {
-    context("with current session question", () => {
+    describe("with current session question", () => {
       it("should return question", () => {
         req.session.question = "question";
 
         const path = questionController.next(req, res, next);
 
-        expect(path).to.equal("question");
+        expect(path).toBe("question");
       });
     });
-    context("with no current session question", () => {
+    describe("with no current session question", () => {
       it("should return done", () => {
         req.session.question = undefined;
 
         const path = questionController.next(req, res, next);
 
-        expect(path).to.equal("done");
+        expect(path).toBe("done");
       });
     });
   });

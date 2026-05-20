@@ -6,10 +6,10 @@ describe("answer-to-radio-item", () => {
   let answer;
 
   beforeEach(() => {
-    translate = sinon.stub().returnsArg(0);
+    translate = vi.fn().mockImplementation((arg) => arg);
   });
 
-  context("'None of the above / does not apply'", () => {
+  describe("'None of the above / does not apply'", () => {
     beforeEach(() => {
       answer = "None of the above / does not apply";
 
@@ -17,7 +17,7 @@ describe("answer-to-radio-item", () => {
     });
 
     it("should return radio item structure", () => {
-      expect(result).to.deep.equal({
+      expect(result).toEqual({
         id: answer,
         value: answer,
         text: "answers.noneOfTheAbove",
@@ -31,14 +31,11 @@ describe("answer-to-radio-item", () => {
     });
 
     it("should transform with extracted values", () => {
-      expect(translate).to.have.been.calledWithExactly(
-        "answers.noneOfTheAbove",
-        {}
-      );
+      expect(translate).toHaveBeenCalledWith("answers.noneOfTheAbove", {});
     });
   });
 
-  context("'NONE OF THE ABOVE / DOES NOT APPLY'", () => {
+  describe("'NONE OF THE ABOVE / DOES NOT APPLY'", () => {
     beforeEach(() => {
       answer = "NONE OF THE ABOVE / DOES NOT APPLY";
 
@@ -46,18 +43,15 @@ describe("answer-to-radio-item", () => {
     });
 
     it("should return radio item", () => {
-      expect(result.text).to.equal("answers.noneOfTheAbove");
+      expect(result.text).toBe("answers.noneOfTheAbove");
     });
 
     it("should transform with extracted values", () => {
-      expect(translate).to.have.been.calledWithExactly(
-        "answers.noneOfTheAbove",
-        {}
-      );
+      expect(translate).toHaveBeenCalledWith("answers.noneOfTheAbove", {});
     });
   });
 
-  context("'OVER £9,500 UP TO £10,000'", () => {
+  describe("'OVER £9,500 UP TO £10,000'", () => {
     beforeEach(() => {
       answer = "OVER £9,500 UP TO £10,000";
 
@@ -65,7 +59,7 @@ describe("answer-to-radio-item", () => {
     });
 
     it("should return radio item structure", () => {
-      expect(result).to.deep.equal({
+      expect(result).toEqual({
         id: answer,
         value: answer,
         text: "answers.overUpToAmount",
@@ -79,17 +73,14 @@ describe("answer-to-radio-item", () => {
     });
 
     it("should transform 'OVER £9,500 UP TO £10,000'", () => {
-      expect(translate).to.have.been.calledWithExactly(
-        "answers.overUpToAmount",
-        {
-          amount_low: "9,500",
-          amount_high: "10,000",
-        }
-      );
+      expect(translate).toHaveBeenCalledWith("answers.overUpToAmount", {
+        amount_low: "9,500",
+        amount_high: "10,000",
+      });
     });
   });
 
-  context("'UP TO £8,500'", () => {
+  describe("'UP TO £8,500'", () => {
     beforeEach(() => {
       answer = "UP TO £8,500";
 
@@ -97,7 +88,7 @@ describe("answer-to-radio-item", () => {
     });
 
     it("should return radio item structure", () => {
-      expect(result).to.deep.equal({
+      expect(result).toEqual({
         id: answer,
         value: answer,
         text: "answers.upToAmount",
@@ -111,13 +102,13 @@ describe("answer-to-radio-item", () => {
     });
 
     it("should call translate with extracted values", () => {
-      expect(translate).to.have.been.calledWithExactly("answers.upToAmount", {
+      expect(translate).toHaveBeenCalledWith("answers.upToAmount", {
         amount: "8,500",
       });
     });
   });
 
-  context("'UP TO 6 MONTHS'", () => {
+  describe("'UP TO 6 MONTHS'", () => {
     beforeEach(() => {
       answer = "UP TO 6 MONTHS";
 
@@ -125,7 +116,7 @@ describe("answer-to-radio-item", () => {
     });
 
     it("should return radio item structure", () => {
-      expect(result).to.deep.equal({
+      expect(result).toEqual({
         id: answer,
         value: answer,
         text: "answers.upToMonths",
@@ -139,20 +130,20 @@ describe("answer-to-radio-item", () => {
     });
 
     it("should call translate with extracted values", () => {
-      expect(translate).to.have.been.calledWithExactly("answers.upToMonths", {
+      expect(translate).toHaveBeenCalledWith("answers.upToMonths", {
         months: "6",
       });
     });
   });
 
-  context("'OVER 12 MONTHS UP TO 19 MONTHS'", () => {
+  describe("'OVER 12 MONTHS UP TO 19 MONTHS'", () => {
     beforeEach(() => {
       answer = "OVER 12 MONTHS UP TO 19 MONTHS";
 
       result = presenters.answerToRadioItem(answer, translate);
     });
     it("should return radio item structure", () => {
-      expect(result).to.deep.equal({
+      expect(result).toEqual({
         id: answer,
         value: answer,
         text: "answers.overUpToMonths",
@@ -166,17 +157,14 @@ describe("answer-to-radio-item", () => {
     });
 
     it("should call translate with extracted values", () => {
-      expect(translate).to.have.been.calledWithExactly(
-        "answers.overUpToMonths",
-        {
-          months_low: "12",
-          months_high: "19",
-        }
-      );
+      expect(translate).toHaveBeenCalledWith("answers.overUpToMonths", {
+        months_low: "12",
+        months_high: "19",
+      });
     });
   });
 
-  context("'AN UNMATCHED STRING'", () => {
+  describe("'AN UNMATCHED STRING'", () => {
     beforeEach(() => {
       answer = "AN UNMATCHED STRING";
 
@@ -184,7 +172,7 @@ describe("answer-to-radio-item", () => {
     });
 
     it("should return radio item structure", () => {
-      expect(result).to.deep.equal({
+      expect(result).toEqual({
         id: answer,
         value: answer,
         text: "AN UNMATCHED STRING",
@@ -198,7 +186,7 @@ describe("answer-to-radio-item", () => {
     });
 
     it("should transform with extracted values", () => {
-      expect(translate).to.not.have.been.called;
+      expect(translate).not.toHaveBeenCalled();
     });
   });
 });

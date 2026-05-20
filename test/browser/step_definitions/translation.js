@@ -1,6 +1,6 @@
 const { Given, When, Then } = require("@cucumber/cucumber");
+const assert = require("node:assert/strict");
 const { ErrorPage } = require("../pages");
-const { expect } = require("chai");
 
 Given("they start with {string}", async function (lang) {
   await setLanguageCookie(lang, this.page.url(), this.context);
@@ -26,7 +26,8 @@ Then(/^they (?:should )?see(?:ed)? the page in "(.*)"$/, async function (lang) {
 
   const errorTitle = await errorPage.getErrorTitle();
 
-  expect(errorTitle).to.equal(
+  assert.strictEqual(
+    errorTitle,
     errorPage.getLocalisedSomethingWentWrongMessage(lang)
   );
 });
@@ -36,7 +37,7 @@ Then(/^the page's language property should be "(.*)"$/, async function (lang) {
   const hasLanguageCorrectCode = await this.page
     .locator(`html[lang="${code}"]`)
     .count();
-  expect(hasLanguageCorrectCode).to.equal(1);
+  assert.strictEqual(hasLanguageCorrectCode, 1);
 });
 
 async function setLanguageCookie(lang, url, context) {

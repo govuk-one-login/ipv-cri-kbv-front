@@ -10,42 +10,42 @@ describe("question-to-hint", () => {
       text: "question text",
     };
 
-    translate = sinon.stub();
+    translate = vi.fn();
   });
 
   it("should call translate using questionID", () => {
     presenters.questionToLegend(question, translate);
 
-    expect(translate).to.have.been.calledWithExactly("fields.Q00.legend");
+    expect(translate).toHaveBeenCalledWith("fields.Q00.legend");
   });
 
-  context("with found key", () => {
+  describe("with found key", () => {
     it("should return translated hint", () => {
-      translate.returns("translated question legend");
+      translate.mockReturnValue("translated question legend");
 
       const result = presenters.questionToLegend(question, translate);
 
-      expect(result).to.equal("translated question legend");
+      expect(result).toBe("translated question legend");
     });
   });
 
-  context("with undefined key", () => {
+  describe("with undefined key", () => {
     it("should fallback to using tooltip from question", () => {
-      translate.returns(undefined);
+      translate.mockReturnValue(undefined);
 
       const result = presenters.questionToLegend(question, translate);
 
-      expect(result).to.equal("question text");
+      expect(result).toBe("question text");
     });
   });
 
-  context("with fallback to data behaviour", () => {
+  describe("with fallback to data behaviour", () => {
     it("should fallback to using tooltip from question", () => {
-      translate.returns("fields.Q00.legend");
+      translate.mockReturnValue("fields.Q00.legend");
 
       const result = presenters.questionToLegend(question, translate);
 
-      expect(result).to.equal("question text");
+      expect(result).toBe("question text");
     });
   });
 });
