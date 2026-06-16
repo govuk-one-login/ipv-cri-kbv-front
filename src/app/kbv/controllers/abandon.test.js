@@ -1,7 +1,9 @@
-const BaseController = require("hmpo-form-wizard").Controller;
-const AbandonController = require("./abandon");
-const { API } = require("../../../lib/config");
+import wizard from "hmpo-form-wizard";
+import AbandonController from "./abandon.js";
+import { API } from "../../../lib/config.js";
 import { setupDefaultMocks } from "../../../../test/utils/helpers.js";
+
+const BaseController = wizard.Controller;
 
 describe("Abandon controller", () => {
   let abandonController;

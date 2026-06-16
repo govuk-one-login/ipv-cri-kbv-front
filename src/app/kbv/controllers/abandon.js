@@ -1,10 +1,8 @@
-const BaseController = require("hmpo-form-wizard").Controller;
+import wizard from "hmpo-form-wizard";
+import { createPersonalDataHeaders } from "@govuk-one-login/frontend-passthrough-headers";
+import { API } from "../../../lib/config.js";
 
-const {
-  createPersonalDataHeaders,
-} = require("@govuk-one-login/frontend-passthrough-headers");
-
-const { API } = require("../../../lib/config");
+const BaseController = wizard.Controller;
 
 class AbandonController extends BaseController {
   async saveValues(req, res, next) {
@@ -38,4 +36,4 @@ class AbandonController extends BaseController {
   }
 }
 
-module.exports = AbandonController;
+export default AbandonController;

@@ -1,13 +1,14 @@
-const _ = require("lodash");
-const debug = require("debug")("app:lib:dynamic-i18n");
+import _ from "lodash";
+import createDebug from "debug";
+import * as dynamicKeys from "./dynamic/keys.js";
 
-const dynamicKeys = require("./dynamic/keys");
+const debug = createDebug("app:lib:dynamic-i18n");
 
 function arrayify(value) {
   return [value || []].flat();
 }
 
-const getFallbackTranslationFromFields = function (key, fields) {
+export const getFallbackTranslationFromFields = function (key, fields) {
   const keys = arrayify(key);
 
   return keys.reduce((acc, value) => {
@@ -15,7 +16,7 @@ const getFallbackTranslationFromFields = function (key, fields) {
   }, undefined);
 };
 
-const dynamicKeyTranslation = function ({
+export const dynamicKeyTranslation = function ({
   key,
   options,
   translate,
@@ -32,7 +33,7 @@ const dynamicKeyTranslation = function ({
   });
 };
 
-const translateWrapper = function (
+export const translateWrapper = function (
   originalTranslate,
   dynamicTranslate,
   fallbackTranslation
@@ -56,10 +57,4 @@ const translateWrapper = function (
       fallbackTranslations: fallbackTranslation,
     });
   };
-};
-
-module.exports = {
-  dynamicKeyTranslation,
-  getFallbackTranslationFromFields,
-  translateWrapper,
 };

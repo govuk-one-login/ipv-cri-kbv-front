@@ -1,8 +1,8 @@
-const questionToHint = require("./question-to-hint");
-const questionToLegend = require("./question-to-legend");
-const answerToRadioItem = require("./answer-to-radio-item");
+import questionToHint from "./question-to-hint.js";
+import questionToLegend from "./question-to-legend.js";
+import answerToRadioItem from "./answer-to-radio-item.js";
 
-module.exports = function questionToRadios(question, translate) {
+export default function questionToRadios(question, translate) {
   return {
     id: question?.questionID,
     name: question?.questionID,
@@ -22,4 +22,4 @@ module.exports = function questionToRadios(question, translate) {
       answerToRadioItem(answer, translate)
     ),
   };
-};
+}

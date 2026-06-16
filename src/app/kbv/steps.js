@@ -1,8 +1,8 @@
-const question = require("./controllers/question");
-const loadQuestion = require("./controllers/load-question");
-const abandon = require("./controllers/abandon");
+import question from "./controllers/question.js";
+import loadQuestion from "./controllers/load-question.js";
+import abandon from "./controllers/abandon.js";
 
-module.exports = {
+export default {
   "/": {
     resetJourney: true,
     reset: true,

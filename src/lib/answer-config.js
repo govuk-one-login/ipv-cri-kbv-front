@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   noneOfTheAbove: {
     key: "answers.noneOfTheAbove",
     regexp: /^None of the above \/ does not apply$/i,

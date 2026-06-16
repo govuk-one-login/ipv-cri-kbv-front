@@ -1,5 +1,5 @@
-const { Before, BeforeAll, AfterAll, After } = require("@cucumber/cucumber");
-const { chromium, firefox, webkit } = require("playwright");
+import { Before, BeforeAll, AfterAll, After } from "@cucumber/cucumber";
+import { chromium, firefox, webkit } from "playwright";
 
 const browserTypes = {
   chromium,

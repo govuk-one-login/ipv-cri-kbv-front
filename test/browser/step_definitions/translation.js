@@ -1,6 +1,6 @@
-const { Given, When, Then } = require("@cucumber/cucumber");
-const assert = require("node:assert/strict");
-const { ErrorPage } = require("../pages");
+import { Given, When, Then } from "@cucumber/cucumber";
+import assert from "node:assert/strict";
+import { ErrorPage } from "../pages/index.js";
 
 Given("they start with {string}", async function (lang) {
   await setLanguageCookie(lang, this.page.url(), this.context);

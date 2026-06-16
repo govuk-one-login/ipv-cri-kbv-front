@@ -1,6 +1,6 @@
-const answerConfig = require("../lib/answer-config");
+import answerConfig from "../lib/answer-config.js";
 
-module.exports = function answerToRadioItem(answer, translate) {
+export default function answerToRadioItem(answer, translate) {
   // This is running the equivalent of:
   // match = answer.match(answerConfig.KEY_NAME.regexp);
   // if (match) {
@@ -32,4 +32,4 @@ module.exports = function answerToRadioItem(answer, translate) {
       html: "",
     },
   };
-};
+}

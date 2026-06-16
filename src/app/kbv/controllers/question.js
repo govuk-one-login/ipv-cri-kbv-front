@@ -1,12 +1,10 @@
-const dynamicQuestion = require("../../../lib/dynamic/question");
-const BaseController = require("hmpo-form-wizard").Controller;
+import wizard from "hmpo-form-wizard";
+import { createPersonalDataHeaders } from "@govuk-one-login/frontend-passthrough-headers";
+import * as dynamicQuestion from "../../../lib/dynamic/question.js";
+import * as presenters from "../../../presenters/index.js";
+import { API } from "../../../lib/config.js";
 
-const presenters = require("../../../presenters");
-const {
-  createPersonalDataHeaders,
-} = require("@govuk-one-login/frontend-passthrough-headers");
-
-const { API } = require("../../../lib/config");
+const BaseController = wizard.Controller;
 
 class QuestionController extends BaseController {
   configure(req, res, next) {
@@ -102,4 +100,5 @@ class QuestionController extends BaseController {
     return "done";
   }
 }
-module.exports = QuestionController;
+
+export default QuestionController;

@@ -1,4 +1,4 @@
-module.exports = class PlaywrightDevPage {
+export default class PlaywrightDevPage {
   /**
    * @param {import('@playwright/test').Page} page
    */
@@ -18,4 +18,4 @@ module.exports = class PlaywrightDevPage {
   async goto() {
     await this.page.goto("http://localhost:5020/check");
   }
-};
+}

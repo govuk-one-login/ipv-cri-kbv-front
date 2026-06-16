@@ -1,4 +1,4 @@
-const presenters = require("./");
+import * as presenters from "./index.js";
 
 describe("question-to-radios", () => {
   let config;

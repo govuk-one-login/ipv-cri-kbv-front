@@ -1,4 +1,4 @@
-module.exports = function questionToLegend(question, translate) {
+export default function questionToLegend(question, translate) {
   const key = `fields.${question.questionID}.legend`;
   const legend = translate(key);
 
@@ -7,4 +7,4 @@ module.exports = function questionToLegend(question, translate) {
   }
 
   return question?.text;
-};
+}

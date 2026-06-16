@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   abandonRadio: {
     type: "radios",
     items: ["stop", "continue"],

@@ -1,4 +1,4 @@
-module.exports = class PlaywrightDevPage {
+export default class PlaywrightDevPage {
   /**
    * @param {import('@playwright/test').Page} page
    */
@@ -57,4 +57,4 @@ module.exports = class PlaywrightDevPage {
       .first()
       .check();
   }
-};
+}

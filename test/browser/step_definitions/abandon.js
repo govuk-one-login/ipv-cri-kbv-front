@@ -1,7 +1,6 @@
-const { When, Then } = require("@cucumber/cucumber");
-const assert = require("node:assert/strict");
-
-const { AbandonPage, QuestionPage, RelyingPartyPage } = require("../pages");
+import { When, Then } from "@cucumber/cucumber";
+import assert from "node:assert/strict";
+import { AbandonPage, QuestionPage, RelyingPartyPage } from "../pages/index.js";
 
 When(/^they abandon their journey/, async function () {
   const questionPage = new QuestionPage(this.page);
