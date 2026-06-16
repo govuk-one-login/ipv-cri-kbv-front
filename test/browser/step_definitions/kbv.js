@@ -1,7 +1,6 @@
-const { Given, When, Then } = require("@cucumber/cucumber");
-const assert = require("node:assert/strict");
-
-const { CheckPage, QuestionPage, DonePage } = require("../pages");
+import { Given, When, Then } from "@cucumber/cucumber";
+import assert from "node:assert/strict";
+import { CheckPage, QuestionPage, DonePage } from "../pages/index.js";
 
 When(/^they (?:have )?start(?:ed)? the KBV journey$/, async function () {});
 

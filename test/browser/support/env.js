@@ -1,6 +1,5 @@
-const { setWorldConstructor } = require("@cucumber/cucumber");
-
-require("playwright");
+import { setWorldConstructor } from "@cucumber/cucumber";
+import "playwright";
 
 const users = {
   "Authenticatable Anita": {},

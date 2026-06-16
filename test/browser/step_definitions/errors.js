@@ -1,7 +1,6 @@
-const { When, Then } = require("@cucumber/cucumber");
-const assert = require("node:assert/strict");
-
-const { ErrorPage } = require("../pages");
+import { When, Then } from "@cucumber/cucumber";
+import assert from "node:assert/strict";
+import { ErrorPage } from "../pages/index.js";
 
 When("there is an immediate error", () => {});
 

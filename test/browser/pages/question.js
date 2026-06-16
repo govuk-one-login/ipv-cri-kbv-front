@@ -1,4 +1,4 @@
-module.exports = class PlaywrightDevPage {
+export default class PlaywrightDevPage {
   /**
    * @param {import('@playwright/test').Page} page
    */
@@ -59,4 +59,4 @@ module.exports = class PlaywrightDevPage {
     this.page.locator(".govuk-details__summary-text").click();
     await this.page.click('[data-id="abandon"]');
   }
-};
+}

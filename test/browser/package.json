@@ -2,6 +2,7 @@
   "name": "di-ipv-cri-kbv-front-tests",
   "version": "1.0.0",
   "description": "Browser tests for the frontend of the Knowledge Based Verification Credential Issuer",
+  "type": "module",
   "scripts": {
     "test": "MOCK_API=true cucumber-js",
     "test:ci": "cucumber-js --format json:reports/cucumber-report.json",

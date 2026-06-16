@@ -1,4 +1,4 @@
-const dynamicI18n = require("./dynamic-i18n");
+import * as dynamicI18n from "./dynamic-i18n.js";
 
 describe("dynamic-i18n", () => {
   describe("#translateWrapper", () => {

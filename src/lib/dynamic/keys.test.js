@@ -1,4 +1,4 @@
-const keys = require("./keys");
+import * as keys from "./keys.js";
 
 describe("keys", () => {
   describe("#singleKeysNotDynamic", () => {

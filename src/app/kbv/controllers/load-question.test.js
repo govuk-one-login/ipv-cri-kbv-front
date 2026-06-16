@@ -1,7 +1,9 @@
-const BaseController = require("hmpo-form-wizard").Controller;
-const LoadQuestionController = require("./load-question");
-const { API } = require("../../../lib/config");
+import wizard from "hmpo-form-wizard";
+import LoadQuestionController from "./load-question.js";
+import { API } from "../../../lib/config.js";
 import { setupDefaultMocks } from "../../../../test/utils/helpers.js";
+
+const BaseController = wizard.Controller;
 
 describe("Load Question controller", () => {
   let loadQuestionController;

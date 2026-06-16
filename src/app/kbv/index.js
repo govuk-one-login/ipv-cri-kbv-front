@@ -1,16 +1,16 @@
-const express = require("express");
-
-const steps = require("./steps");
-const fields = require("./fields");
+import express from "express";
+import wizard from "hmpo-form-wizard";
+import steps from "./steps.js";
+import fields from "./fields.js";
 
 const router = express.Router();
 
 router.use(
-  require("hmpo-form-wizard")(steps, fields, {
+  wizard(steps, fields, {
     name: "kbv",
     journeyName: "kbv",
     templatePath: "kbv",
   })
 );
 
-module.exports = router;
+export default router;

@@ -1,4 +1,4 @@
-const dynamicQuestion = require("./question");
+import * as dynamicQuestion from "./question.js";
 
 describe("question", () => {
   let question;

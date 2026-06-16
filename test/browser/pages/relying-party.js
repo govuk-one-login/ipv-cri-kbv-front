@@ -1,6 +1,6 @@
-const axios = require("axios");
-const { fromNodeProviderChain } = require("@aws-sdk/credential-providers");
-const { aws4Interceptor } = require("aws4-axios");
+import axios from "axios";
+import { fromNodeProviderChain } from "@aws-sdk/credential-providers";
+import { aws4Interceptor } from "aws4-axios";
 
 const customCredentialsProvider = {
   getCredentials: fromNodeProviderChain({
@@ -18,7 +18,7 @@ const interceptor = aws4Interceptor({
 
 axios.interceptors.request.use(interceptor);
 
-module.exports = class PlaywrightDevPage {
+export default class PlaywrightDevPage {
   /**
    * @param {import('@playwright/test').Page} page
    */
@@ -117,4 +117,4 @@ module.exports = class PlaywrightDevPage {
       searchParams.get("error_description") === code
     );
   }
-};
+}

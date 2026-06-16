@@ -1,20 +1,31 @@
-require("express");
-require("express-async-errors");
+import "express";
+import "express-async-errors";
 
-const path = require("path");
-const session = require("express-session");
-const { DynamoDB } = require("@aws-sdk/client-dynamodb");
-const DynamoDBStore = require("connect-dynamodb")(session);
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+import session from "express-session";
+import { DynamoDB } from "@aws-sdk/client-dynamodb";
+import connectDynamoDB from "connect-dynamodb";
+import addLanguageParam from "@govuk-one-login/frontend-language-toggle/build/cjs/language-param-setter.cjs";
+import { frontendUiMiddlewareIdentityBypass } from "@govuk-one-login/frontend-ui";
+import { frontendVitalSignsInitFromApp } from "@govuk-one-login/frontend-vital-signs";
+import commonExpress from "@govuk-one-login/di-ipv-cri-common-express";
 
-const addLanguageParam = require("@govuk-one-login/frontend-language-toggle/build/cjs/language-param-setter.cjs");
-const {
-  frontendUiMiddlewareIdentityBypass,
-} = require("@govuk-one-login/frontend-ui");
-const {
-  frontendVitalSignsInitFromApp,
-} = require("@govuk-one-login/frontend-vital-signs");
+import {
+  API,
+  APP,
+  LOG_LEVEL,
+  PORT,
+  SESSION_SECRET,
+  SESSION_TABLE_NAME,
+  SESSION_TTL,
+  OVERLOAD_PROTECTION,
+} from "./lib/config.js";
+import { setAPIConfig, setOAuthPaths } from "./lib/settings.js";
+import kbvRouter from "./app/kbv/index.js";
 
-const commonExpress = require("@govuk-one-login/di-ipv-cri-common-express");
+const DynamoDBStore = connectDynamoDB(session);
+
 const { setup } = commonExpress.bootstrap;
 const setHeaders = commonExpress.lib.headers;
 const setScenarioHeaders = commonExpress.lib.scenarioHeaders;
@@ -25,18 +36,6 @@ const { getGTM, getLanguageToggle, getDeviceIntelligence } =
   commonExpress.lib.locals;
 const { setI18n } = commonExpress.lib.i18n;
 const helmetConfig = commonExpress.lib.helmet;
-
-const {
-  API,
-  APP,
-  LOG_LEVEL,
-  PORT,
-  SESSION_SECRET,
-  SESSION_TABLE_NAME,
-  SESSION_TTL,
-  OVERLOAD_PROTECTION,
-} = require("./lib/config");
-const { setAPIConfig, setOAuthPaths } = require("./lib/settings");
 
 const loggerConfig = {
   console: true,
@@ -63,7 +62,7 @@ const sessionConfig = {
 };
 
 const { app, router } = setup({
-  config: { APP_ROOT: __dirname },
+  config: { APP_ROOT: import.meta.dirname },
   port: false, /// Disabling the bootstrap starting the server.
   logs: loggerConfig,
   session: sessionConfig,
@@ -76,7 +75,9 @@ const { app, router } = setup({
   views: [
     path.resolve(
       path.dirname(
-        require.resolve("@govuk-one-login/di-ipv-cri-common-express")
+        fileURLToPath(
+          import.meta.resolve("@govuk-one-login/di-ipv-cri-common-express")
+        )
       ),
       "components"
     ),
@@ -166,7 +167,7 @@ router.use(setAxiosDefaults);
 
 router.use("/oauth2", commonExpress.routes.oauth2);
 
-router.use("/kbv", require("./app/kbv"));
+router.use("/kbv", kbvRouter);
 
 router.use("^/$", (req, res) => {
   res.render("index");

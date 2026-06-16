@@ -1,9 +1,11 @@
-const BaseController = require("hmpo-form-wizard").Controller;
-const QuestionController = require("./question");
-const dynamicQuestion = require("../../../lib/dynamic/question");
-const presenters = require("../../../presenters");
-const { API } = require("../../../lib/config");
+import wizard from "hmpo-form-wizard";
+import QuestionController from "./question.js";
+import * as dynamicQuestion from "../../../lib/dynamic/question.js";
+import * as presenters from "../../../presenters/index.js";
+import { API } from "../../../lib/config.js";
 import { setupDefaultMocks } from "../../../../test/utils/helpers.js";
+
+const BaseController = wizard.Controller;
 
 describe("Question controller", () => {
   let questionController;

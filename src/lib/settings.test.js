@@ -1,4 +1,4 @@
-const { setAPIConfig, setOAuthPaths } = require("./settings");
+import { setAPIConfig, setOAuthPaths } from "./settings.js";
 
 describe("settings", () => {
   let app;

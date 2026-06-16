@@ -1,4 +1,4 @@
-module.exports = function questionToHint(question, translate) {
+export default function questionToHint(question, translate) {
   const key = `fields.${question.questionID}.hint`;
   const hint = translate(key);
 
@@ -11,4 +11,4 @@ module.exports = function questionToHint(question, translate) {
   }
 
   return " ";
-};
+}

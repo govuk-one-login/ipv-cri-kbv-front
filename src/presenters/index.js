@@ -1,11 +1,4 @@
-const answerToRadioItem = require("./answer-to-radio-item");
-const questionToHint = require("./question-to-hint");
-const questionToLegend = require("./question-to-legend");
-const questionToRadios = require("./question-to-radios");
-
-module.exports = {
-  answerToRadioItem,
-  questionToHint,
-  questionToLegend,
-  questionToRadios,
-};
+export { default as answerToRadioItem } from "./answer-to-radio-item.js";
+export { default as questionToHint } from "./question-to-hint.js";
+export { default as questionToLegend } from "./question-to-legend.js";
+export { default as questionToRadios } from "./question-to-radios.js";
