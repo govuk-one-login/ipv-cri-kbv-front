@@ -32,16 +32,10 @@ Run `git config --unset-all core.hooksPath` to reset your git hook settings.
 
 - 'API_BASE_URL': Externally accessible base url of the webserver. Used to generate the callback url as part of credential issuer oauth flows
 - `PORT` - Default port to run webserver on. (Default to `5020`)
-- `GA4_ENABLED` - Feature flag to disable GA4, defaulted to `false`
-- `UA_ENABLED` - Feature flag to disable UA, defaulted to `false`
-- `UA_CONTAINER_ID` - Container ID for Universal Analytics, required for UA to work correctly. Default value is `GTM-TK92W68`
 - `GA4_CONTAINER_ID` - Container ID for GA4, required for analytics to work correctly. Default value is `GTM-KD86CMZ`
-- `ANALYTICS_DATA_SENSITIVE` - Used to set isDataSensitive flag for @govuk-one-login/frontend-analytics package. If true, will redact all form data from analytics.
 - `FRONTEND_DOMAIN` - Cookie domain to persist values throughout the different sections of the OneLogin journey. Default value is `localhost`
-- `LANGUAGE_TOGGLE_DISABLED` - Feature flag to disable Language Toggle, defaulted to `false`
-- `DEVICE_INTELLIGENCE_ENABLED` - Feature flag to enable device intelligence, defaulted to `false`
 - `DEVICE_INTELLIGENCE_DOMAIN` - Domain to apply to the device intelligence cookie if device intelligence is enabled. Defaults to `account.gov.uk`.
-- `MAY_2025_REBRAND_ENABLED` - Feature flag to enable the May 2025 GOV.UK branding change, defaults to `false`
+- `MAY_2025_REBRAND_ENABLED` - Feature flag to enable the May 2025 GOV.UK branding change, defaults to `true`
 - `BROWSER` - Run browser test via different browser types i.e. `firefox`
 
 # Imposter
