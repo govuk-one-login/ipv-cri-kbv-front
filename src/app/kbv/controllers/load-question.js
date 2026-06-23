@@ -14,11 +14,13 @@ class LoadQuestionController extends BaseController {
 
     super.saveValues(req, res, async () => {
       try {
-        const apiResponse = await req.axios.get(`${API.PATHS.QUESTION}`, {
+        const apiResponse = await req.customFetch(API.PATHS.QUESTION, {
+          method: "GET",
           headers,
         });
 
-        req.session.question = apiResponse.data;
+        const body = await apiResponse.text();
+        req.session.question = body ? JSON.parse(body) : undefined;
       } catch (e) {
         return next(e);
       }

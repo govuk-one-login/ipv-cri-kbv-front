@@ -26,13 +26,11 @@ class AbandonController extends BaseController {
       ...createPersonalDataHeaders(`${API.BASE_URL}${API.PATHS.ABANDON}`, req),
     };
 
-    return req.axios.post(
-      API.PATHS.ABANDON,
-      {},
-      {
-        headers,
-      }
-    );
+    return req.customFetch(API.PATHS.ABANDON, {
+      method: "POST",
+      jsonBody: {},
+      headers,
+    });
   }
 }
 

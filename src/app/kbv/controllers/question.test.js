@@ -233,18 +233,18 @@ describe("Question controller", () => {
         "x-forwarded-for": "127.0.0.1",
       };
 
-      expect(req.axios.post).toHaveBeenCalledWith(
-        API.PATHS.ANSWER,
-        { questionId: "Q1", answer: "A1" },
-        { headers }
-      );
+      expect(req.customFetch).toHaveBeenCalledWith(API.PATHS.ANSWER, {
+        method: "POST",
+        jsonBody: { questionId: "Q1", answer: "A1" },
+        headers,
+      });
     });
 
     it("should get next question", async () => {
-      req.axios.post = vi.fn().mockReturnValue({});
-      req.axios.get = vi.fn().mockReturnValue({
-        data: { questionId: 1 },
-      });
+      req.customFetch = vi
+        .fn()
+        .mockResolvedValueOnce(new Response())
+        .mockResolvedValueOnce(new Response(JSON.stringify({ questionId: 1 })));
 
       const headers = {
         "session-id": "abcdef",
@@ -255,16 +255,20 @@ describe("Question controller", () => {
 
       await questionController.saveValues(req, res, next);
 
-      expect(req.axios.post).toHaveBeenCalled();
-      expect(req.axios.get).toHaveBeenCalled();
-      expect(req.axios.get).toHaveBeenCalledWith(API.PATHS.QUESTION, {
+      expect(req.customFetch).toHaveBeenCalledWith(API.PATHS.ANSWER, {
+        method: "POST",
+        jsonBody: { questionId: "Q1", answer: "A1" },
+        headers,
+      });
+      expect(req.customFetch).toHaveBeenCalledWith(API.PATHS.QUESTION, {
+        method: "GET",
         headers,
       });
     });
 
     describe("with no current session question", () => {
       beforeEach(async () => {
-        req.axios.post = vi.fn().mockReturnValue({});
+        req.customFetch = vi.fn().mockResolvedValue(new Response());
         req.session.question = undefined;
       });
 
@@ -284,7 +288,7 @@ describe("Question controller", () => {
 
       beforeEach(async () => {
         error = new Error("Random error");
-        req.axios.post = vi.fn().mockRejectedValue(error);
+        req.customFetch = vi.fn().mockRejectedValue(error);
 
         await questionController.saveValues(req, res, next);
       });
@@ -303,8 +307,10 @@ describe("Question controller", () => {
       beforeEach(async () => {
         error = new Error("Random error");
 
-        req.axios.post = vi.fn().mockReturnValue(200);
-        req.axios.get = vi.fn().mockRejectedValue(error);
+        req.customFetch = vi
+          .fn()
+          .mockResolvedValueOnce(new Response())
+          .mockRejectedValueOnce(error);
 
         await questionController.saveValues(req, res, next);
       });
@@ -318,8 +324,10 @@ describe("Question controller", () => {
     });
     describe("on get question complete", () => {
       beforeEach(async () => {
-        req.axios.post = vi.fn().mockResolvedValue(200);
-        req.axios.get = vi.fn().mockResolvedValue({ data: {} });
+        req.customFetch = vi
+          .fn()
+          .mockResolvedValueOnce(new Response())
+          .mockResolvedValueOnce(new Response(JSON.stringify({})));
 
         await questionController.saveValues(req, res, next);
       });

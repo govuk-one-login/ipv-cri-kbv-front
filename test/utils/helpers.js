@@ -7,10 +7,7 @@ export const setupDefaultMocks = () => {
     url: "/",
     body: {},
     form: { values: {} },
-    axios: {
-      get: vi.fn(),
-      post: vi.fn(),
-    },
+    customFetch: vi.fn().mockImplementation(async () => new Response()),
     session: {
       "hmpo-wizard-previous": {},
     },
