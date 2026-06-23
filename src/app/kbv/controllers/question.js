@@ -80,10 +80,12 @@ class QuestionController extends BaseController {
           headers: questionHeaders,
         });
 
-        const body = await nextQuestion.text();
+        // A 204 (no body) means there are no questions, which json() can't parse.
+        const body =
+          nextQuestion.status === 204 ? undefined : await nextQuestion.json();
 
         if (body) {
-          req.session.question = JSON.parse(body);
+          req.session.question = body;
         }
       } catch (e) {
         return callback(e);

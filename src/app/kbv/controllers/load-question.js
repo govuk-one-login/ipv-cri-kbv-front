@@ -19,8 +19,9 @@ class LoadQuestionController extends BaseController {
           headers,
         });
 
-        const body = await apiResponse.text();
-        req.session.question = body ? JSON.parse(body) : undefined;
+        // A 204 (no body) means there are no questions, which json() can't parse.
+        req.session.question =
+          apiResponse.status === 204 ? undefined : await apiResponse.json();
       } catch (e) {
         return next(e);
       }
