@@ -52,20 +52,22 @@ describe("Load Question controller", () => {
         "x-forwarded-for": "127.0.0.1",
       };
 
-      expect(req.axios.get).toHaveBeenCalledExactlyOnceWith(
+      expect(req.customFetch).toHaveBeenCalledExactlyOnceWith(
         API.PATHS.QUESTION,
         {
+          method: "GET",
           headers,
         }
       );
     });
 
     it("should set question", async () => {
-      req.axios.get = vi.fn().mockReturnValue({
-        data: { questionId: 1 },
-      });
+      req.customFetch = vi
+        .fn()
+        .mockResolvedValue(new Response(JSON.stringify({ questionId: 1 })));
 
       await loadQuestionController.saveValues(req, res, next);
+      await vi.waitFor(() => expect(next).toHaveBeenCalled());
 
       expect(req.session.question).toEqual({ questionId: 1 });
     });
@@ -76,7 +78,7 @@ describe("Load Question controller", () => {
       let error;
       beforeEach(async () => {
         error = new Error("Random error");
-        req.axios.get = vi.fn().mockRejectedValue(error);
+        req.customFetch = vi.fn().mockRejectedValue(error);
 
         await loadQuestionController.saveValues(req, res, next);
       });

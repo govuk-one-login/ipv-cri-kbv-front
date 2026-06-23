@@ -64,25 +64,28 @@ class QuestionController extends BaseController {
       };
 
       try {
-        await req.axios.post(
-          API.PATHS.ANSWER,
-          {
+        await req.customFetch(API.PATHS.ANSWER, {
+          method: "POST",
+          jsonBody: {
             questionId: req.session.question.questionID,
             answer: req.sessionModel.get(req.session.question.questionID),
           },
-          {
-            headers: answerHeaders,
-          }
-        );
+          headers: answerHeaders,
+        });
 
         req.session.question = undefined;
 
-        const nextQuestion = await req.axios.get(API.PATHS.QUESTION, {
+        const nextQuestion = await req.customFetch(API.PATHS.QUESTION, {
+          method: "GET",
           headers: questionHeaders,
         });
 
-        if (nextQuestion.data) {
-          req.session.question = nextQuestion.data;
+        // A 204 (no body) means there are no questions, which json() can't parse.
+        const body =
+          nextQuestion.status === 204 ? undefined : await nextQuestion.json();
+
+        if (body) {
+          req.session.question = body;
         }
       } catch (e) {
         return callback(e);

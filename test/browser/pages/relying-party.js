@@ -1,22 +1,10 @@
-import axios from "axios";
+import aws4 from "aws4";
 import { fromNodeProviderChain } from "@aws-sdk/credential-providers";
-import { aws4Interceptor } from "aws4-axios";
 
-const customCredentialsProvider = {
-  getCredentials: fromNodeProviderChain({
-    timeout: 1000,
-    maxRetries: 0,
-  }),
-};
-const interceptor = aws4Interceptor({
-  options: {
-    region: "eu-west-2",
-    service: "execute-api",
-  },
-  credentials: customCredentialsProvider,
+const resolveCredentials = fromNodeProviderChain({
+  timeout: 1000,
+  maxRetries: 0,
 });
-
-axios.interceptors.request.use(interceptor);
 
 export default class PlaywrightDevPage {
   /**
@@ -57,15 +45,37 @@ export default class PlaywrightDevPage {
   async getStartingURLForStub(sharedClaims) {
     try {
       const startUrl = new URL("start", process.env.RELYING_PARTY_URL);
-      const response = await axios.post(startUrl, {
+      const body = JSON.stringify({
         aud: process.env.WEBSITE_HOST,
         ...(sharedClaims && { shared_claims: sharedClaims }),
       });
 
-      this.oauthPath = this.getOauthPath(
-        response.data.request,
-        response.data.client_id
+      const credentials = await resolveCredentials();
+      const { headers } = aws4.sign(
+        {
+          host: startUrl.host,
+          path: `${startUrl.pathname}${startUrl.search}`,
+          method: "POST",
+          service: "execute-api",
+          region: "eu-west-2",
+          headers: { "Content-Type": "application/json" },
+          body,
+        },
+        {
+          accessKeyId: credentials.accessKeyId,
+          secretAccessKey: credentials.secretAccessKey,
+          sessionToken: credentials.sessionToken,
+        }
       );
+
+      const response = await fetch(startUrl, {
+        method: "POST",
+        headers,
+        body,
+      });
+      const data = await response.json();
+
+      this.oauthPath = this.getOauthPath(data.request, data.client_id);
 
       return new URL(this.oauthPath, this.baseURL);
     } catch (error) {

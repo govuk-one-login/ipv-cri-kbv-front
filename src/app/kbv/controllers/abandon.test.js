@@ -27,7 +27,7 @@ describe("Abandon controller", () => {
   describe("#saveValues", () => {
     describe("on journey abandoned", () => {
       it("should call abandon endpoint", async () => {
-        req.axios.post = vi.fn().mockResolvedValue(undefined);
+        req.customFetch = vi.fn().mockResolvedValue(undefined);
 
         req.form.values.abandonRadio = "stop";
 
@@ -40,19 +40,19 @@ describe("Abandon controller", () => {
 
         await abandonController.saveValues(req, res, next);
         expect(next).toHaveBeenCalledOnce();
-        expect(req.axios.post).toHaveBeenCalledWith(
-          API.PATHS.ABANDON,
-          {},
-          { headers }
-        );
+        expect(req.customFetch).toHaveBeenCalledWith(API.PATHS.ABANDON, {
+          method: "POST",
+          jsonBody: {},
+          headers,
+        });
       });
 
       it("should not call abandon endpoint", async () => {
-        req.axios.post = vi.fn().mockResolvedValue(undefined);
+        req.customFetch = vi.fn().mockResolvedValue(undefined);
 
         await abandonController.saveValues(req, res, next);
         expect(next).toHaveBeenCalledOnce();
-        expect(req.axios.post).not.toHaveBeenCalled();
+        expect(req.customFetch).not.toHaveBeenCalled();
       });
     });
   });

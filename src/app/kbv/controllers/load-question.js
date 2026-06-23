@@ -14,11 +14,14 @@ class LoadQuestionController extends BaseController {
 
     super.saveValues(req, res, async () => {
       try {
-        const apiResponse = await req.axios.get(`${API.PATHS.QUESTION}`, {
+        const apiResponse = await req.customFetch(API.PATHS.QUESTION, {
+          method: "GET",
           headers,
         });
 
-        req.session.question = apiResponse.data;
+        // A 204 (no body) means there are no questions, which json() can't parse.
+        req.session.question =
+          apiResponse.status === 204 ? undefined : await apiResponse.json();
       } catch (e) {
         return next(e);
       }
