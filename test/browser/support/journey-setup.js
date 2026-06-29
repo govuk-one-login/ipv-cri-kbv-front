@@ -19,7 +19,6 @@ export async function getStartingURL(clientId = "standalone", sharedClaims) {
       `${baseUrl}/oauth2/authorize?request=lorem&client_id=${clientId}`
     );
   }
-  // await this.page.goto(this.startingURL.toString());
 }
 
 async function getStartingURLForStub(sharedClaims) {

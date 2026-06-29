@@ -1,4 +1,3 @@
-name: kbv-front
 services:
   redis:
     image: redis:7-alpine
