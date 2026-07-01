@@ -48,7 +48,7 @@ services:
       RELYING_PARTY_URL: ${RELYING_PARTY_URL:-http://localhost:8080}
       GITHUB_ACTIONS: ${GITHUB_ACTIONS:-true}
       ENVIRONMENT: ${ENVIRONMENT:-dev}
-      BROWSER: ${BROWSER:-firefox}
+      BROWSER: ${BROWSER:-chromium}
     tty: true
     stdin_open: true
     volumes:
@@ -58,4 +58,29 @@ services:
         condition: service_healthy
       imposter:
         condition: service_started
+    network_mode: host
+
+  visual:
+    build:
+      context: ../..
+      dockerfile: test/browser/pre-merge.Dockerfile
+    platform: linux/amd64
+    environment:
+      MOCK_API: ${MOCK_API:-true}
+      WEBSITE_HOST: ${WEBSITE_HOST:-http://localhost:5020}
+      MOCK_API_URL: ${MOCK_API_URL:-http://localhost:8080}
+      RELYING_PARTY_URL: ${RELYING_PARTY_URL:-http://localhost:8080}
+      GITHUB_ACTIONS: ${GITHUB_ACTIONS:-true}
+      ENVIRONMENT: ${ENVIRONMENT:-dev}
+      BROWSER: ${BROWSER:-chromium}
+    tty: true
+    stdin_open: true
+    volumes:
+      - ../../test/visual/snapshots:/app/test/visual/snapshots
+    depends_on:
+      frontend:
+        condition: service_healthy
+      imposter:
+        condition: service_started
+    command: ["npm", "run", "test:visual"]
     network_mode: host

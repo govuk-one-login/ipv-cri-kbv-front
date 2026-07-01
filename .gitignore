@@ -68,6 +68,10 @@ typings/
 .env
 .env.test
 
+# local machine generated snapshots
+test/visual/snapshots/*darwin*.png
+test-results/
+
 # parcel-bundler cache (https://parceljs.org/)
 .cache
 
