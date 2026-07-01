@@ -8,7 +8,7 @@ This is the home for the front end user interface for a credential issuer as a p
 
 # Installation
 
-Clone this repository and then run
+Clone this repository and then run test
 
 ```bash
 npm install
