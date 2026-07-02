@@ -119,7 +119,7 @@ Mappings:
     production:
       logLevel: "warn"
       dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceProductionVariables
-      minECSCount: 6
+      minECSCount: 3
       maxECSCount: 60
   # see https://docs.aws.amazon.com/elasticloadbalancing/latest/application/load-balancer-access-logs.html
   ElasticLoadBalancerAccountIds:
