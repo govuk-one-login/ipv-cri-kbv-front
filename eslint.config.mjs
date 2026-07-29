@@ -1,68 +1,32 @@
-import globals from "globals";
-import vitest from "@vitest/eslint-plugin";
-import path from "node:path";
-import { fileURLToPath } from "node:url";
 import js from "@eslint/js";
-import { FlatCompat } from "@eslint/eslintrc";
+import eslintConfigPrettier from "eslint-config-prettier/flat";
+import { defineConfig } from "eslint/config";
+import globals from "globals";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const compat = new FlatCompat({
-  baseDirectory: __dirname,
-  recommendedConfig: js.configs.recommended,
-  allConfig: js.configs.all,
-});
-
-export default [
+export default defineConfig(
+  js.configs.recommended,
+  eslintConfigPrettier,
   {
-    ignores: [
-      "**/wallaby.conf.js",
-      "**/node_modules",
-      "**/reports",
-      "**/.aws-sam",
-      "**/dist",
-    ],
-  },
-  ...compat.extends(
-    "prettier",
-    "eslint:recommended",
-    "plugin:prettier/recommended"
-  ),
-  {
+    ignores: ["src/assets/**"],
     languageOptions: {
-      globals: {
-        ...globals.node,
-      },
+      globals: globals.node,
     },
-
-    rules: {
-      "no-console": 2,
-
-      "padding-line-between-statements": [
-        "error",
-        {
-          blankLine: "any",
-          prev: "*",
-          next: "*",
-        },
-      ],
+  },
+  {
+    files: ["src/assets/javascripts/**"],
+    languageOptions: {
+      globals: globals.browser,
     },
   },
   {
     files: ["src/**/*.test.js"],
-
-    plugins: {
-      vitest,
-    },
-
     languageOptions: {
-      globals: {
-        ...vitest.environments.env.globals,
-      },
-    },
-
-    rules: {
-      ...vitest.configs.recommended.rules,
+      globals: globals.vitest,
     },
   },
-];
+  {
+    linterOptions: {
+      reportUnusedInlineConfigs: "error",
+    },
+  }
+);
