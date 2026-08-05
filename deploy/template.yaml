@@ -104,7 +104,7 @@ Mappings:
     build:
       logLevel: "info"
       dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables
-      minECSCount: 6
+      minECSCount: 2
       maxECSCount: 60
     staging:
       logLevel: "warn"
@@ -784,7 +784,7 @@ Resources:
       TargetTrackingScalingPolicyConfiguration:
         PredefinedMetricSpecification:
           PredefinedMetricType: ECSServiceAverageCPUUtilization
-        TargetValue: 30
+        TargetValue: 25
         ScaleInCooldown: 420
         ScaleOutCooldown: 60
 
@@ -802,7 +802,7 @@ Resources:
         MetricSpecifications:
           - PredefinedMetricPairSpecification:
               PredefinedMetricType: ECSServiceCPUUtilization
-            TargetValue: 30
+            TargetValue: 25
         Mode: ForecastOnly
         SchedulingBufferTime: 600
 
@@ -819,11 +819,11 @@ Resources:
         AdjustmentType: PercentChangeInCapacity
         Cooldown: 300
         StepAdjustments:
-          - MetricIntervalUpperBound: 0
+          - MetricIntervalUpperBound: -10
             MetricIntervalLowerBound: -20
             ScalingAdjustment: -10
           - MetricIntervalUpperBound: -20
-            ScalingAdjustment: -20
+            ScalingAdjustment: -50
 
   StepScaleOutPolicy:
     DependsOn: ECSAutoScalingTarget
