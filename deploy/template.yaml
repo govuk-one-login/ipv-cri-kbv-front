@@ -104,7 +104,7 @@ Mappings:
     build:
       logLevel: "info"
       dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables
-      minECSCount: 2
+      minECSCount: 6
       maxECSCount: 60
     staging:
       logLevel: "warn"
