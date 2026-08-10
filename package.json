@@ -67,6 +67,6 @@
     "hmpo-components": "8.0.5",
     "hmpo-form-wizard": "15.0.5",
     "sass": "1.97.3",
-    "uglify-js": "3.17.4"
+    "uglify-js": "3.19.3"
   }
 }
