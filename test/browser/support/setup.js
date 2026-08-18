@@ -52,6 +52,13 @@ Before(async function () {
   this.page = await this.context.newPage();
 });
 
+Before({ tags: "@deployed-stack-only and @low-confidence" }, function () {
+  this.requestContext = {
+    ...this.requestContext,
+    evidenceRequested: {strengthScore: 2, verificationScore: 1},
+  };
+});
+
 // Cleanup after each scenario
 After(async function () {
   if (process.env.MOCK_API === "true" && this.clientId) {

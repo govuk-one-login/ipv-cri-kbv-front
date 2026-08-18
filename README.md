@@ -106,6 +106,14 @@ They can be run by using:
 
 `npm run test:browser` in the test repository
 
+To run the browser tests against the imposter stubs.
+
+```
+npm run test:deployed
+```
+
+To run the browser tests against the deployed frontend stack using the main backend stack. Remember to update the .env file to reflect this.
+
 # Running browser tests locally on different browser types
 
 The following browserType are: `firefox`, `chromium` and `edge`.

@@ -1,4 +1,4 @@
-@mock-api:question-success @success
+@mock-api:question-success @success @deployed-stack-only
 Feature: Happy path
 
   KBV question validation

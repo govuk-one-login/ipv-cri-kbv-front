@@ -10,9 +10,9 @@ export async function getOauthPath(request, clientId) {
   return `/oauth2/authorize?request=${request}&client_id=${clientId}`;
 }
 
-export async function getStartingURL(clientId = "standalone", sharedClaims) {
+export async function getStartingURL(clientId = "standalone", sharedClaims, requestContext) {
   if (process.env.MOCK_API === "false") {
-    await getStartingURLForStub(sharedClaims);
+    return await getStartingURLForStub(sharedClaims, requestContext);
   } else {
     const baseUrl = process.env.WEBSITE_HOST || "http://localhost:5020";
     return new URL(
@@ -21,12 +21,19 @@ export async function getStartingURL(clientId = "standalone", sharedClaims) {
   }
 }
 
-async function getStartingURLForStub(sharedClaims) {
+async function getStartingURLForStub(sharedClaims, requestContext) {
   try {
+    const baseUrl = process.env.WEBSITE_HOST;
     const startUrl = new URL("start", process.env.RELYING_PARTY_URL);
     const body = JSON.stringify({
-      aud: process.env.WEBSITE_HOST,
       ...(sharedClaims && { shared_claims: sharedClaims }),
+      ...(requestContext?.evidenceRequested && {
+        evidence_requested: {
+          scoringPolicy: "gpg45",
+          strengthScore: requestContext.evidenceRequested.strengthScore,
+          verificationScore: requestContext.evidenceRequested.verificationScore,
+        }
+      })
     });
 
     const credentials = await resolveCredentials();
@@ -54,9 +61,9 @@ async function getStartingURLForStub(sharedClaims) {
     });
     const data = await response.json();
 
-    this.oauthPath = this.getOauthPath(data.request, data.client_id);
+    const oauthPath = await getOauthPath(data.request, data.client_id);
 
-    return new URL(this.oauthPath, this.baseURL);
+    return new URL(oauthPath, baseUrl);
   } catch (error) {
     console.error(error);
   }

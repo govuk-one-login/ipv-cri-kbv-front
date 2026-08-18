@@ -7,12 +7,14 @@ Feature: Happy path
     Given Authenticatable Anita is using the system
     And they have provided their details
 
+  @deployed-stack-only
   Scenario: Display check page and first question
     Given they have started the KBV journey
 #    And they can see the check page
     When they continue to questions
     Then they should see the first question
 
+    @deployed-stack-only
     Scenario: Display and answer first question
       Given they have started the KBV journey
       And they have continued to questions
@@ -30,6 +32,7 @@ Feature: Happy path
       Then they should see the second question
       Then the di-device-intelligence cookie has been set
 
+    @deployed-stack-only @low-confidence
     Scenario: Display and answer multiple questions
       Given they have started the KBV journey
       And they have continued to questions

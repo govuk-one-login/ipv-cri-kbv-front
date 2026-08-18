@@ -6,6 +6,7 @@
   "scripts": {
     "test": "MOCK_API=true cucumber-js",
     "test:ci": "cucumber-js --format json:reports/cucumber-report.json",
+    "test:deployed": "cucumber-js --tags \"@deployed-stack-only\" --retry 1",
     "test:only": "cucumber-js --tags @only --format json:reports/cucumber-report.json",
     "test:visual": "playwright test --config=../visual/playwright.config.js"
   },

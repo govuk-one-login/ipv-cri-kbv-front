@@ -7,7 +7,7 @@ Given(/^([A-Za-z ]+)is using the system$/, async function (name) {
   const rpPage = new RelyingPartyPage(this.page);
 
   const clientId = this.clientId || "standalone";
-  await rpPage.goto(clientId);
+  await rpPage.goto(clientId, undefined, this.requestContext);
   await this.page.waitForLoadState("load");
 });
 
@@ -18,7 +18,12 @@ Given(
 );
 
 Then("they should be redirected as a success", async function () {
-  await this.page.waitForURL(/\/return/);
+  if (process.env.MOCK_API === "true") {
+    await this.page.waitForURL(/\/return/);
+  } else {
+    await this.page.waitForURL(/\/callback/);
+  }
+
   const rpPage = new RelyingPartyPage(this.page);
 
   assert.ok(rpPage.isRelyingPartyServer());

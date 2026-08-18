@@ -4,7 +4,7 @@ export default class PlaywrightDevPage {
    */
   constructor(page) {
     this.page = page;
-    this.url = "http://localhost:5020/kbv/abandon";
+    this.url = `${process.env.WEBSITE_HOST}/kbv/abandon`;
     this.questionTitle = page.locator(".govuk-fieldset__heading");
     this.answerRadios = page.locator('input[name="question"]');
   }
