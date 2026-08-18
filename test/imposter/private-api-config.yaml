@@ -70,8 +70,6 @@ resources:
           respond().withStatusCode(200).withFile("question-success.json").skipDefaultBehaviour();
           } else if (state === "FirstQuestion") {
           respond().withStatusCode(200).withFile("first-question.json").skipDefaultBehaviour();
-          } else if (state === "LastQuestion") {
-          respond().withStatusCode(200).withFile("second-question.json").skipDefaultBehaviour();
           } else if (state === "NoMoreQuestions") {
           respond().withStatusCode(204).skipDefaultBehaviour();
           }

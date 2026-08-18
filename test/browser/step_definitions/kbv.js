@@ -94,9 +94,6 @@ When(/^they have answered all the questions successfully$/, async function () {
 
   await questionPage.answer();
   await questionPage.submit();
-
-  await questionPage.answer();
-  await questionPage.submit();
 });
 
 Then(/^they should see the done page$/, function () {
