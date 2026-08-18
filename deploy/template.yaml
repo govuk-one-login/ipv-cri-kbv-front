@@ -245,7 +245,7 @@ Resources:
       Name: !Sub "${AWS::StackName}-premerge-acl"
       Scope: REGIONAL
       DefaultAction:
-        Allow: { }
+        Allow: {}
       VisibilityConfig:
         SampledRequestsEnabled: true
         CloudWatchMetricsEnabled: true
@@ -254,7 +254,7 @@ Resources:
         - Name: AWS-CommonRuleSet
           Priority: 0
           OverrideAction:
-            None: { }
+            None: {}
           Statement:
             ManagedRuleGroupStatement:
               VendorName: AWS
@@ -262,7 +262,7 @@ Resources:
               RuleActionOverrides:
                 - Name: SizeRestrictions_QUERYSTRING
                   ActionToUse:
-                    Count: { }
+                    Count: {}
           VisibilityConfig:
             SampledRequestsEnabled: true
             CloudWatchMetricsEnabled: true
