@@ -150,7 +150,7 @@ resources:
         lang: javascript
         code: |
           const store = stores.open("question-success");
-          store.save("state", "LastQuestion");
+          store.save("state", "NoMoreQuestions");
           logger.info("Answer received for Q00042");
     response:
       statusCode: 200
