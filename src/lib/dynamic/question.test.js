@@ -1,4 +1,5 @@
 import * as dynamicQuestion from "./question.js";
+import { describe, beforeEach, it, expect } from "vitest";
 
 describe("question", () => {
   let question;

@@ -1,4 +1,5 @@
 import * as dynamicI18n from "./dynamic-i18n.js";
+import { describe, beforeEach, it, expect, vi } from "vitest";
 
 describe("dynamic-i18n", () => {
   describe("#translateWrapper", () => {

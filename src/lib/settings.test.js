@@ -1,4 +1,5 @@
 import { setAPIConfig, setOAuthPaths } from "./settings.js";
+import { describe, beforeEach, it, expect, vi } from "vitest";
 
 describe("settings", () => {
   let app;

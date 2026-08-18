@@ -2,6 +2,7 @@ import wizard from "hmpo-form-wizard";
 import LoadQuestionController from "./load-question.js";
 import { API } from "../../../lib/config.js";
 import { setupDefaultMocks } from "../../../../test/utils/helpers.js";
+import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 
 const BaseController = wizard.Controller;
 

@@ -1,4 +1,5 @@
 import * as presenters from "./index.js";
+import { describe, beforeEach, it, expect, vi } from "vitest";
 
 describe("question-to-hint", () => {
   let translate;
