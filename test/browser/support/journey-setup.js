@@ -10,7 +10,11 @@ export async function getOauthPath(request, clientId) {
   return `/oauth2/authorize?request=${request}&client_id=${clientId}`;
 }
 
-export async function getStartingURL(clientId = "standalone", sharedClaims, requestContext) {
+export async function getStartingURL(
+  clientId = "standalone",
+  sharedClaims,
+  requestContext
+) {
   if (process.env.MOCK_API === "false") {
     return await getStartingURLForStub(sharedClaims, requestContext);
   } else {
@@ -32,8 +36,8 @@ async function getStartingURLForStub(sharedClaims, requestContext) {
           scoringPolicy: "gpg45",
           strengthScore: requestContext.evidenceRequested.strengthScore,
           verificationScore: requestContext.evidenceRequested.verificationScore,
-        }
-      })
+        },
+      }),
     });
 
     const credentials = await resolveCredentials();

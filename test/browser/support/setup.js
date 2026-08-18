@@ -55,7 +55,7 @@ Before(async function () {
 Before({ tags: "@deployed-stack-only and @low-confidence" }, function () {
   this.requestContext = {
     ...this.requestContext,
-    evidenceRequested: {strengthScore: 2, verificationScore: 1},
+    evidenceRequested: { strengthScore: 2, verificationScore: 1 },
   };
 });
 

@@ -21,7 +21,11 @@ export default class PlaywrightDevPage {
   }
 
   async goto(clientId = "standalone", sharedClaims, requestContext) {
-    this.startingURL = await getStartingURL(clientId, sharedClaims, requestContext);
+    this.startingURL = await getStartingURL(
+      clientId,
+      sharedClaims,
+      requestContext
+    );
     await this.page.goto(this.startingURL.toString());
   }
 
