@@ -19,12 +19,6 @@ export default defineConfig(
     },
   },
   {
-    files: ["src/**/*.test.js"],
-    languageOptions: {
-      globals: globals.vitest,
-    },
-  },
-  {
     linterOptions: {
       reportUnusedInlineConfigs: "error",
     },

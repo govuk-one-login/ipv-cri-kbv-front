@@ -4,6 +4,7 @@ import * as dynamicQuestion from "../../../lib/dynamic/question.js";
 import * as presenters from "../../../presenters/index.js";
 import { API } from "../../../lib/config.js";
 import { setupDefaultMocks } from "../../../../test/utils/helpers.js";
+import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 
 const BaseController = wizard.Controller;
 

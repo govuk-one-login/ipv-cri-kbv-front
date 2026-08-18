@@ -1,4 +1,5 @@
 import * as keys from "./keys.js";
+import { describe, it, expect } from "vitest";
 
 describe("keys", () => {
   describe("#singleKeysNotDynamic", () => {
