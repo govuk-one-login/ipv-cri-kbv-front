@@ -1,5 +1,8 @@
 import { Before, BeforeAll, AfterAll, After } from "@cucumber/cucumber";
 import { chromium, firefox, webkit } from "playwright";
+import { setDefaultTimeout } from "@cucumber/cucumber";
+
+setDefaultTimeout(15 * 1000);
 
 const browserTypes = {
   chromium,
