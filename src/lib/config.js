@@ -14,7 +14,7 @@ export const API = {
 };
 
 export const APP = {
-  BASE_URL: process.env.EXTERNAL_WEBSITE_HOST || "http://localhost:5020",
+  BASE_URL: process.env.BASE_URL || "http://localhost:5020",
   PATHS: {
     KBV: "/kbv/",
   },
