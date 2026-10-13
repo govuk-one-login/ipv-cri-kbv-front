@@ -6,7 +6,6 @@ import { fileURLToPath } from "node:url";
 import session from "express-session";
 import { DynamoDB } from "@aws-sdk/client-dynamodb";
 import connectDynamoDB from "connect-dynamodb";
-import addLanguageParam from "@govuk-one-login/frontend-language-toggle/build/cjs/language-param-setter.cjs";
 import { frontendUiMiddlewareIdentityBypass } from "@govuk-one-login/frontend-ui";
 import { frontendVitalSignsInitFromApp } from "@govuk-one-login/frontend-vital-signs";
 import commonExpress from "@govuk-one-login/di-ipv-cri-common-express";
@@ -125,7 +124,6 @@ setI18n({
 });
 // Common express relies on 0/1 strings
 setLanguageToggle({ app, showLanguageToggle: "1" });
-app.get("nunjucks").addGlobal("addLanguageParam", addLanguageParam);
 
 setDeviceIntelligence({
   app,
