@@ -1,5 +1,7 @@
 {% extends "base-form.njk" %}
-{% from "hmpo-radios/macro.njk" import hmpoRadios %}
+{% from "frontend-ui/build/components/radios/macro.njk" import radios %}
+{% from "frontend-ui/build/components/form/macro.njk" import form %}
+{% from "frontend-ui/build/components/submit/macro.njk" import submit %}
 {% from "govuk/components/details/macro.njk" import govukDetails %}
 {% from "components/onPageLoad/macro.njk" import ga4OnPageLoad %}
 
@@ -19,15 +21,15 @@
 
 {% block mainContent %}
 
-  {% call hmpoForm(ctx) %}
-    {{ hmpoRadios(ctx, question) }}
+  {% call form(ctx) %}
+    {{ radios(ctx, question) }}
 
     {{ govukDetails({
       summaryText: translate("pages.simplifiedQuestion.abandon"),
       text: translate("pages.simplifiedQuestion.abandonBody") | safe
     }) }}
 
-    {{ hmpoSubmit(ctx, {id: "continue", attributes: {"data-nav": true, "data-link": "/undefined"}, text: translate("buttons.next")}) }}
+    {{ submit(ctx, {id: "continue", attributes: {"data-nav": true, "data-link": "/undefined"}, text: translate("buttons.next")}) }}
     <script nonce="{{ cspNonce }}">
         var formSubmitted = false;
         submitSpinner()
