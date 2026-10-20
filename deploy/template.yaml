@@ -293,11 +293,8 @@ Resources:
           - Key: access_logs.s3.enabled
             Value: true
           - !Ref AWS::NoValue
-        - !If
-          - IsNotDevelopment
           - Key: access_logs.s3.bucket
             Value: !Sub "di-lb-access-logs-${AWS::AccountId}-${AWS::Region}"
-          - !Ref AWS::NoValue
         - !If
           - IsNotDevelopment
           - Key: access_logs.s3.prefix
