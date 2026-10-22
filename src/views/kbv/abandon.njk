@@ -1,7 +1,9 @@
 {% extends "base-form.njk" %}
 {% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
-{% from "hmpo-radios/macro.njk" import hmpoRadios %}
-{% from "hmpo-form/macro.njk" import hmpoForm %}
+{% from "frontend-ui/build/components/radios/macro.njk" import radios %}
+{% from "frontend-ui/build/components/form/macro.njk" import form %}
+{% from "frontend-ui/build/components/submit/macro.njk" import submit %}
+{% from "frontend-ui/build/components/html/macro.njk" import html %}
 {% set hmpoPageKey = "abandonCheck" %}
 {% set isPageHeading = true %}
 
@@ -16,8 +18,8 @@
 
 {% block mainContent %}
 
- {% call hmpoForm(ctx) %}
-      {{ hmpoRadios(ctx, {
+ {% call form(ctx) %}
+      {{ radios(ctx, {
             id: "abandonRadio",
             namePrefix: "abandonRadio",
             fieldset: {
@@ -31,7 +33,7 @@
 
   {{ govukWarningText({text: translate("abandonCheck.warning")}) }}
 
-  {{ hmpoSubmit(ctx, {id: "continue", attributes: {"data-nav": true, "data-link": "/undefined"}, text: translate("buttons.next")}) }}
+  {{ submit(ctx, {id: "continue", attributes: {"data-nav": true, "data-link": "/undefined"}, text: translate("buttons.next")}) }}
   <script nonce="{{ cspNonce }}">
         var formSubmitted = false;
         submitSpinner()
@@ -55,6 +57,6 @@
         </script>
   {% endcall %}
 
-  {{ hmpoHtml(translate("pages.abandonCheck.contact")) }}
+  {{ html(translate("pages.abandonCheck.contact")) }}
 
 {% endblock %}
