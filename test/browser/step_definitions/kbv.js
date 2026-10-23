@@ -1,6 +1,9 @@
 import { Given, When, Then } from "@cucumber/cucumber";
 import assert from "node:assert/strict";
+import { decodeJwt } from "jose";
 import { CheckPage, QuestionPage, DonePage } from "../pages/index.js";
+
+let payload;
 
 When(/^they (?:have )?start(?:ed)? the KBV journey$/, async function () {});
 
@@ -101,3 +104,21 @@ Then(/^they should see the done page$/, function () {
 
   assert.ok(donePage.isCurrentPage());
 });
+
+Then("the callback is converted to JSON", async function () {
+  payload = await decodeJwtPayload(this.page);
+});
+
+async function decodeJwtPayload(page) {
+  const jwt = await page.locator("body").innerText();
+
+  try {
+    return decodeJwt(jwt);
+  } catch (err) {
+    throw new Error(`Failed to decode VC from page body: ${err.message}`, {
+      cause: err,
+    });
+  }
+}
+
+

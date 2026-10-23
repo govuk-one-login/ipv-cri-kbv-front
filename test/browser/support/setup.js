@@ -22,7 +22,7 @@ BeforeAll(async function () {
 
   console.log(`Running scenarios in browser type: ${browserName}`);
   global.browser = await browserType.launch({
-    headless: true,
+    headless: false,
     slowMo: process.env.GITHUB_ACTIONS ? 0 : 500,
   });
 });
