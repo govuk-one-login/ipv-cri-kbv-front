@@ -1,6 +1,8 @@
 import { Before, BeforeAll, AfterAll, After } from "@cucumber/cucumber";
 import { chromium, firefox, webkit } from "playwright";
 import { setDefaultTimeout } from "@cucumber/cucumber";
+import insufficientQuestionsUser from "../data_overrides/INSUFFICIENT_QUESTIONS.json" with { type: "json" };
+import lowConfidenceUser from "../data_overrides/LOW_CONFIDENCE.json" with { type: "json" };
 
 setDefaultTimeout(15 * 1000);
 
@@ -55,12 +57,23 @@ Before(async function () {
   this.page = await this.context.newPage();
 });
 
-Before({ tags: "@deployed-stack-only and @low-confidence" }, function () {
-  this.requestContext = {
-    ...this.requestContext,
-    evidenceRequested: { strengthScore: 2, verificationScore: 1 },
-  };
-});
+Before(
+  { tags: "@insufficient-questions or @low-confidence" },
+  function ({ pickle }) {
+    const data = pickle.tags.some(
+      (tag) => tag.name === "@insufficient-questions"
+    )
+      ? insufficientQuestionsUser
+      : lowConfidenceUser;
+
+    this.sharedClaims = data.shared_claims;
+
+    this.requestContext = {
+      ...this.requestContext,
+      evidenceRequested: data.evidence_requested,
+    };
+  }
+);
 
 // Cleanup after each scenario
 After(async function () {
