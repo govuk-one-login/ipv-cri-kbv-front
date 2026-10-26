@@ -1,7 +1,7 @@
 @mock-api:session-error @focus @lang
 Feature: Translation
 
-  Tranlsations on error page in middle of the journey
+  Translations on error page in middle of the journey
 
   Background:
     Given Error Ethem is using the system
@@ -31,7 +31,7 @@ Feature: Translation
     Then they should see the page in "Welsh"
     Then the page's language property should be "Welsh"
 
-  Scenario: Welsh to Englishh with the language toggle
+  Scenario: Welsh to English with the language toggle
     Given they start with "Welsh"
     And they see the page in "Welsh"
     When they set the language to "English" using the toggle

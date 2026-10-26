@@ -1,5 +1,5 @@
 @mock-api:question-abandon @success @deployed-stack-only
-Feature: Abandon Knowledge Based Verification Joureny
+Feature: Abandon Knowledge Based Verification Journey
 
   Abandoning the Knowledge Based Verification questions successfully
 
@@ -28,3 +28,16 @@ Feature: Abandon Knowledge Based Verification Joureny
       Given they abandon their journey
       When they choose to stop answering questions
       Then they should be redirected
+
+    @post-merge
+    Scenario: Return to Questions
+      Given they abandon their journey
+      When they choose to continue answering questions
+      Then they should see the question page
+
+    @post-merge
+    Scenario: Stop answering questions
+      Given they abandon their journey
+      When they choose to stop answering questions
+      And the callback is converted to JSON
+      Then the user should get verificationScore: 0
