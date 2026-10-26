@@ -2,6 +2,10 @@
 {% from "govuk/components/details/macro.njk" import govukDetails %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "components/onPageLoad/macro.njk" import ga4OnPageLoad %}
+{% from "frontend-ui/build/components/form/macro.njk" import form %}
+{% from "frontend-ui/build/components/submit/macro.njk" import submit %}
+{% from "frontend-ui/build/components/html/macro.njk" import html %}
+
 {% set hmpoPageKey = "check" %}
 {% set gtmJourney = "kbv - start" %}
 
@@ -9,16 +13,16 @@
 
 <h1 id="header" class="govuk-heading-l">{{translate("pages.check.title")}}</h1>
 
-{% call hmpoForm(ctx) %}
+{% call form(ctx) %}
 
-{{ hmpoHtml(translate("pages.check.content")) }}
+{{ html(translate("pages.check.content")) }}
 
 {{ govukDetails({
 summaryText: translate("pages.check.details.title"),
-html: hmpoHtml(translate("pages.check.details.content"))
+html: html(translate("pages.check.details.content"))
 }) }}
 
-{{ hmpoSubmit(ctx, {attributes: {"data-nav": true, "data-link": "/undefined"}, text: translate("buttons.next")}) }}
+{{ submit(ctx, {attributes: {"data-nav": true, "data-link": "/undefined"}, text: translate("buttons.next")}) }}
 
 {% endcall %}
 
