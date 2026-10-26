@@ -11,3 +11,10 @@ Feature: No Questions
     Given they have started the KBV journey
     When they continue to questions
     Then they should be redirected as a success
+
+  @post-merge @insufficient-questions
+  Scenario: Display check page and first question
+    Given they have started the KBV journey
+    When they continue to questions
+    And the callback is converted to JSON
+    Then the user should get verificationScore: 0
