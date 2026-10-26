@@ -17,6 +17,10 @@ export default class PlaywrightDevPage {
     return this.page.textContent(".govuk-fieldset__heading");
   }
 
+  hasQuestionPageTitle() {
+    return this.page.locator(".govuk-fieldset__heading").isVisible();
+  }
+
   getErrorSummary() {
     return this.page.textContent(".govuk-error-summary");
   }

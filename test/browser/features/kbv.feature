@@ -1,4 +1,4 @@
-@mock-api:question-success @success @post-merge
+@mock-api:question-success @success
 Feature: Happy path
 
   Viewing the Knowledge Based Verification questions successfully
@@ -38,4 +38,22 @@ Feature: Happy path
       And they have continued to questions
       And they should see the first question
       When they have answered all the questions successfully
-      Then they should be redirected as a success
+
+    @deployed-stack-only @low-confidence @post-merge
+    Scenario: Display and answer multiple questions
+      Given they have started the KBV journey
+      And they have continued to questions
+      And they should see the first question
+      When they have answered all the questions successfully
+      And the callback is converted to JSON
+      Then the user should get verificationScore: 1
+
+
+  @deployed-stack-only @post-merge
+  Scenario: Display and answer multiple questions
+    Given they have started the KBV journey
+    And they have continued to questions
+    And they should see the first question
+    When they have correctly answered all the questions successfully
+    And the callback is converted to JSON
+    Then the user should get verificationScore: 2

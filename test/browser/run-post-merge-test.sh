@@ -14,4 +14,4 @@ export MOCK_API=false
 # Therefore, ensure that we cd to the browser tests directory before attempting to run them.
 cd /app/test/browser || exit 1
 
-npm run test -- --tags "@post-merge and not @live" --fail-fast
+npm run test:post-merge

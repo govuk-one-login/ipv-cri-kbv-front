@@ -89,12 +89,36 @@ Then(/^they should see validation messages$/, async function () {
 When(/^they have answered all the questions successfully$/, async function () {
   const questionPage = new QuestionPage(this.page);
 
-  await questionPage.answer();
-  await questionPage.submit();
-
-  await questionPage.answer();
-  await questionPage.submit();
+  for (let i = 0; i < 4; i++) {
+    if (i >= 2 && !(await questionPage.hasQuestionPageTitle())) {
+      break;
+    }
+    await questionPage.answer();
+    await questionPage.submit();
+  }
 });
+
+When(
+  /^they have correctly answered all the questions successfully$/,
+  async function () {
+    const questionPage = new QuestionPage(this.page);
+
+    const correctAnswers = [
+      "OVER £550 UP TO £600",
+      "UP TO £60,000",
+      "UP TO £600",
+      "OVER £6,500 UP TO £6,750",
+    ];
+
+    for (let i = 0; i < 4; i++) {
+      if (i >= 2 && !(await questionPage.hasQuestionPageTitle())) {
+        break;
+      }
+      await questionPage.answerCorrectly(correctAnswers[i]);
+      await questionPage.submit();
+    }
+  }
+);
 
 Then(/^they should see the done page$/, function () {
   const donePage = new DonePage(this.page);
