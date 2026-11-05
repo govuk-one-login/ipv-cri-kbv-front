@@ -38,7 +38,7 @@
   },
   "devDependencies": {
     "@eslint/js": "10.0.1",
-    "@vitest/coverage-v8": "4.1.11",
+    "@vitest/coverage-v8": "5.1.0",
     "eslint": "10.8.0",
     "eslint-config-prettier": "10.1.8",
     "globals": "17.8.0",
@@ -46,11 +46,11 @@
     "npm-run-all2": "^9.0.2",
     "playwright": "1.61.0",
     "prettier": "3.2.4",
-    "vitest": "4.1.11"
+    "vitest": "5.1.0"
   },
   "dependencies": {
     "@aws-sdk/client-dynamodb": "3.1005.0",
-    "@govuk-one-login/di-ipv-cri-common-express": "17.0.0",
+    "@govuk-one-login/di-ipv-cri-common-express": "17.0.1",
     "@govuk-one-login/frontend-analytics": "4.2.0",
     "@govuk-one-login/frontend-device-intelligence": "1.1.0",
     "@govuk-one-login/frontend-passthrough-headers": "1.0.0",
