@@ -1,4 +1,4 @@
-# Digital Identity Credential Issuer
+# Digital Identity Credential Issuer 
 
 # di-ipv-cri-kbv-front
 
