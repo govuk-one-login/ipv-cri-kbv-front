@@ -1,7 +1,7 @@
 $govuk-assets-path: "/public/";
 
 @import "../../../node_modules/govuk-frontend/dist/govuk/all";
-@import "../../../node_modules/hmpo-components/all";
+@import "./components/hmpo-components-shim";
 @import "./components/button-spinner";
 @import "../../../node_modules/@govuk-one-login/frontend-ui/build/all";
 
