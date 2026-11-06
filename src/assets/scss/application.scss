@@ -1,12 +1,31 @@
 $govuk-assets-path: "/public/";
 
 @import "../../../node_modules/govuk-frontend/dist/govuk/all";
-@import "../../../node_modules/hmpo-components/all";
 @import "./components/button-spinner";
 @import "../../../node_modules/@govuk-one-login/frontend-ui/build/all";
 
 .govuk-hint p {
   color: #505a5f !important;
+}
+
+// Temporary: preserve pre-migration typography that hmpo-components applied globally.
+// hmpo-components' _typeography.scss extended govuk classes onto bare elements in
+// `main` (`main p` -> .govuk-body, `main a` -> .govuk-link, `main ol/ul` -> .govuk-list).
+// frontend-ui does not, so unclassed content (e.g. the abandon page's contact
+// paragraph) falls back to browser defaults and renders ~6px taller. Retained to keep
+// rendering unchanged during the migration.
+// TODO: remove once templates use govuk classes directly (or the quirk is retired).
+main p {
+  @extend .govuk-body;
+}
+
+main a {
+  @extend .govuk-link;
+}
+
+main ol,
+main ul {
+  @extend .govuk-list;
 }
 
 // Temporarily overwrite the tag component styling to match pre-v5 appearance.
